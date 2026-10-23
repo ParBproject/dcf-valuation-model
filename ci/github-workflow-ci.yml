@@ -32,3 +32,6 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test   # axe, keyboard, mobile, visual baselines
+      - run: npm run e2e

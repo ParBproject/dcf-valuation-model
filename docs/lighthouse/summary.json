@@ -1,38 +1,38 @@
 {
-  "generated": "2026-10-23T01:55:41.835Z",
-  "base": "http://localhost:4180/dcf-valuation-model/",
+  "generated": "2026-10-23T02:19:33.680Z",
+  "base": "http://localhost:4185/dcf-valuation-model/",
   "chrome": "chromium-1248/chrome-linux64/chrome",
   "runs": [
     {
       "page": "overview",
       "device": "mobile",
-      "url": "http://localhost:4180/dcf-valuation-model/#/",
+      "url": "http://localhost:4185/dcf-valuation-model/#/",
       "lighthouseVersion": "12.8.2",
       "scores": {
-        "performance": 92,
+        "performance": 91,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
       "metrics": {
         "first-contentful-paint": {
-          "value": 1803.1277,
+          "value": 1804.8782,
           "display": "1.8 s"
         },
         "largest-contentful-paint": {
-          "value": 3004.69155,
+          "value": 3007.3173,
           "display": "3.0 s"
         },
         "total-blocking-time": {
-          "value": 140,
-          "display": "140 ms"
+          "value": 168,
+          "display": "170 ms"
         },
         "cumulative-layout-shift": {
           "value": 0,
           "display": "0"
         },
         "speed-index": {
-          "value": 1803.1277,
+          "value": 1804.8782,
           "display": "1.8 s"
         }
       },
@@ -50,7 +50,7 @@
     {
       "page": "forecast",
       "device": "mobile",
-      "url": "http://localhost:4180/dcf-valuation-model/#/forecast",
+      "url": "http://localhost:4185/dcf-valuation-model/#/forecast",
       "lighthouseVersion": "12.8.2",
       "scores": {
         "performance": 93,
@@ -60,23 +60,23 @@
       },
       "metrics": {
         "first-contentful-paint": {
-          "value": 1953.2400000000002,
+          "value": 1954.3523,
           "display": "2.0 s"
         },
         "largest-contentful-paint": {
-          "value": 2886.2400000000002,
+          "value": 2893.8522999999996,
           "display": "2.9 s"
         },
         "total-blocking-time": {
-          "value": 74,
-          "display": "70 ms"
+          "value": 100,
+          "display": "100 ms"
         },
         "cumulative-layout-shift": {
           "value": 0,
           "display": "0"
         },
         "speed-index": {
-          "value": 1953.2400000000002,
+          "value": 1954.3523,
           "display": "2.0 s"
         }
       },
@@ -94,7 +94,7 @@
     {
       "page": "sensitivity",
       "device": "mobile",
-      "url": "http://localhost:4180/dcf-valuation-model/#/sensitivity",
+      "url": "http://localhost:4185/dcf-valuation-model/#/sensitivity",
       "lighthouseVersion": "12.8.2",
       "scores": {
         "performance": 94,
@@ -104,23 +104,23 @@
       },
       "metrics": {
         "first-contentful-paint": {
-          "value": 1878.2214,
+          "value": 1879.5576999999998,
           "display": "1.9 s"
         },
         "largest-contentful-paint": {
-          "value": 2742.7213999999994,
+          "value": 2738.0577,
           "display": "2.7 s"
         },
         "total-blocking-time": {
-          "value": 88,
-          "display": "90 ms"
+          "value": 78,
+          "display": "80 ms"
         },
         "cumulative-layout-shift": {
           "value": 0,
           "display": "0"
         },
         "speed-index": {
-          "value": 1878.2214,
+          "value": 1879.5576999999998,
           "display": "1.9 s"
         }
       },
@@ -137,7 +137,7 @@
     {
       "page": "overview",
       "device": "desktop",
-      "url": "http://localhost:4180/dcf-valuation-model/#/",
+      "url": "http://localhost:4185/dcf-valuation-model/#/",
       "lighthouseVersion": "12.8.2",
       "scores": {
         "performance": 100,
@@ -147,52 +147,11 @@
       },
       "metrics": {
         "first-contentful-paint": {
-          "value": 438.693875,
+          "value": 447.31137500000006,
           "display": "0.4 s"
         },
         "largest-contentful-paint": {
-          "value": 634.03265,
-          "display": "0.6 s"
-        },
-        "total-blocking-time": {
-          "value": 0,
-          "display": "0 ms"
-        },
-        "cumulative-layout-shift": {
-          "value": 0,
-          "display": "0"
-        },
-        "speed-index": {
-          "value": 441.26731973957,
-          "display": "0.4 s"
-        }
-      },
-      "failingAudits": [
-        "label-content-name-mismatch",
-        "unused-javascript",
-        "forced-reflow-insight",
-        "network-dependency-tree-insight",
-        "render-blocking-insight"
-      ]
-    },
-    {
-      "page": "forecast",
-      "device": "desktop",
-      "url": "http://localhost:4180/dcf-valuation-model/#/forecast",
-      "lighthouseVersion": "12.8.2",
-      "scores": {
-        "performance": 100,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "metrics": {
-        "first-contentful-paint": {
-          "value": 457.62712500000004,
-          "display": "0.5 s"
-        },
-        "largest-contentful-paint": {
-          "value": 724.8525500000001,
+          "value": 651.57365,
           "display": "0.7 s"
         },
         "total-blocking-time": {
@@ -204,7 +163,47 @@
           "display": "0"
         },
         "speed-index": {
-          "value": 457.62712500000004,
+          "value": 477.6172480748173,
+          "display": "0.5 s"
+        }
+      },
+      "failingAudits": [
+        "unused-javascript",
+        "forced-reflow-insight",
+        "network-dependency-tree-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "page": "forecast",
+      "device": "desktop",
+      "url": "http://localhost:4185/dcf-valuation-model/#/forecast",
+      "lighthouseVersion": "12.8.2",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 465.01825,
+          "display": "0.5 s"
+        },
+        "largest-contentful-paint": {
+          "value": 734.2219,
+          "display": "0.7 s"
+        },
+        "total-blocking-time": {
+          "value": 0,
+          "display": "0 ms"
+        },
+        "cumulative-layout-shift": {
+          "value": 0,
+          "display": "0"
+        },
+        "speed-index": {
+          "value": 465.01825,
           "display": "0.5 s"
         }
       },
@@ -219,7 +218,7 @@
     {
       "page": "sensitivity",
       "device": "desktop",
-      "url": "http://localhost:4180/dcf-valuation-model/#/sensitivity",
+      "url": "http://localhost:4185/dcf-valuation-model/#/sensitivity",
       "lighthouseVersion": "12.8.2",
       "scores": {
         "performance": 100,
@@ -229,11 +228,11 @@
       },
       "metrics": {
         "first-contentful-paint": {
-          "value": 456.33225000000004,
+          "value": 464.69175,
           "display": "0.5 s"
         },
         "largest-contentful-paint": {
-          "value": 682.3987000000001,
+          "value": 697.9300999999999,
           "display": "0.7 s"
         },
         "total-blocking-time": {
@@ -245,12 +244,11 @@
           "display": "0"
         },
         "speed-index": {
-          "value": 456.33225000000004,
+          "value": 464.69175,
           "display": "0.5 s"
         }
       },
       "failingAudits": [
-        "label-content-name-mismatch",
         "unused-javascript",
         "forced-reflow-insight",
         "network-dependency-tree-insight",
