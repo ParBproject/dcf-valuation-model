@@ -1,0 +1,182 @@
+{
+  "snapshot_date": "2026-10-22",
+  "tickers": [
+    "AAPL",
+    "MSFT",
+    "KO",
+    "JNJ",
+    "CAT",
+    "XOM"
+  ],
+  "files": {
+    "AAPL.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+      "fetched_at": "2026-10-23T00:47:39+00:00"
+    },
+    "MSFT.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+      "fetched_at": "2026-10-23T00:47:39+00:00"
+    },
+    "KO.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json",
+      "fetched_at": "2026-10-23T00:47:39+00:00"
+    },
+    "JNJ.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json",
+      "fetched_at": "2026-10-23T00:47:39+00:00"
+    },
+    "CAT.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json",
+      "fetched_at": "2026-10-23T00:47:40+00:00"
+    },
+    "XOM.json": {
+      "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json",
+      "fetched_at": "2026-10-23T00:47:40+00:00"
+    },
+    "market.json": {
+      "source": "yfinance",
+      "fetched_at": "2026-10-23T00:47:41+00:00"
+    },
+    "rates.json": {
+      "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+      "fetched_at": "2026-10-23T00:47:42+00:00"
+    }
+  },
+  "coverage": [
+    {
+      "ticker": "AAPL",
+      "fiscal_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "gaps": [
+        "2024:interest_expense",
+        "2025:interest_expense"
+      ],
+      "fallback_tags": {
+        "revenue": [
+          "RevenueFromContractWithCustomerExcludingAssessedTax"
+        ]
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "fiscal_years": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "gaps": [],
+      "fallback_tags": {
+        "d_and_a": [
+          "Depreciation"
+        ],
+        "interest_expense": [
+          "InterestExpenseNonoperating"
+        ],
+        "revenue": [
+          "RevenueFromContractWithCustomerExcludingAssessedTax"
+        ]
+      }
+    },
+    {
+      "ticker": "KO",
+      "fiscal_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "gaps": [],
+      "fallback_tags": {
+        "debt_current": [
+          "LongTermDebtAndCapitalLeaseObligationsCurrent"
+        ],
+        "debt_noncurrent": [
+          "LongTermDebtAndCapitalLeaseObligations"
+        ]
+      }
+    },
+    {
+      "ticker": "JNJ",
+      "fiscal_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "gaps": [],
+      "fallback_tags": {
+        "interest_expense": [
+          "InterestExpenseNonoperating"
+        ],
+        "operating_income": [
+          "derived:pretax_income+interest_expense"
+        ],
+        "revenue": [
+          "RevenueFromContractWithCustomerExcludingAssessedTax"
+        ],
+        "short_term_borrowings": [
+          "ShortTermBorrowings"
+        ]
+      }
+    },
+    {
+      "ticker": "CAT",
+      "fiscal_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "gaps": [],
+      "fallback_tags": {
+        "interest_expense": [
+          "InterestPaidNet"
+        ],
+        "pretax_income": [
+          "IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInterestAndIncomeLossFromEquityMethodInvestments"
+        ],
+        "short_term_borrowings": [
+          "ShortTermBorrowings"
+        ]
+      }
+    },
+    {
+      "ticker": "XOM",
+      "fiscal_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "gaps": [],
+      "fallback_tags": {
+        "debt_noncurrent": [
+          "LongTermDebtAndCapitalLeaseObligations"
+        ],
+        "diluted_shares": [
+          "WeightedAverageNumberOfSharesOutstandingBasic"
+        ],
+        "operating_income": [
+          "derived:pretax_income+interest_expense"
+        ]
+      }
+    }
+  ]
+}
