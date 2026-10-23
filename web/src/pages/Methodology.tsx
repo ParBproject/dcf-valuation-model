@@ -2,10 +2,13 @@ import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import { Card } from '../components/ui/Card'
 import { PageHeader } from './PageHeader'
+import { ScrollX } from '../components/ui/ScrollX'
 import { useValuations } from '../data/useValuations'
 
 const F = ({ tex }: { tex: string }) => (
-  <div className="-mx-2 overflow-x-auto px-2 py-1 text-fg" dangerouslySetInnerHTML={{ __html: katex.renderToString(tex, { displayMode: true, throwOnError: false, output: 'html' }) }} />
+  <ScrollX label="Formula" className="py-1 text-fg">
+    <div dangerouslySetInnerHTML={{ __html: katex.renderToString(tex, { displayMode: true, throwOnError: false, output: 'htmlAndMathml' }) }} />
+  </ScrollX>
 )
 const REPO = 'https://github.com/ParBproject/dcf-valuation-model/blob/main'
 
@@ -49,9 +52,9 @@ export function Methodology() {
             <li>No 52-week price range is shown: the snapshot holds only month-end closes, so a true 52-week high/low isn't available.</li>
           </ul>
           <p className="mt-1 flex flex-wrap gap-2 text-sm">
-            <a className="text-accent hover:text-accent-hover" href={`${REPO}/docs/calibration.md`}>Calibration review (docs/calibration.md)</a>
-            <a className="text-accent hover:text-accent-hover" href={`${REPO}/SOURCES.md`}>SOURCES.md</a>
-            <a className="text-accent hover:text-accent-hover" href={`${REPO}/docs/design.md`}>Design system</a>
+            <a className="inline-flex min-h-[44px] items-center text-accent hover:text-accent-hover" href={`${REPO}/docs/calibration.md`}>Calibration review (docs/calibration.md)</a>
+            <a className="inline-flex min-h-[44px] items-center text-accent hover:text-accent-hover" href={`${REPO}/SOURCES.md`}>SOURCES.md</a>
+            <a className="inline-flex min-h-[44px] items-center text-accent hover:text-accent-hover" href={`${REPO}/docs/design.md`}>Design system</a>
           </p>
         </Card>
       </div>

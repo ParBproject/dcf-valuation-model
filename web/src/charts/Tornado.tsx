@@ -1,7 +1,8 @@
 import { scaleBand, scaleLinear } from 'd3-scale'
-import { motion } from 'framer-motion'
+import { m as M } from 'framer-motion'
 import { C, FONT_MONO } from './theme'
 import { useMeasure } from './useMeasure'
+import { SrTable } from './a11y'
 import type { TornadoRow } from '../engine/sensitivity'
 
 const NAME: Record<string, string> = { growth_start: 'Revenue growth', target_margin: 'Target margin', wacc: 'WACC', terminal_growth: 'Terminal g', capex_to_rev: 'Capex / rev', tax_rate: 'Tax rate' }
@@ -19,6 +20,7 @@ export function Tornado({ base, rows }: { base: number; rows: TornadoRow[] }) {
   const y = scaleBand<string>().domain(rows.map((r) => r.driver)).range([0, ih]).padding(0.25)
   return (
     <div ref={ref} className="w-full" data-testid="tornado">
+      {width === 0 && <div style={{ height: ih + m.t + m.b }} />}
       {width > 0 && (
         <svg width={width} height={ih + m.t + m.b} role="img" aria-label="Tornado chart of driver sensitivities">
           <g transform={`translate(${m.l},${m.t})`}>
@@ -38,7 +40,7 @@ export function Tornado({ base, rows }: { base: number; rows: TornadoRow[] }) {
                   </text>
                   {/* low-input side and high-input side, coloured by effect on value */}
                   {[lo, hi].map((v, i) => (
-                    <motion.rect key={i} initial={false} animate={{ x: Math.min(x(base), x(v)), width: Math.max(Math.abs(x(v) - x(base)), 1) }}
+                    <M.rect key={i} initial={false} animate={{ x: Math.min(x(base), x(v)), width: Math.max(Math.abs(x(v) - x(base)), 1) }}
                       transition={{ type: 'spring', stiffness: 260, damping: 30 }} y={yy} height={y.bandwidth()} rx={3}
                       fill={v >= base ? C.accent : C.negative} opacity={0.85} />
                   ))}
@@ -49,6 +51,8 @@ export function Tornado({ base, rows }: { base: number; rows: TornadoRow[] }) {
           </g>
         </svg>
       )}
+      <SrTable caption={`Implied price when each driver is shocked down / up (base $${base.toFixed(2)})`} head={['Driver', 'Shock', 'Low', 'High']}
+        rows={rows.map((r) => [NAME[r.driver] ?? r.driver, unit(r.driver, r.shock), r.low === null ? 'invalid' : `$${r.low.toFixed(2)}`, r.high === null ? 'invalid' : `$${r.high.toFixed(2)}`])} />
     </div>
   )
 }

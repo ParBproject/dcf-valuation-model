@@ -19,6 +19,7 @@ const overflow = (page) => page.evaluate(() => {
   const client = document.documentElement.clientWidth
   let maxRight = 0, worst = ''
   for (const el of document.querySelectorAll('body *')) {
+    if (el.closest('.sr-only')) continue // clipped text alternatives (chart data tables)
     // elements inside horizontal scrollers (wide tables) are allowed to extend
     let p = el.parentElement, scroller = false
     while (p) { const s = getComputedStyle(p).overflowX; if (s === 'auto' || s === 'scroll') { scroller = true; break } p = p.parentElement }
@@ -87,7 +88,7 @@ try {
   await d.goto(BASE + '#/compare'); await ready(d)
   await d.locator('[data-testid="compare-table"] tr[data-row="KO"]').click()
   await d.waitForTimeout(400)
-  const picker = (await d.locator('button[aria-label="Company"]').innerText()).trim()
+  const picker = (await d.locator('select[aria-label="Company"]').inputValue()).trim()
   check('compare click-through opens ticker', d.url().includes('/overview') && d.url().includes('t=KO') && picker.startsWith('KO'), d.url().split('#')[1])
 
   // reduced motion: tick-up should be instant; with motion it should be mid-animation

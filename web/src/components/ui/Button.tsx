@@ -9,7 +9,7 @@ const variants: Record<Variant, string> = {
   secondary: 'bg-card text-fg border border-line hover:border-accent/60 hover:text-accent-hover disabled:text-muted',
   ghost: 'text-muted hover:text-fg hover:bg-white/5 disabled:text-muted/50',
 }
-const sizes: Record<Size, string> = { sm: 'h-4 px-1.5 text-sm', md: 'h-5 px-2 text-sm' }
+const sizes: Record<Size, string> = { sm: 'hit h-4 px-1.5 text-sm', md: 'h-[44px] px-2 text-sm' }
 
 export function Button({
   variant = 'primary', size = 'md', className, ...props

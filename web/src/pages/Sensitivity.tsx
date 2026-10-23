@@ -5,6 +5,7 @@ import { useDcfStore } from '../store/useDcfStore'
 import { Card } from '../components/ui/Card'
 import { PageHeader } from './PageHeader'
 import { Heatmap } from '../charts/Heatmap'
+import { ScrollX } from '../components/ui/ScrollX'
 import { Tornado } from '../charts/Tornado'
 
 export function Sensitivity() {
@@ -18,9 +19,11 @@ export function Sensitivity() {
       <PageHeader title={`${live.ticker} sensitivity`} sub="Click a cell to apply that WACC and g. Hatched cells are invalid (g ≥ WACC or g above the 4% cap)." />
       <div className="grid gap-2 xl:grid-cols-5">
         <Card title="Implied price: WACC × terminal growth" className="xl:col-span-3">
+          <ScrollX label="Sensitivity grid">
           <Heatmap waccs={data.g.waccs} gs={data.g.gs} price={data.g.price} market={live.params.market_price}
             current={{ wacc: cur?.wacc ?? data.g.waccs[2]!, g: cur?.terminal_growth ?? live.params.terminal_growth }}
             onPick={(w, g) => { set('wacc', w); set('terminal_growth', g) }} />
+          </ScrollX>
           <p className="mt-1 text-xs text-muted">Colour: red below market price, emerald above (scaled 0.5×–1.5×). Ring = current assumptions.</p>
         </Card>
         <Card title="Tornado (live)" className="xl:col-span-2">
