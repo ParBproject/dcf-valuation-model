@@ -89,8 +89,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-22-000011",
+          "filed": "2022-02-23"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 4242000000.0,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2021,
@@ -178,8 +186,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-23-000020",
+          "filed": "2023-02-22"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 5500000000.0,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2022,
@@ -267,8 +283,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-24-000018",
+          "filed": "2024-02-28"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 8905000000.0,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2023,
@@ -356,8 +380,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-25-000010",
+          "filed": "2025-02-19"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 7719000000.0,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2024,
@@ -445,8 +477,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-26-000045",
+          "filed": "2026-02-18"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 8399000000.0,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2025,
@@ -534,10 +574,19 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000034088-26-000045",
+          "filed": "2026-02-18"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 8818000000.0,
+      "finance_receivables_noncurrent": null
     }
   ],
   "fetched_at": "2026-10-23T00:47:40+00:00",
-  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json"
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000034088.json",
+  "supplement_fetched_at": "2026-10-23T00:58:13+00:00"
 }

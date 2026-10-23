@@ -1,4 +1,4 @@
-"""Five-year FCFF forecast with growth fading linearly to terminal g and EBIT margin
+"""N-year (default 10) FCFF forecast with growth fading linearly to terminal g and EBIT margin
 mean-reverting linearly from the last actual to the target margin."""
 
 from __future__ import annotations

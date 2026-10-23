@@ -1,6 +1,6 @@
 # Base-case assumptions for AAPL. Unset drivers default to historical averages
 # from the snapshot (see src/dcf/model/fcf.py::drivers).
-forecast_years: 5
+forecast_years: 10          # M3.5: 10-year explicit period, growth fades linearly to g
 terminal_growth: 0.025      # long-run nominal growth, capped at 4% in terminal.py
 exit_ev_ebitda: 12.0        # cross-check only; not used for the headline price
 notes:

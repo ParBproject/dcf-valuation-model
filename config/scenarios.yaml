@@ -1,14 +1,23 @@
-# Scenario shifts applied to every ticker's base parameters (absolute changes).
-# Bear/bull are deliberately symmetric so the spread shows model sensitivity rather
-# than a view on any company.
+# Scenarios applied to every ticker's base parameters.
+#   shift: absolute change added to the base value
+#   set:   value replaces the base ("last_margin" = last reported EBIT margin)
+# Assumption sets are documented in docs/calibration.md. They are NOT tuned to
+# reach market prices.
 bear:
-  growth_start: -0.03     # year-1 growth 3pp lower (still fades to g)
-  target_margin: -0.02    # long-run EBIT margin 2pp lower
-  wacc: 0.01              # discount rate 1pp higher
-  terminal_growth: -0.005 # g 0.5pp lower
+  shift:
+    growth_start: -0.03     # year-1 growth 3pp lower (still fades to g)
+    target_margin: -0.02    # long-run EBIT margin 2pp below the historical mean
+    wacc: 0.01              # discount rate 1pp higher
+    terminal_growth: -0.005 # g 0.5pp lower
+  set:
+    terminal_roic: 0.10     # new investment barely earns its cost of capital
 base: {}
 bull:
-  growth_start: 0.03
-  target_margin: 0.02
-  wacc: -0.01
-  terminal_growth: 0.005
+  shift:
+    growth_start: 0.03      # year-1 growth 3pp higher, fading over 10 years
+    capex_to_rev: -0.01     # 1pp less capex/revenue (lower reinvestment)
+    wacc: -0.01
+    terminal_growth: 0.005
+  set:
+    target_margin: last_margin  # margins hold at the last reported level
+    terminal_roic: 0.25         # durable excess returns on new capital

@@ -15,6 +15,14 @@ import yaml
 from ..data.prices import monthly_returns
 from . import fcf, forecast, terminal, wacc
 
+TERMINAL_ROIC = 0.15  # return on new invested capital in perpetuity (see docs/calibration.md)
+
+
+def terminal_fcf(nopat_final: float, g: float, roic: float) -> float:
+    """Steady-state FCF in the final year: reinvestment rate = g / ROIC (value-driver
+    formula). Replaces carrying explicit-period capex - D&A into perpetuity."""
+    return nopat_final * (1 - g / roic)
+
 
 def discount_factors(rate: float, n: int) -> list[float]:
     return [1 / (1 + rate) ** t for t in range(1, n + 1)]
@@ -63,7 +71,8 @@ def select_beta(est: dict, cfg: dict) -> tuple[float, str]:
 def build_params(
     record: dict, mkt: dict, rates: dict, cfg: dict, prices: dict | None = None
 ) -> dict:
-    rows = fcf.history(record)
+    captive = bool(cfg.get("captive_finance"))
+    rows = fcf.history(record, captive)
     drv = fcf.drivers(rows)
     last = record["years"][-1]
     rf = rates["yield"]
@@ -72,6 +81,16 @@ def build_params(
     debt = last["total_debt"]
     if cfg.get("exclude_short_term_borrowings"):
         debt -= last.get("short_term_borrowings") or 0.0
+    gross_debt = debt
+    fin_recv = 0.0
+    if captive:
+        # Captive-finance debt is funded by (and serviced from) finance receivables, so
+        # net it off: only the remaining debt is a claim on the operating business.
+        fin_recv = (last.get("finance_receivables_current") or 0.0) + (
+            last.get("finance_receivables_noncurrent") or 0.0
+        )
+        debt = max(debt - fin_recv, 0.0)
+    sti = last.get("short_term_investments") or 0.0
     betas = beta_estimates(record["ticker"], mkt, prices)
     beta, beta_method = select_beta(betas, cfg)
     ke = wacc.cost_of_equity(rf, beta, erp)
@@ -95,7 +114,10 @@ def build_params(
         "cost_of_debt_method": kd_method,
         "tax_rate": tax,
         "debt": debt,
-        "cash": last["cash"],
+        "gross_debt": gross_debt,
+        "finance_receivables_netted": fin_recv,
+        "cash": last["cash"] + sti,
+        "short_term_investments": sti,
         "market_cap": mcap,
         "shares": mkt["shares_outstanding"],
         "market_price": mkt["price"],
@@ -107,7 +129,8 @@ def build_params(
         "da_to_rev": cfg.get("da_to_rev", drv["da_to_rev"]),
         "nwc_to_rev": cfg.get("nwc_to_rev", drv["nwc_to_rev"]),
         "exit_ev_ebitda": cfg["exit_ev_ebitda"],
-        "forecast_years": cfg.get("forecast_years", 5),
+        "forecast_years": cfg.get("forecast_years", 10),
+        "terminal_roic": cfg.get("terminal_roic", TERMINAL_ROIC),
         "drivers": drv,
         "historical_fcff": {r.fiscal_year: r.fcff for r in rows},
         "notes": cfg.get("notes", []),
@@ -133,7 +156,10 @@ def price(
         growth_path=growth_path,
     )
     r, g = q["wacc"], q["terminal_growth"]
-    tv = terminal.gordon(proj[-1].fcff, r, g)
+    roic = q["terminal_roic"]
+    # roic=None reproduces the M3 behaviour (final explicit-year FCF carried forward)
+    fcf_n = proj[-1].fcff if roic is None else terminal_fcf(proj[-1].nopat, g, roic)
+    tv = terminal.gordon(fcf_n, r, g)
     fcfs = [x.fcff for x in proj]
     ev, pv_fcf, pv_tv = enterprise_value(fcfs, tv, r)
     eq, per_share = equity_bridge(ev, q["debt"], q["cash"], q["shares"])
@@ -167,7 +193,10 @@ INPUT_KEYS = [
     "cost_of_debt_method",
     "tax_rate",
     "debt",
+    "gross_debt",
+    "finance_receivables_netted",
     "cash",
+    "short_term_investments",
     "market_cap",
     "shares",
 ]
@@ -179,6 +208,8 @@ ASSUMPTION_KEYS = [
     "da_to_rev",
     "nwc_to_rev",
     "exit_ev_ebitda",
+    "forecast_years",
+    "terminal_roic",
 ]
 
 
