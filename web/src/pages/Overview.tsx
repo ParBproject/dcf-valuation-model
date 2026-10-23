@@ -6,6 +6,7 @@ import { Card } from '../components/ui/Card'
 import { Tabs } from '../components/ui/Tabs'
 import { Badge } from '../components/ui/Badge'
 import { PageHeader } from './PageHeader'
+import { useLive, useMonteCarlo } from '../engine/useLive'
 import type { Scenario } from '../data/types'
 
 const SCEN: { value: Scenario; label: string }[] = [
@@ -17,68 +18,79 @@ export function Overview() {
   const ticker = useDcfStore((s) => s.ticker)
   const scenario = useDcfStore((s) => s.scenario)
   const setScenario = useDcfStore((s) => s.setScenario)
-  const t = data?.tickers[ticker]
-  const loading = !t
-  const sc = t?.scenarios[scenario]
-  const gap = sc && t ? sc.implied_price / t.base.market_price - 1 : 0
-  const mc = t?.monte_carlo
-  const rv = t?.reverse_dcf
+  const nOver = useDcfStore((s) => Object.keys(s.assumptions).length)
+  const pairing = useDcfStore((s) => s.pairing)
+  const live = useLive()
+  const { summary: mc, running } = useMonteCarlo(live)
 
   if (error) return <Card><p className="text-negative">Could not load results: {error}</p></Card>
+  const r = live?.result.ok ? live.result : null
+  const loading = !live
+  const market = live?.params.market_price ?? 0
+  const gap = r ? r.implied_price / market - 1 : 0
+  const custom = nOver > 0 || pairing !== 'snapshot'
 
   return (
     <>
       <PageHeader title={`${ticker} overview`}
-        sub={t ? <>Base fiscal year {t.base.base_fiscal_year} · snapshot <span className="num">{data?.snapshot_date}</span></> : 'Loading…'}
+        sub={live ? <>Base fiscal year {live.params.base_fiscal_year} · snapshot <span className="num">{data?.snapshot_date}</span>
+          {custom && <> · <span className="text-warning">custom assumptions</span></>}</> : 'Loading…'}
         right={<Tabs label="Scenario" value={scenario} onChange={setScenario} items={SCEN} />} />
 
-      <div className="grid grid-cols-2 gap-1.5 sm:gap-2 lg:grid-cols-4">
-        <StatTile loading={loading} label={`Implied price (${scenario})`} value={sc ? usd(sc.implied_price) : ''}
-          tone={gap >= 0 ? 'positive' : 'negative'} sub={sc ? `${signedPct(gap)} vs market` : undefined}
-          hint="Per-share equity value from the 5-year FCFF forecast plus a Gordon-growth terminal value." />
-        <StatTile loading={loading} label="Market price" value={t ? usd(t.base.market_price) : ''}
-          sub={t ? `Mkt cap ${bn(t.base.inputs.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." />
-        <StatTile loading={loading} label="WACC" value={sc ? pct(sc.wacc, 2) : ''}
-          sub={t ? `β ${t.base.inputs.beta.toFixed(2)} · rf ${pct(t.base.inputs.rf, 2)}` : undefined}
-          hint="CAPM cost of equity (Blume-adjusted regression beta, Damodaran ERP) blended with after-tax cost of debt at market weights." />
-        <StatTile loading={loading} label="Terminal growth" value={sc ? pct(sc.terminal_growth, 1) : ''}
-          sub={sc ? `TV ${pct(sc.tv_share_of_ev, 0)} of EV` : undefined}
-          tone={sc && sc.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value coming from the terminal value." />
+      {live && !live.result.ok && (
+        <Card className="mb-2 border-warning/40"><p role="alert" className="text-sm text-warning">{live.result.error}. Adjust g or the discount-rate inputs.</p></Card>
+      )}
+
+      <div className="grid grid-cols-2 gap-1.5 sm:gap-2 xl:grid-cols-4">
+        <StatTile loading={loading} label={`Implied price (${scenario}${custom ? ', custom' : ''})`} value={r ? usd(r.implied_price) : '—'}
+          tone={!r ? 'warning' : gap >= 0 ? 'positive' : 'negative'} sub={r ? `${signedPct(gap)} vs market` : undefined}
+          hint="Per-share equity value: explicit FCFF forecast plus a Gordon terminal value with reinvestment g/ROIC. Recomputed live in the browser." />
+        <StatTile loading={loading} label="Market price" value={live ? usd(market) : ''}
+          sub={live ? `Mkt cap ${bn(live.params.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." />
+        <StatTile loading={loading} label="WACC" value={r ? pct(r.inputs.wacc, 2) : '—'}
+          sub={r ? `β ${r.inputs.beta.toFixed(2)} · rf ${pct(r.inputs.rf, 2)} · ERP ${pct(r.inputs.erp, 2)}` : undefined}
+          hint="CAPM cost of equity blended with after-tax cost of debt at market-value weights." />
+        <StatTile loading={loading} label="Terminal growth" value={r ? pct(r.inputs.terminal_growth, 1) : '—'}
+          sub={r ? `TV ${pct(r.tv_share_of_ev, 0)} of EV · ${r.inputs.forecast_years}y` : undefined}
+          tone={r && r.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value from the terminal value." />
       </div>
 
-      <div className="mt-2 grid gap-2 lg:grid-cols-3">
-        <Card title="Monte Carlo (10,000 draws)" className="lg:col-span-2">
-          {mc && t ? (
-            <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
-              {(['p5', 'p25', 'p50', 'p75', 'p95'] as const).map((k) => (
-                <div key={k} className="min-w-0">
-                  <div className="text-xs uppercase text-muted">{k}</div>
-                  <div className="num truncate text-lg font-semibold">{usd(mc.percentiles[k])}</div>
-                </div>
-              ))}
-              <div className="col-span-3 mt-1 text-sm text-muted sm:col-span-5">
+      <div className="mt-2 grid gap-2 xl:grid-cols-3">
+        <Card title={`Monte Carlo (${(mc?.n_draws ?? 10000).toLocaleString('en-US')} draws)`} className="xl:col-span-2"
+          action={running ? <Badge tone="neutral">updating…</Badge> : mc ? <Badge tone="positive"><span className="num">{mc.ms.toFixed(0)} ms in worker</span></Badge> : null}>
+          {mc ? (
+            <div className={running ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
+              <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
+                {(['p5', 'p25', 'p50', 'p75', 'p95'] as const).map((k) => (
+                  <div key={k} className="min-w-0">
+                    <div className="text-xs uppercase text-muted">{k}</div>
+                    <div className="num truncate text-lg font-semibold">{usd(mc.percentiles[k])}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-1 text-sm text-muted">
                 P(intrinsic value &gt; price) <span className="num font-semibold text-fg">{pct(mc.prob_value_gt_price, 1)}</span>
               </div>
             </div>
           ) : <div className="h-8 animate-pulse rounded-control bg-line" />}
         </Card>
         <Card title="Reverse DCF">
-          {rv && t ? (
+          {live ? (
             <>
-              <div className="num text-2xl font-semibold">{rv.implied_growth === null ? 'n/a' : pct(rv.implied_growth, 1)}</div>
+              <div className="num text-2xl font-semibold">{live.impliedGrowth === null ? 'n/a' : pct(live.impliedGrowth, 1)}</div>
               <p className="mt-0.5 text-sm text-muted">
-                constant 5-year revenue growth the market price implies
-                {rv.historical_cagr !== undefined && <> (historical CAGR <span className="num text-fg">{pct(rv.historical_cagr, 1)}</span>)</>}
+                constant {r?.inputs.forecast_years ?? live.params.forecast_years}-year revenue growth the market price implies under these assumptions
+                {live.t.reverse_dcf.historical_cagr !== undefined && <> (historical CAGR <span className="num text-fg">{pct(live.t.reverse_dcf.historical_cagr, 1)}</span>)</>}
               </p>
             </>
           ) : <div className="h-8 animate-pulse rounded-control bg-line" />}
         </Card>
       </div>
 
-      {t && t.base.notes.length > 0 && (
-        <Card title="Data caveats" className="mt-2" action={<Badge tone="warning">{t.base.notes.length}</Badge>}>
+      {live && live.t.base.notes.length > 0 && (
+        <Card title="Data caveats" className="mt-2" action={<Badge tone="warning">{live.t.base.notes.length}</Badge>}>
           <ul className="list-disc space-y-0.5 pl-2 text-sm text-muted">
-            {t.base.notes.map((n) => <li key={n}>{n}</li>)}
+            {live.t.base.notes.map((n) => <li key={n}>{n}</li>)}
           </ul>
         </Card>
       )}

@@ -5,10 +5,13 @@ import { SideNav, BottomTabs } from './Navs'
 import { Footer } from './Footer'
 import { useUrlSync } from '../../store/urlSync'
 import { TooltipProvider } from '../ui/Tooltip'
+import { AssumptionsPanel } from '../assumptions/AssumptionsPanel'
+import { AssumptionsSheet } from '../assumptions/AssumptionsSheet'
 
 export function Shell() {
   useUrlSync()
   const { pathname } = useLocation()
+  const showPanel = pathname !== '/gallery' && pathname !== '/methodology'
   return (
     <TooltipProvider>
       <TopBar />
@@ -23,7 +26,13 @@ export function Shell() {
           </AnimatePresence>
           <Footer />
         </main>
+        {showPanel && (
+          <aside aria-label="Assumptions" className="sticky top-8 hidden h-[calc(100vh-64px)] w-[320px] shrink-0 overflow-y-auto border-l border-line p-2 lg:block">
+            <AssumptionsPanel />
+          </aside>
+        )}
       </div>
+      {showPanel && <AssumptionsSheet />}
       <BottomTabs />
     </TooltipProvider>
   )

@@ -1,0 +1,1625 @@
+{
+ "snapshot_date": "2026-10-22",
+ "tickers": {
+  "AAPL": {
+   "params": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 416161000000.0,
+    "base_margin": 0.31970799762591884,
+    "tax_rate": 0.16392541497967747,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.06388708018948,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.069,
+     "regression_raw": 1.0953538510290746,
+     "regression_blume": 1.06388708018948,
+     "n_months": 59
+    },
+    "interest_expense": null,
+    "debt_spread": 0.01,
+    "debt": 98657000000.0,
+    "gross_debt": 98657000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 54697000000.0,
+    "market_cap": 5081985359600.0,
+    "shares": 14594180000.0,
+    "market_price": 348.22,
+    "wacc": 0.09544449868801458,
+    "growth_start": 0.08677354924090741,
+    "terminal_growth": 0.025,
+    "target_margin": 0.29586811862531537,
+    "capex_to_rev": 0.027897762769359194,
+    "da_to_rev": 0.0311185228353502,
+    "nwc_to_rev": -0.13044369039136758,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.09544449868801458,
+      "implied_price": 122.17722769660466,
+      "implied_price_exit_multiple": 140.39346458222144,
+      "enterprise_value": 1827036452905.234,
+      "terminal_value": 2146428264528.5688,
+      "tv_share_of_ev": 0.4721341116599002
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": 0.05677354924090741,
+      "terminal_growth": 0.02,
+      "target_margin": 0.27586811862531535,
+      "capex_to_rev": 0.027897762769359194,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.10544449868801457,
+      "implied_price": 85.19333478730472,
+      "implied_price_exit_multiple": 107.76826697545282,
+      "enterprise_value": 1287286862686.1868,
+      "terminal_value": 1335143775019.6572,
+      "tv_share_of_ev": 0.3806126959260932
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.11677354924090741,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.31970799762591884,
+      "capex_to_rev": 0.017897762769359192,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.08544449868801458,
+      "implied_price": 191.6366594920775,
+      "implied_price_exit_multiple": 187.57337969254826,
+      "enterprise_value": 2840739903226.088,
+      "terminal_value": 3679912479425.1777,
+      "tv_share_of_ev": 0.5705974144505139
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.10677354924090741,
+      "capex_to_rev": 0.017897762769359192
+     },
+     "expected": {
+      "wacc": 0.09544449868801458,
+      "implied_price": 135.323576726129,
+      "implied_price_exit_multiple": 155.31532102379478,
+      "enterprise_value": 2018896636984.9375,
+      "terminal_value": 2355637187152.4883,
+      "tv_share_of_ev": 0.4689111181932501
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.08597415479842703,
+      "implied_price": 140.56015829606469,
+      "implied_price_exit_multiple": 150.4158285326683,
+      "enterprise_value": 2095320251001.2612,
+      "terminal_value": 2479805805662.448,
+      "tv_share_of_ev": 0.5187670294126138
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.1150612535201137,
+      "implied_price": 96.14848036468123,
+      "implied_price_exit_multiple": 122.1826729938208,
+      "enterprise_value": 1447168229168.6235,
+      "terminal_value": 1678902493076.3508,
+      "tv_share_of_ev": 0.39040844520268586
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.09544449868801458,
+      "implied_price": 106.63872687361312,
+      "implied_price_exit_multiple": 124.99306057556572,
+      "enterprise_value": 1600264774964.3472,
+      "terminal_value": 1718349368962.9456,
+      "tv_share_of_ev": 0.6807187743670613
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.26586811862531534,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.09544449868801458,
+      "implied_price": 109.43957330243707,
+      "implied_price_exit_multiple": 127.8943321796241,
+      "enterprise_value": 1641140831898.961,
+      "terminal_value": 1819646135292.5288,
+      "tv_share_of_ev": 0.44559191441617424
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.2008324950933456,
+    "implied_growth_margin_held": 0.19196605980396264
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 89.07725326232706,
+     "p25": 105.83233896880913,
+     "p50": 120.27390401186537,
+     "p75": 137.67386429291602,
+     "p95": 169.42360453234812
+    },
+    "mean": 123.63649097223258,
+    "prob_value_gt_price": 0.0,
+    "histogram": {
+     "edges": [
+      79.30920646744983,
+      82.33963754985527,
+      85.3700686322607,
+      88.40049971466613,
+      91.43093079707157,
+      94.46136187947701,
+      97.49179296188244,
+      100.52222404428787,
+      103.55265512669331,
+      106.58308620909875,
+      109.61351729150418,
+      112.64394837390961,
+      115.67437945631505,
+      118.7048105387205,
+      121.73524162112592,
+      124.76567270353135,
+      127.7961037859368,
+      130.82653486834224,
+      133.85696595074768,
+      136.8873970331531,
+      139.91782811555854,
+      142.94825919796398,
+      145.9786902803694,
+      149.00912136277483,
+      152.03955244518028,
+      155.06998352758572,
+      158.10041460999116,
+      161.13084569239658,
+      164.16127677480202,
+      167.19170785720746,
+      170.22213893961288,
+      173.25257002201832,
+      176.28300110442376,
+      179.3134321868292,
+      182.34386326923465,
+      185.37429435164006,
+      188.4047254340455,
+      191.43515651645095,
+      194.46558759885636,
+      197.4960186812618,
+      200.52644976366724
+     ],
+     "counts": [
+      177,
+      115,
+      175,
+      207,
+      278,
+      341,
+      373,
+      467,
+      497,
+      504,
+      521,
+      579,
+      526,
+      474,
+      526,
+      473,
+      484,
+      369,
+      325,
+      325,
+      272,
+      243,
+      255,
+      207,
+      196,
+      183,
+      124,
+      108,
+      105,
+      99,
+      74,
+      69,
+      45,
+      42,
+      40,
+      26,
+      24,
+      17,
+      14,
+      121
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  },
+  "MSFT": {
+   "params": {
+    "base_fiscal_year": 2026,
+    "base_revenue": 331839000000.0,
+    "base_margin": 0.4678081840892722,
+    "tax_rate": 0.1686264341249993,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.034689611419121,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.099,
+     "regression_raw": 1.051775539431524,
+     "regression_blume": 1.034689611419121,
+     "n_months": 59
+    },
+    "interest_expense": 3051000000.0,
+    "debt_spread": 0.01,
+    "debt": 40294000000.0,
+    "gross_debt": 40294000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 76843000000.0,
+    "market_cap": 3869303244450.2803,
+    "shares": 7425545491.0,
+    "market_price": 521.08,
+    "wacc": 0.09473635849220258,
+    "growth_start": 0.1457190738095313,
+    "terminal_growth": 0.025,
+    "target_margin": 0.43745018648031003,
+    "capex_to_rev": 0.1892964206544828,
+    "da_to_rev": 0.06904156671525084,
+    "nwc_to_rev": -0.1306355484498753,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.09473635849220258,
+      "implied_price": 311.51604809306326,
+      "implied_price_exit_multiple": 377.66170289235106,
+      "enterprise_value": 2276627586291.585,
+      "terminal_value": 3332212769954.855,
+      "tv_share_of_ev": 0.5920321736760943
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": 0.11571907380953131,
+      "terminal_growth": 0.02,
+      "target_margin": 0.41745018648031,
+      "capex_to_rev": 0.1892964206544828,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.10473635849220257,
+      "implied_price": 214.1756146250818,
+      "implied_price_exit_multiple": 293.2768275703147,
+      "enterprise_value": 1553821769461.43,
+      "terminal_value": 2129666770035.457,
+      "tv_share_of_ev": 0.506202140942196
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.1757190738095313,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.4678081840892722,
+      "capex_to_rev": 0.17929642065448279,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.08473635849220258,
+      "implied_price": 501.6366133856801,
+      "implied_price_exit_multiple": 501.7342870951678,
+      "enterprise_value": 3688376492646.5474,
+      "terminal_value": 5638586244876.022,
+      "tv_share_of_ev": 0.6777866493278764
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.1657190738095313,
+      "capex_to_rev": 0.17929642065448279
+     },
+     "expected": {
+      "wacc": 0.09473635849220258,
+      "implied_price": 342.33256052665354,
+      "implied_price_exit_multiple": 414.6787194678278,
+      "enterprise_value": 2505457001241.177,
+      "terminal_value": 3644574922003.1978,
+      "tv_share_of_ev": 0.5883889488492978
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.08533426960070445,
+      "implied_price": 364.54583339598537,
+      "implied_price_exit_multiple": 405.81622893787727,
+      "enterprise_value": 2670402669436.3965,
+      "terminal_value": 3851482512935.7993,
+      "tv_share_of_ev": 0.6359398139020619
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.11575015526763867,
+      "implied_price": 233.59030093550888,
+      "implied_price_exit_multiple": 323.03569841233195,
+      "enterprise_value": 1697986405853.001,
+      "terminal_value": 2560616933519.8057,
+      "tv_share_of_ev": 0.5043602423647134
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.09473635849220258,
+      "implied_price": 265.05608423979277,
+      "implied_price_exit_multiple": 324.77958675604725,
+      "enterprise_value": 1931637011188.9094,
+      "terminal_value": 2328690998756.2944,
+      "tv_share_of_ev": 0.7667232546631904
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.40745018648031006,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.09473635849220258,
+      "implied_price": 282.1053223936356,
+      "implied_price_exit_multiple": 350.20283305933873,
+      "enterprise_value": 2058236904687.162,
+      "terminal_value": 2927217376595.296,
+      "tv_share_of_ev": 0.5752600200288058
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.15790662467479705,
+    "implied_growth_margin_held": 0.14967518746852876
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 224.39516374761104,
+     "p25": 268.1357213842758,
+     "p50": 305.30570475344166,
+     "p75": 352.6044387752919,
+     "p95": 439.5926340787637
+    },
+    "mean": 315.86046253327385,
+    "prob_value_gt_price": 0.0113,
+    "histogram": {
+     "edges": [
+      200.16868988397758,
+      208.34656335709332,
+      216.52443683020903,
+      224.70231030332477,
+      232.8801837764405,
+      241.0580572495562,
+      249.23593072267195,
+      257.4138041957877,
+      265.5916776689034,
+      273.76955114201917,
+      281.9474246151349,
+      290.1252980882506,
+      298.3031715613663,
+      306.48104503448207,
+      314.6589185075978,
+      322.83679198071354,
+      331.01466545382925,
+      339.19253892694496,
+      347.3704124000607,
+      355.54828587317644,
+      363.7261593462922,
+      371.9040328194079,
+      380.0819062925236,
+      388.25977976563934,
+      396.43765323875505,
+      404.6155267118708,
+      412.7934001849866,
+      420.9712736581023,
+      429.149147131218,
+      437.3270206043337,
+      445.5048940774495,
+      453.6827675505652,
+      461.86064102368096,
+      470.03851449679667,
+      478.2163879699124,
+      486.3942614430281,
+      494.5721349161438,
+      502.7500083892596,
+      510.92788186237533,
+      519.105755335491,
+      527.2836288086067
+     ],
+     "counts": [
+      185,
+      137,
+      184,
+      242,
+      321,
+      362,
+      441,
+      487,
+      508,
+      542,
+      565,
+      547,
+      549,
+      449,
+      530,
+      459,
+      407,
+      371,
+      326,
+      279,
+      289,
+      231,
+      213,
+      206,
+      160,
+      156,
+      132,
+      103,
+      93,
+      79,
+      76,
+      39,
+      62,
+      45,
+      30,
+      24,
+      20,
+      18,
+      18,
+      115
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  },
+  "KO": {
+   "params": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 47941000000.0,
+    "base_margin": 0.28706117936630443,
+    "tax_rate": 0.188972891069799,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.5158574185480486,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.318,
+     "regression_raw": 0.27739913216126644,
+     "regression_blume": 0.5158574185480486,
+     "n_months": 59
+    },
+    "interest_expense": 1654000000.0,
+    "debt_spread": 0.01,
+    "debt": 45436000000.0,
+    "gross_debt": 45436000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 10270000000.0,
+    "market_cap": 410205044827.62,
+    "shares": 4302549243.0,
+    "market_price": 95.34,
+    "wacc": 0.06997812152652315,
+    "growth_start": 0.07746156826284567,
+    "terminal_growth": 0.025,
+    "target_margin": 0.25657603503714027,
+    "capex_to_rev": 0.03898558914201964,
+    "da_to_rev": 0.03046442850939741,
+    "nwc_to_rev": -0.06341009148930905,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.06997812152652315,
+      "implied_price": 51.379400089322495,
+      "implied_price_exit_multiple": 46.648735249931796,
+      "enterprise_value": 256228398960.10864,
+      "terminal_value": 311838414267.1272,
+      "tv_share_of_ev": 0.6188043748406856
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": 0.04746156826284567,
+      "terminal_growth": 0.02,
+      "target_margin": 0.23657603503714028,
+      "capex_to_rev": 0.03898558914201964,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.07997812152652314,
+      "implied_price": 29.183533053355323,
+      "implied_price_exit_multiple": 33.45537392777072,
+      "enterprise_value": 160729588046.77942,
+      "terminal_value": 174312651565.10437,
+      "tv_share_of_ev": 0.5024391848608489
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.10746156826284567,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.28706117936630443,
+      "capex_to_rev": 0.028985589142019638,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.010000000000000002
+     },
+     "expected": {
+      "wacc": 0.05997812152652315,
+      "implied_price": 106.42033232609299,
+      "implied_price_exit_multiple": 67.46284023560263,
+      "enterprise_value": 493044720289.4398,
+      "terminal_value": 654264219603.1084,
+      "tv_share_of_ev": 0.7411358897715973
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.09746156826284567,
+      "capex_to_rev": 0.028985589142019638
+     },
+     "expected": {
+      "wacc": 0.06997812152652315,
+      "implied_price": 57.752509062613804,
+      "implied_price_exit_multiple": 52.557823815454256,
+      "enterprise_value": 283649014148.69965,
+      "terminal_value": 342425951761.0873,
+      "tv_share_of_ev": 0.6138134747629571
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.06065714103666848,
+      "implied_price": 66.33283697931925,
+      "implied_price_exit_multiple": 50.65559696458944,
+      "enterprise_value": 320566297531.4125,
+      "terminal_value": 393354758283.0995,
+      "tv_share_of_ev": 0.6809517560530443
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.10885156953830055,
+      "implied_price": 24.595095076369663,
+      "implied_price_exit_multiple": 33.24096811666151,
+      "enterprise_value": 140987607702.34732,
+      "terminal_value": 167270644673.36603,
+      "tv_share_of_ev": 0.4221867837148449
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.06997812152652315,
+      "implied_price": 45.64634862281542,
+      "implied_price_exit_multiple": 38.46218260795937,
+      "enterprise_value": 231561662712.80856,
+      "terminal_value": 255176932619.88943,
+      "tv_share_of_ev": 0.7857787245073294
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.22657603503714027,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.06997812152652315,
+      "implied_price": 42.56354670536872,
+      "implied_price_exit_multiple": 41.05417585701644,
+      "enterprise_value": 218297755656.57935,
+      "terminal_value": 250382965596.41235,
+      "tv_share_of_ev": 0.5831852528082819
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.12335872948169707,
+    "implied_growth_margin_held": 0.11094666421413422
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 31.43568099219686,
+     "p25": 40.88661929570958,
+     "p50": 49.76510082408305,
+     "p75": 61.6916168866529,
+     "p95": 86.14922077404786
+    },
+    "mean": 53.0992224472971,
+    "prob_value_gt_price": 0.0271,
+    "histogram": {
+     "edges": [
+      26.464963094047807,
+      28.568872069447536,
+      30.672781044847262,
+      32.776690020246996,
+      34.88059899564672,
+      36.984507971046455,
+      39.08841694644618,
+      41.19232592184591,
+      43.29623489724564,
+      45.400143872645366,
+      47.50405284804509,
+      49.607961823444825,
+      51.71187079884455,
+      53.81577977424428,
+      55.91968874964401,
+      58.023597725043736,
+      60.12750670044346,
+      62.231415675843195,
+      64.33532465124293,
+      66.43923362664265,
+      68.54314260204238,
+      70.64705157744211,
+      72.75096055284183,
+      74.85486952824157,
+      76.9587785036413,
+      79.06268747904102,
+      81.16659645444075,
+      83.27050542984048,
+      85.3744144052402,
+      87.47832338063994,
+      89.58223235603967,
+      91.68614133143939,
+      93.79005030683912,
+      95.89395928223885,
+      97.99786825763857,
+      100.1017772330383,
+      102.20568620843804,
+      104.30959518383776,
+      106.41350415923749,
+      108.51741313463722,
+      110.62132211003694
+     ],
+     "counts": [
+      208,
+      199,
+      270,
+      355,
+      453,
+      532,
+      560,
+      617,
+      573,
+      608,
+      593,
+      573,
+      483,
+      452,
+      399,
+      399,
+      298,
+      282,
+      278,
+      249,
+      191,
+      185,
+      164,
+      154,
+      117,
+      116,
+      81,
+      89,
+      63,
+      61,
+      47,
+      52,
+      38,
+      36,
+      35,
+      22,
+      22,
+      16,
+      14,
+      116
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  },
+  "JNJ": {
+   "params": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 94193000000.0,
+    "base_margin": 0.3562048135211746,
+    "tax_rate": 0.1353526621413584,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.4752874029947364,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.206,
+     "regression_raw": 0.21684687014139759,
+     "regression_blume": 0.4752874029947364,
+     "n_months": 59
+    },
+    "interest_expense": 971000000.0,
+    "debt_spread": 0.01,
+    "debt": 49933000000.0,
+    "gross_debt": 49933000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 20102000000.0,
+    "market_cap": 644912963543.17,
+    "shares": 2409898597.0,
+    "market_price": 267.61,
+    "wacc": 0.06946091670070055,
+    "growth_start": 0.02665503872479502,
+    "terminal_growth": 0.025,
+    "target_margin": 0.23867655731269044,
+    "capex_to_rev": 0.04858032116699106,
+    "da_to_rev": 0.08645617037293223,
+    "nwc_to_rev": -0.11951403318745235,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.06946091670070055,
+      "implied_price": 182.74757161497507,
+      "implied_price_exit_multiple": 181.12067726467038,
+      "enterprise_value": 470234116440.08545,
+      "terminal_value": 481919487696.57855,
+      "tv_share_of_ev": 0.52361390847705
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": -0.0033449612752049773,
+      "terminal_growth": 0.02,
+      "target_margin": 0.21867655731269045,
+      "capex_to_rev": 0.04858032116699106,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.07946091670070055,
+      "implied_price": 116.01625638511955,
+      "implied_price_exit_multiple": 137.09954159306432,
+      "enterprise_value": 309418413491.6919,
+      "terminal_value": 265470378344.8758,
+      "tv_share_of_ev": 0.3993932182708466
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.05665503872479502,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.3562048135211746,
+      "capex_to_rev": 0.03858032116699106,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.010000000000000002
+     },
+     "expected": {
+      "wacc": 0.05946091670070055,
+      "implied_price": 438.035725773384,
+      "implied_price_exit_multiple": 298.4882983179266,
+      "enterprise_value": 1085452680977.1548,
+      "terminal_value": 1363619877259.2158,
+      "tv_share_of_ev": 0.7050712796907324
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.046655038724795025,
+      "capex_to_rev": 0.03858032116699106
+     },
+     "expected": {
+      "wacc": 0.06946091670070055,
+      "implied_price": 203.20640204540214,
+      "implied_price_exit_multiple": 201.4141699383571,
+      "enterprise_value": 519537823190.63257,
+      "terminal_value": 530895923695.80475,
+      "tv_share_of_ev": 0.5220871939530427
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.06005332043608427,
+      "implied_price": 226.26178359966798,
+      "implied_price_exit_multiple": 194.53106602359995,
+      "enterprise_value": 575098954851.5575,
+      "terminal_value": 611256849062.0109,
+      "tv_share_of_ev": 0.5932039753424904
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.1111299917589802,
+      "implied_price": 101.20418769182459,
+      "implied_price_exit_multiple": 133.82177372606378,
+      "enterprise_value": 273722829929.05273,
+      "terminal_value": 248770280378.99304,
+      "tv_share_of_ev": 0.31683910033207374
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.06946091670070055,
+      "implied_price": 169.81862832148235,
+      "implied_price_exit_multiple": 161.52358803332964,
+      "enterprise_value": 439076674136.4048,
+      "terminal_value": 445443147747.5948,
+      "tv_share_of_ev": 0.725149124270911
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.20867655731269044,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.06946091670070055,
+      "implied_price": 156.77795705016416,
+      "implied_price_exit_multiple": 164.7447433161965,
+      "enterprise_value": 407649978735.71686,
+      "terminal_value": 382523908284.4143,
+      "tv_share_of_ev": 0.47942643924862655
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.07359913885593412,
+    "implied_growth_margin_held": 0.03436314165592193
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 122.39252412989555,
+     "p25": 151.6803317494098,
+     "p50": 178.19362528055956,
+     "p75": 213.61336122921827,
+     "p95": 284.1446766762601
+    },
+    "mean": 187.58644026710138,
+    "prob_value_gt_price": 0.0736,
+    "histogram": {
+     "edges": [
+      107.04164057159872,
+      113.16904254776172,
+      119.29644452392472,
+      125.4238465000877,
+      131.55124847625072,
+      137.6786504524137,
+      143.80605242857672,
+      149.9334544047397,
+      156.0608563809027,
+      162.1882583570657,
+      168.31566033322872,
+      174.4430623093917,
+      180.5704642855547,
+      186.6978662617177,
+      192.8252682378807,
+      198.95267021404368,
+      205.0800721902067,
+      211.2074741663697,
+      217.3348761425327,
+      223.46227811869568,
+      229.5896800948587,
+      235.71708207102168,
+      241.8444840471847,
+      247.97188602334768,
+      254.09928799951066,
+      260.2266899756737,
+      266.35409195183666,
+      272.4814939279997,
+      278.60889590416264,
+      284.73629788032565,
+      290.86369985648867,
+      296.9911018326517,
+      303.1185038088147,
+      309.24590578497765,
+      315.37330776114067,
+      321.5007097373036,
+      327.62811171346664,
+      333.75551368962965,
+      339.88291566579267,
+      346.0103176419557,
+      352.13771961811864
+     ],
+     "counts": [
+      192,
+      190,
+      238,
+      313,
+      412,
+      484,
+      524,
+      567,
+      580,
+      584,
+      576,
+      549,
+      527,
+      477,
+      421,
+      407,
+      352,
+      280,
+      276,
+      262,
+      244,
+      179,
+      185,
+      144,
+      150,
+      131,
+      95,
+      100,
+      66,
+      70,
+      58,
+      44,
+      42,
+      34,
+      38,
+      25,
+      28,
+      22,
+      17,
+      117
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  },
+  "CAT": {
+   "params": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 67589000000.0,
+    "base_margin": 0.16498246756128956,
+    "tax_rate": 0.22497649404244288,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.4155799779593339,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.58,
+     "regression_raw": 1.620268623819901,
+     "regression_blume": 1.4155799779593339,
+     "n_months": 59
+    },
+    "interest_expense": 1842000000.0,
+    "debt_spread": 0.01,
+    "debt": 11289000000.0,
+    "gross_debt": 36210000000.0,
+    "finance_receivables_netted": 24921000000.0,
+    "cash": 9980000000.0,
+    "market_cap": 323634105600.44995,
+    "shares": 459674889.0,
+    "market_price": 704.05,
+    "wacc": 0.11135007516228088,
+    "growth_start": 0.10115402157081044,
+    "terminal_growth": 0.025,
+    "target_margin": 0.15617236618008246,
+    "capex_to_rev": 0.027150819021141335,
+    "da_to_rev": 0.04006619181394062,
+    "nwc_to_rev": 0.003183008599537862,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.11135007516228088,
+      "implied_price": 279.81983508107146,
+      "implied_price_exit_multiple": 388.7070448048487,
+      "enterprise_value": 129935151630.88983,
+      "terminal_value": 148794461744.90918,
+      "tv_share_of_ev": 0.39842930791266745
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": 0.07115402157081044,
+      "terminal_growth": 0.02,
+      "target_margin": 0.13617236618008247,
+      "capex_to_rev": 0.027150819021141335,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.12135007516228087,
+      "implied_price": 197.70782865710095,
+      "implied_price_exit_multiple": 290.0047700914368,
+      "enterprise_value": 92190324192.3839,
+      "terminal_value": 89572918045.23494,
+      "tv_share_of_ev": 0.30908591544375286
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.13115402157081044,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.16498246756128956,
+      "capex_to_rev": 0.017150819021141336,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.10135007516228088,
+      "implied_price": 411.0524644168942,
+      "implied_price_exit_multiple": 512.2382779242663,
+      "enterprise_value": 190259495954.0123,
+      "terminal_value": 237231165785.8609,
+      "tv_share_of_ev": 0.474866511605733
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.12115402157081044,
+      "capex_to_rev": 0.017150819021141336
+     },
+     "expected": {
+      "wacc": 0.11135007516228088,
+      "implied_price": 315.13816362556696,
+      "implied_price_exit_multiple": 434.53612050232766,
+      "enterprise_value": 146170100384.24634,
+      "terminal_value": 163157406383.9754,
+      "tv_share_of_ev": 0.38836440254611554
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.10217028448258957,
+      "implied_price": 311.4711129365001,
+      "implied_price_exit_multiple": 415.2192677585014,
+      "enterprise_value": 144484449265.79214,
+      "terminal_value": 166494305956.6247,
+      "tv_share_of_ev": 0.435603439034102
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.11629843353241984,
+      "implied_price": 265.31050808972924,
+      "implied_price_exit_multiple": 375.3049844281532,
+      "enterprise_value": 123265578356.6799,
+      "terminal_value": 140729829179.83575,
+      "tv_share_of_ev": 0.37996289648962217
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.11135007516228088,
+      "implied_price": 236.2672023815405,
+      "implied_price_exit_multiple": 365.32521743697174,
+      "enterprise_value": 109915100029.07516,
+      "terminal_value": 115183716203.71176,
+      "tv_share_of_ev": 0.6181292723133823
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.12617236618008246,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.11135007516228088,
+      "implied_price": 238.2771134682799,
+      "implied_price_exit_multiple": 334.5808172174225,
+      "enterprise_value": 110839005684.77197,
+      "terminal_value": 114821954699.73637,
+      "tv_share_of_ev": 0.36043211698039085
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.2031392067670822,
+    "implied_growth_margin_held": 0.19675821363925933
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 206.66661991951668,
+     "p25": 244.79915802074956,
+     "p50": 275.79090834691806,
+     "p75": 313.00355706584946,
+     "p95": 375.44727264566507
+    },
+    "mean": 281.80065975060154,
+    "prob_value_gt_price": 0.0,
+    "histogram": {
+     "edges": [
+      185.44410570033622,
+      191.66140374760374,
+      197.87870179487126,
+      204.09599984213878,
+      210.31329788940633,
+      216.53059593667385,
+      222.74789398394137,
+      228.9651920312089,
+      235.1824900784764,
+      241.39978812574395,
+      247.61708617301147,
+      253.834384220279,
+      260.05168226754654,
+      266.26898031481403,
+      272.4862783620816,
+      278.7035764093491,
+      284.9208744566166,
+      291.1381725038841,
+      297.35547055115165,
+      303.5727685984192,
+      309.7900666456867,
+      316.00736469295424,
+      322.2246627402218,
+      328.4419607874893,
+      334.65925883475677,
+      340.8765568820244,
+      347.09385492929187,
+      353.31115297655936,
+      359.5284510238269,
+      365.74574907109445,
+      371.96304711836194,
+      378.1803451656295,
+      384.39764321289704,
+      390.6149412601645,
+      396.832239307432,
+      403.0495373546996,
+      409.2668354019671,
+      415.4841334492346,
+      421.70143149650215,
+      427.9187295437697,
+      434.1360275910372
+     ],
+     "counts": [
+      183,
+      94,
+      130,
+      188,
+      227,
+      304,
+      363,
+      372,
+      423,
+      437,
+      507,
+      520,
+      481,
+      514,
+      485,
+      450,
+      504,
+      456,
+      351,
+      356,
+      317,
+      272,
+      268,
+      262,
+      217,
+      209,
+      174,
+      139,
+      128,
+      122,
+      85,
+      56,
+      64,
+      63,
+      49,
+      36,
+      31,
+      25,
+      20,
+      118
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  },
+  "XOM": {
+   "params": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 332238000000.0,
+    "base_margin": 0.12602712513318765,
+    "tax_rate": 0.2612679817147161,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.44175483450669445,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.209,
+     "regression_raw": 0.16679826045775287,
+     "regression_blume": 0.44175483450669445,
+     "n_months": 59
+    },
+    "interest_expense": 603000000.0,
+    "debt_spread": 0.01,
+    "debt": 43500000000.0,
+    "gross_debt": 43500000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 10681000000.0,
+    "market_cap": 732866068630.7999,
+    "shares": 4111911960.0,
+    "market_price": 178.23,
+    "wacc": 0.06818825866573094,
+    "growth_start": 0.12853121931324463,
+    "terminal_growth": 0.025,
+    "target_margin": 0.0956859859396871,
+    "capex_to_rev": 0.06674705868379198,
+    "da_to_rev": 0.09815673770478928,
+    "nwc_to_rev": 0.011928300117749445,
+    "exit_ev_ebitda": 7.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
+   },
+   "cases": [
+    {
+     "name": "base",
+     "overrides": {},
+     "expected": {
+      "wacc": 0.06818825866573094,
+      "implied_price": 216.25940837435527,
+      "implied_price_exit_multiple": 212.6774952182425,
+      "enterprise_value": 922058647757.0356,
+      "terminal_value": 968560756440.8109,
+      "tv_share_of_ev": 0.5431131566988043
+     }
+    },
+    {
+     "name": "bear",
+     "overrides": {
+      "growth_start": 0.09853121931324463,
+      "terminal_growth": 0.02,
+      "target_margin": 0.07568598593968709,
+      "capex_to_rev": 0.06674705868379198,
+      "forecast_years": 10,
+      "terminal_roic": 0.1,
+      "wacc_shift": 0.009999999999999995
+     },
+     "expected": {
+      "wacc": 0.07818825866573094,
+      "implied_price": 126.63542431027342,
+      "implied_price_exit_multiple": 155.85030818922667,
+      "enterprise_value": 553532715781.088,
+      "terminal_value": 461996832174.8127,
+      "tv_share_of_ev": 0.3931422531054239
+     }
+    },
+    {
+     "name": "bull",
+     "overrides": {
+      "growth_start": 0.15853121931324463,
+      "terminal_growth": 0.030000000000000002,
+      "target_margin": 0.12602712513318765,
+      "capex_to_rev": 0.05674705868379198,
+      "forecast_years": 10,
+      "terminal_roic": 0.25,
+      "wacc_shift": -0.010000000000000002
+     },
+     "expected": {
+      "wacc": 0.05818825866573094,
+      "implied_price": 472.37554244098857,
+      "implied_price_exit_multiple": 312.5771455271797,
+      "enterprise_value": 1975185642574.5884,
+      "terminal_value": 2431219802917.7485,
+      "tv_share_of_ev": 0.6991766567830862
+     }
+    },
+    {
+     "name": "perturbed_0",
+     "overrides": {
+      "growth_start": 0.14853121931324462,
+      "capex_to_rev": 0.05674705868379198
+     },
+     "expected": {
+      "wacc": 0.06818825866573094,
+      "implied_price": 244.4717034908877,
+      "implied_price_exit_multiple": 240.55024545227954,
+      "enterprise_value": 1038065121465.7549,
+      "terminal_value": 1060374777022.0068,
+      "tv_share_of_ev": 0.5281493988228484
+     }
+    },
+    {
+     "name": "perturbed_1",
+     "overrides": {
+      "rf": 0.0418
+     },
+     "expected": {
+      "wacc": 0.05882732836211015,
+      "implied_price": 269.2571261454596,
+      "implied_price_exit_multiple": 228.54266411541914,
+      "enterprise_value": 1139980597312.7441,
+      "terminal_value": 1236587531680.3289,
+      "tv_share_of_ev": 0.6124575382194877
+     }
+    },
+    {
+     "name": "perturbed_2",
+     "overrides": {
+      "beta": 1.3,
+      "erp": 0.05
+     },
+     "expected": {
+      "wacc": 0.11190705612674406,
+      "implied_price": 115.679760329047,
+      "implied_price_exit_multiple": 154.3029184586698,
+      "enterprise_value": 508483990026.9419,
+      "terminal_value": 481324006898.0913,
+      "tv_share_of_ev": 0.32769919719615326
+     }
+    },
+    {
+     "name": "perturbed_3",
+     "overrides": {
+      "forecast_years": 5,
+      "terminal_roic": 0.2
+     },
+     "expected": {
+      "wacc": 0.06818825866573094,
+      "implied_price": 162.9098108848464,
+      "implied_price_exit_multiple": 153.60067472550324,
+      "enterprise_value": 702689799778.738,
+      "terminal_value": 703883443464.644,
+      "tv_share_of_ev": 0.7202746013197799
+     }
+    },
+    {
+     "name": "perturbed_4",
+     "overrides": {
+      "target_margin": 0.0656859859396871,
+      "terminal_growth": 0.02
+     },
+     "expected": {
+      "wacc": 0.06818825866573094,
+      "implied_price": 158.27440147739287,
+      "implied_price_exit_multiple": 180.11515747690322,
+      "enterprise_value": 683629404396.7334,
+      "terminal_value": 602250571022.659,
+      "tv_share_of_ev": 0.4554896219800321
+     }
+    }
+   ],
+   "reverse_dcf": {
+    "implied_growth": 0.05649307072162629,
+    "implied_growth_margin_held": 0.030188086628913882
+   },
+   "monte_carlo": {
+    "n_draws": 10000,
+    "seed": 20261022,
+    "percentiles": {
+     "p5": 135.25619700168747,
+     "p25": 173.74453680512346,
+     "p50": 209.41215457019675,
+     "p75": 256.8616711582704,
+     "p95": 347.86495437752524
+    },
+    "mean": 221.46667379846792,
+    "prob_value_gt_price": 0.7192,
+    "histogram": {
+     "edges": [
+      113.7028922070082,
+      121.74297427491629,
+      129.78305634282438,
+      137.82313841073244,
+      145.86322047864053,
+      153.90330254654862,
+      161.9433846144567,
+      169.9834666823648,
+      178.02354875027288,
+      186.06363081818097,
+      194.10371288608903,
+      202.14379495399712,
+      210.1838770219052,
+      218.22395908981326,
+      226.26404115772135,
+      234.30412322562944,
+      242.34420529353753,
+      250.38428736144562,
+      258.4243694293537,
+      266.46445149726173,
+      274.5045335651698,
+      282.5446156330779,
+      290.584697700986,
+      298.6247797688941,
+      306.6648618368022,
+      314.70494390471026,
+      322.74502597261835,
+      330.78510804052644,
+      338.8251901084345,
+      346.8652721763426,
+      354.9053542442507,
+      362.9454363121588,
+      370.9855183800669,
+      379.02560044797497,
+      387.06568251588305,
+      395.10576458379114,
+      403.14584665169923,
+      411.1859287196073,
+      419.2260107875153,
+      427.2660928554234,
+      435.30617492333147
+     ],
+     "counts": [
+      192,
+      160,
+      227,
+      334,
+      362,
+      467,
+      515,
+      532,
+      584,
+      522,
+      570,
+      588,
+      495,
+      508,
+      435,
+      399,
+      352,
+      320,
+      291,
+      283,
+      237,
+      214,
+      213,
+      144,
+      140,
+      139,
+      103,
+      77,
+      86,
+      62,
+      58,
+      68,
+      31,
+      38,
+      38,
+      30,
+      17,
+      23,
+      22,
+      124
+     ],
+     "clipped_to": "P1-P99 (tails folded into end bins)"
+    }
+   }
+  }
+ }
+}

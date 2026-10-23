@@ -22,7 +22,7 @@ export const fonts = {
 /** 8px grid: spacing.n = n * 8px */
 export const GRID = 8
 export const spacing = Object.fromEntries(
-  [0, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12].map((n) => [String(n), `${n * GRID}px`]),
+  [0, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 20, 24, 32, 48].map((n) => [String(n), `${n * GRID}px`]),
 ) as Record<string, string>
 
 export const radius = { card: '12px', control: '8px', pill: '9999px' } as const
