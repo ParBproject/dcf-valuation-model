@@ -1,10 +1,10 @@
 // Lighthouse against the production build served locally under /dcf-valuation-model/.
-// Usage: node scripts/lighthouse.mjs   (expects `vite preview --port 4180` running)
+// Usage: node scripts/lighthouse.mjs   (expects `vite preview --port 4185` running)
 import { execFileSync } from 'node:child_process'
 import { mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs'
 import { chromium } from 'playwright'
 
-const BASE = process.env.BASE ?? 'http://localhost:4180/dcf-valuation-model/'
+const BASE = process.env.BASE ?? 'http://localhost:4185/dcf-valuation-model/'
 const OUT = new URL('../../docs/lighthouse/', import.meta.url).pathname
 const PAGES = { overview: '#/', forecast: '#/forecast', sensitivity: '#/sensitivity' }
 const CHROME = process.env.CHROME_PATH ?? chromium.executablePath()

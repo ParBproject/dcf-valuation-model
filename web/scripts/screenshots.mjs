@@ -29,7 +29,7 @@ try {
         const client = document.documentElement.clientWidth
         // widest element edge, so clipped overflow can't hide behind overflow:hidden
         let maxRight = 0
-        for (const el of document.querySelectorAll('body *')) maxRight = Math.max(maxRight, el.getBoundingClientRect().right)
+        for (const el of document.querySelectorAll('body *')) if (!el.closest('.sr-only')) maxRight = Math.max(maxRight, el.getBoundingClientRect().right)
         return { scroll: document.documentElement.scrollWidth, client, maxRight: Math.round(maxRight) }
       })
       const path = `${OUT}/m4-${name}-${width}.png`

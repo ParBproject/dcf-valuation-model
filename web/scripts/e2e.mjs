@@ -21,6 +21,7 @@ const overflow = (page) => page.evaluate(() => {
   const client = document.documentElement.clientWidth
   let maxRight = 0
   for (const el of document.querySelectorAll('body *')) {
+    if (el.closest('.sr-only')) continue // clipped text alternatives (chart data tables)
     const r = el.getBoundingClientRect()
     if (r.width && r.height) maxRight = Math.max(maxRight, r.right)
   }

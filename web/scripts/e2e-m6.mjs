@@ -19,6 +19,7 @@ const overflow = (page) => page.evaluate(() => {
   const client = document.documentElement.clientWidth
   let maxRight = 0, worst = ''
   for (const el of document.querySelectorAll('body *')) {
+    if (el.closest('.sr-only')) continue // clipped text alternatives (chart data tables)
     // elements inside horizontal scrollers (wide tables) are allowed to extend
     let p = el.parentElement, scroller = false
     while (p) { const s = getComputedStyle(p).overflowX; if (s === 'auto' || s === 'scroll') { scroller = true; break } p = p.parentElement }
