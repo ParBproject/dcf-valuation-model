@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.10", "3.12"]
+        python-version: ["3.13"]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -33,3 +33,5 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test   # axe, keyboard, mobile, visual baselines
       - run: npm run e2e
+        env:
+          SHOTS_DIR: ${{ runner.temp }}/dcf-shots
