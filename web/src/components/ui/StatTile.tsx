@@ -13,7 +13,7 @@ export function StatTile({ label, value, sub, tone = 'neutral', hint, loading }:
         {hint && <InfoTip text={hint} />}
       </div>
       {loading ? (
-        <div className="mt-1 h-4 w-12 animate-pulse rounded-control bg-line" aria-label="loading" />
+        <div className="mt-1 h-4 w-12 animate-pulse rounded-control bg-line" role="status"><span className="sr-only">Loading</span></div>
       ) : (
         <div className={clsx('num mt-1 truncate text-xl font-semibold sm:text-2xl', {
           'text-fg': tone === 'neutral', 'text-accent': tone === 'positive',

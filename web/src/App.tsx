@@ -1,6 +1,6 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { MotionConfig } from 'framer-motion'
+import { LazyMotion, MotionConfig } from 'framer-motion'
 import { Shell } from './components/layout/Shell'
 import { Overview } from './pages/Overview'
 
@@ -13,14 +13,16 @@ const Compare = lazy(() => import('./pages/Compare').then((m) => ({ default: m.C
 const Methodology = lazy(() => import('./pages/Methodology').then((m) => ({ default: m.Methodology })))
 const Gallery = lazy(() => import('./pages/Gallery').then((m) => ({ default: m.Gallery })))
 
-const Fallback = () => <div className="h-48 animate-pulse rounded-card bg-line" aria-label="loading" />
+// Animation features load after first paint: they're never needed for the initial render.
+const idle = () => new Promise<void>((r) => ('requestIdleCallback' in window ? requestIdleCallback(() => r(), { timeout: 1500 }) : setTimeout(r, 200)))
+const loadFeatures = () => idle().then(() => import('./motionFeatures')).then((r) => r.default)
 
 /** Hash routing: works on GitHub Pages without a server-side fallback. */
 export default function App() {
   return (
+    <LazyMotion features={loadFeatures} strict>
     <MotionConfig reducedMotion="user">
       <HashRouter>
-        <Suspense fallback={<Fallback />}>
           <Routes>
             <Route element={<Shell />}>
               <Route index element={<Navigate to="/overview" replace />} />
@@ -35,8 +37,8 @@ export default function App() {
               <Route path="*" element={<Navigate to="/overview" replace />} />
             </Route>
           </Routes>
-        </Suspense>
       </HashRouter>
     </MotionConfig>
+    </LazyMotion>
   )
 }

@@ -10,6 +10,7 @@ import { Sparkline } from '../charts/Sparkline'
 import { fmtUsdShort } from '../charts/theme'
 import { clsx } from 'clsx'
 import type { TickerResult } from '../data/types'
+import { ScrollX } from '../components/ui/ScrollX'
 import type { Valuation } from '../engine/types'
 
 const pct = (v: number, d = 1) => `${(v * 100).toFixed(d)}%`
@@ -23,7 +24,7 @@ const EDITABLE: { key: AssumptionKey; label: string; kind: 'pct' | 'yrs' }[] = [
   { key: 'forecast_years', label: 'Horizon', kind: 'yrs' },
 ]
 
-function EditCell({ k, kind, value }: { k: AssumptionKey; kind: 'pct' | 'yrs'; value: number }) {
+function EditCell({ k, kind, value, label }: { k: AssumptionKey; kind: 'pct' | 'yrs'; value: number; label: string }) {
   const set = useDcfStore((s) => s.setAssumption)
   const shown = kind === 'pct' ? +(value * 100).toFixed(2) : value
   const [txt, setTxt] = useState<string | null>(null)
@@ -34,9 +35,9 @@ function EditCell({ k, kind, value }: { k: AssumptionKey; kind: 'pct' | 'yrs'; v
     setTxt(null)
   }
   return (
-    <input aria-label={k} value={txt ?? String(shown)} onChange={(e) => setTxt(e.target.value)} onBlur={commit}
+    <input aria-label={label} data-key={k} value={txt ?? String(shown)} onChange={(e) => setTxt(e.target.value)} onBlur={commit}
       onKeyDown={(e) => e.key === 'Enter' && commit()} inputMode="decimal"
-      className="num h-4 w-full rounded-control border border-line bg-bg px-1 text-right text-sm focus:border-accent focus:outline-none focus-visible:shadow-focus" />
+      className="num h-[44px] w-full rounded-control border border-line bg-bg px-1 lg:h-4 text-right text-sm focus:border-accent focus:outline-none focus-visible:shadow-focus" />
   )
 }
 
@@ -150,13 +151,13 @@ export function Forecast() {
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 lg:grid-cols-6">
           {EDITABLE.map((e) => (
             <label key={e.key} className="min-w-0 text-xs text-muted">{e.label}{e.kind === 'pct' ? ' (%)' : ' (yrs)'}
-              <EditCell k={e.key} kind={e.kind} value={(v.inputs as unknown as Record<string, number>)[e.key] ?? 0} />
+              <EditCell k={e.key} label={e.label} kind={e.kind} value={(v.inputs as unknown as Record<string, number>)[e.key] ?? 0} />
             </label>
           ))}
         </div>
       </Card>
       <Card title="Forecast table" className="mt-2">
-        <div className="-mx-2 overflow-x-auto px-2">
+        <ScrollX label="Forecast table">
           <table className="num w-full min-w-[640px] text-right text-xs" data-testid="forecast-table">
             <thead className="text-muted"><tr>{['FY', 'Growth', 'Revenue', 'Margin', 'EBIT', 'NOPAT', 'D&A', 'Capex', 'ΔNWC', 'FCFF', 'PV'].map((h) => <th key={h} className="px-1 py-1 font-medium first:text-left">{h}</th>)}</tr></thead>
             <tbody>
@@ -171,7 +172,7 @@ export function Forecast() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollX>
       </Card>
       <DrillPanel open={step !== null} onOpenChange={(o) => !o && setStep(null)} title={step ? TITLE[step] : ''}>
         {step && <Drill k={step} t={live.t} v={v} />}
