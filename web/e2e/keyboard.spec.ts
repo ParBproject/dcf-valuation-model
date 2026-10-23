@@ -76,7 +76,7 @@ test('heatmap cells are reachable with arrow keys and Enter applies WACC and g',
   const before = await page.getByTestId('price-chip-implied').innerText()
   await page.keyboard.press('Enter')
   await expect(page.getByTestId('price-chip-implied')).not.toHaveText(before)
-  await expect(page).toHaveURL(/wacc=/)
+  await expect(page).toHaveURL(/#\/sensitivity\?.*wacc=/)
   await page.keyboard.press('End')
   expect((await focused(page))?.cell).toBe('2-6')
 })

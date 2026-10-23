@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import {
   ASSUMPTION_KEYS, DEFAULTS, SCENARIOS, TICKERS, useDcfStore,
   type Assumptions, type DcfState, type Ticker,
@@ -59,7 +59,8 @@ export function parse(search: string | URLSearchParams): Partial<Shared> {
 
 /** Two-way sync: URL -> store once on mount, then store -> URL (replace, no history spam). */
 export function useUrlSync(): void {
-  const [params, setParams] = useSearchParams()
+  const [params] = useSearchParams()
+  const navigate = useNavigate()
   const hydrated = useRef(false)
   useEffect(() => {
     if (!hydrated.current) {
@@ -69,7 +70,10 @@ export function useUrlSync(): void {
     return useDcfStore.subscribe((s) => {
       const next = serialize(s)
       if (next !== new URLSearchParams(window.location.hash.split('?')[1] ?? '').toString()) {
-        setParams(new URLSearchParams(next), { replace: true })
+        // read the current path at write time: the subscription outlives route changes, and
+        // react-router's setSearchParams would navigate back to the path it was created on
+        const pathname = window.location.hash.slice(1).split('?')[0] || '/'
+        navigate({ pathname, search: next ? `?${next}` : '' }, { replace: true })
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
