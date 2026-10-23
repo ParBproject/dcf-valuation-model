@@ -1,0 +1,13 @@
+{
+  "series": "DGS10",
+  "observation_date": "2026-10-21",
+  "yield_pct": 5.13,
+  "yield": 0.0513,
+  "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+  "fetched_at": "2026-10-23T00:47:42+00:00",
+  "equity_risk_premium": {
+    "value": 0.0423,
+    "as_of": "2026-01-01",
+    "source": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histimpl.html ; https://aswathdamodaran.blogspot.com/2026/01/data-update-2-for-2026-equities-get.html"
+  }
+}
