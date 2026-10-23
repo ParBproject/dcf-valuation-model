@@ -1,2 +1,3 @@
 # web/
-Placeholder for the React + TypeScript dashboard (milestone M5+).
+
+React + TypeScript dashboard. See the main README and [docs/design.md](../docs/design.md).
