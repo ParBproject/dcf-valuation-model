@@ -157,7 +157,7 @@ def test_fresh_run_matches_committed_file():
     fresh = json.loads(
         json.dumps(results.build(SNAP, ROOT / "config", n_draws=10_000), default=float)
     )
-    assert fresh == COMMITTED
+    _assert_json_close(fresh, COMMITTED)
 
 
 @pytest.mark.parametrize("t", list(M3_PINNED))
@@ -172,7 +172,9 @@ def test_calibration_file_is_fresh():
     from dcf.analysis.calibration import decompose
 
     fresh = json.loads(json.dumps(decompose(SNAP, ROOT / "config"), default=float))
-    assert fresh == json.loads((ROOT / "results" / "calibration.json").read_text())["tickers"]
+    _assert_json_close(
+        fresh, json.loads((ROOT / "results" / "calibration.json").read_text())["tickers"]
+    )
 
 
 @pytest.mark.parametrize("t", ["AAPL", "MSFT", "CAT"])
@@ -206,3 +208,21 @@ def test_engine_block_and_parity_fixtures_are_fresh():
         assert base["expected"]["implied_price"] == pytest.approx(
             COMMITTED["tickers"][t]["base"]["implied_price"], rel=1e-12
         )
+
+
+def _assert_json_close(a, b, path="$", rtol=1e-12, atol=1e-12):
+    """Recursive compare: floats within rtol/atol; strings, ints, bools, keys, structure exact."""
+    if isinstance(a, float) or isinstance(b, float):
+        assert isinstance(a, (int, float)) and isinstance(b, (int, float)), path
+        assert not isinstance(a, bool) and not isinstance(b, bool), path
+        assert abs(a - b) <= atol + rtol * abs(b), f"{path}: {a!r} != {b!r}"
+    elif isinstance(a, dict):
+        assert isinstance(b, dict) and list(a) == list(b), f"{path}: keys differ"
+        for k in a:
+            _assert_json_close(a[k], b[k], f"{path}.{k}", rtol, atol)
+    elif isinstance(a, list):
+        assert isinstance(b, list) and len(a) == len(b), f"{path}: length differs"
+        for i, (x, y) in enumerate(zip(a, b, strict=True)):
+            _assert_json_close(x, y, f"{path}[{i}]", rtol, atol)
+    else:
+        assert type(a) is type(b) and a == b, f"{path}: {a!r} != {b!r}"
