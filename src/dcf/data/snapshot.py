@@ -7,7 +7,7 @@ import json
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from . import edgar, market, rates, sources
+from . import edgar, market, prices, rates, sources
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -32,6 +32,9 @@ def build(out_root: Path, snap_date: str) -> Path:
     mkt = {t: market.fetch_market(t) for t in sources.TICKERS}
     _dump(out / "market.json", mkt)
     files["market.json"] = {"source": "yfinance", "fetched_at": now()}
+    px = prices.fetch_monthly(list(sources.TICKERS))
+    _dump(out / "prices.json", px)
+    files["prices.json"] = {"source": px["source"], "fetched_at": px["fetched_at"]}
     r = rates.fetch_dgs10()
     r["fetched_at"] = now()
     r["equity_risk_premium"] = {

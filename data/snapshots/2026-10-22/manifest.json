@@ -40,6 +40,10 @@
     "rates.json": {
       "source": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
       "fetched_at": "2026-10-23T00:47:42+00:00"
+    },
+    "prices.json": {
+      "source": "yfinance download (Yahoo Finance), auto_adjust=True",
+      "fetched_at": "2026-10-23T00:53:01+00:00"
     }
   },
   "coverage": [
