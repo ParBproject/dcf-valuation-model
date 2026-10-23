@@ -1,5 +1,6 @@
 # DCF Valuation Model
 
+[![CI](https://github.com/ParBproject/dcf-valuation-model/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ParBproject/dcf-valuation-model/actions/workflows/ci.yml)
 [![Live demo](https://img.shields.io/badge/live%20demo-parbproject.github.io-10B981)](https://parbproject.github.io/dcf-valuation-model/)
 ![Tests](https://img.shields.io/badge/tests-110%20pytest%20%C2%B7%20126%20vitest%20%C2%B7%2062%20playwright-10B981)
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue)
