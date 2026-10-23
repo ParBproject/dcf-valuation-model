@@ -10,9 +10,9 @@ export function Footer() {
         {' '}Snapshot <span className="num text-fg">{data?.snapshot_date ?? '…'}</span>
         {data && <> · schema <span className="num">{data.schema_version}</span></>}. Not investment advice.
       </p>
-      <p className="mt-1 flex flex-wrap gap-x-2 gap-y-0.5">
-        <a className="text-accent hover:text-accent-hover" href="https://github.com/ParBproject/dcf-valuation-model">Source on GitHub</a>
-        <a className="text-accent hover:text-accent-hover" href="https://parbproject.github.io/">Portfolio · parbproject.github.io</a>
+      <p className="mt-1 flex flex-wrap gap-x-2">
+        <a className="inline-flex min-h-[44px] items-center text-accent hover:text-accent-hover" href="https://github.com/ParBproject/dcf-valuation-model">Source on GitHub</a>
+        <a className="inline-flex min-h-[44px] items-center text-accent hover:text-accent-hover" href="https://parbproject.github.io/">Portfolio · parbproject.github.io</a>
       </p>
     </footer>
   )

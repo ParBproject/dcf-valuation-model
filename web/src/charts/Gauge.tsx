@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { m as M, useReducedMotion } from 'framer-motion'
 import { arc } from 'd3-shape'
 import { C, FONT_MONO } from './theme'
 
@@ -20,7 +20,7 @@ export function Gauge({ ratio, size = 220 }: { ratio: number; size?: number }) {
           return <text key={t} x={Math.sin(a) * (r - 26)} y={-Math.cos(a) * (r - 26)} textAnchor="middle" dy="0.32em" fill={C.muted} fontSize={9} fontFamily={FONT_MONO}>{t}×</text>
         })}
         {/* animate the needle tip (not a CSS rotate, whose SVG transform-origin is unreliable) */}
-        <motion.line x1={0} y1={0} initial={false}
+        <M.line x1={0} y1={0} initial={false}
           animate={{ x2: Math.sin((angle * Math.PI) / 180) * (r - 6), y2: -Math.cos((angle * Math.PI) / 180) * (r - 6) }}
           transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 120, damping: 16 }}
           stroke={C.text} strokeWidth={3} strokeLinecap="round" data-testid="gauge-needle" />

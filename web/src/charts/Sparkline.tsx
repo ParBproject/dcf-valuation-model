@@ -13,6 +13,7 @@ export function Sparkline({ points, format }: { points: { x: number; y: number }
   const d = line<{ x: number; y: number }>().x((p) => x(p.x)!).y((p) => y(p.y))(points) ?? ''
   return (
     <div ref={ref} className="w-full">
+      {width === 0 && <div style={{ height: h }} />}
       {width > 0 && (
         <svg width={width} height={h} role="img" aria-label="Trend">
           <path d={d} fill="none" stroke={C.accent} strokeWidth={2} />

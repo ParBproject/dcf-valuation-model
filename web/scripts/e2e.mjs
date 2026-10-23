@@ -21,6 +21,7 @@ const overflow = (page) => page.evaluate(() => {
   const client = document.documentElement.clientWidth
   let maxRight = 0
   for (const el of document.querySelectorAll('body *')) {
+    if (el.closest('.sr-only')) continue // clipped text alternatives (chart data tables)
     const r = el.getBoundingClientRect()
     if (r.width && r.height) maxRight = Math.max(maxRight, r.right)
   }
@@ -54,7 +55,8 @@ try {
   const r = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
   await r.goto(BASE + target)
   await r.waitForSelector('[data-testid="price-chip-implied"]')
-  const picker = await r.locator('button[aria-label="Company"]').innerText()
+  const picker = await r.locator('select[aria-label="Company"]').inputValue()
+  await r.waitForSelector('aside input[aria-label="Beta value"]')
   const betaVal = await r.locator('aside input[aria-label="Beta value"]').inputValue()
   const yrs = await r.locator('aside input[aria-label="Horizon value"]').inputValue()
   const bullSel = await r.locator('[role="tab"][data-state="active"]', { hasText: 'Bull' }).count()

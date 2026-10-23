@@ -48,7 +48,7 @@ function NumberBox({ field, value, onCommit }: { field: Field; value: number; on
     <div className="relative w-[88px] shrink-0">
       <input aria-label={`${field.label} value`} inputMode="decimal" value={text}
         onChange={(e) => setText(e.target.value)} onBlur={commit} onKeyDown={(e) => e.key === 'Enter' && commit()}
-        className="num h-4 w-full rounded-control border border-line bg-bg pl-1 pr-3 text-right text-sm text-fg focus:border-accent focus:outline-none focus-visible:shadow-focus" />
+        className="num h-[44px] w-full rounded-control lg:h-4 border border-line bg-bg pl-1 pr-3 text-right text-sm text-fg focus:border-accent focus:outline-none focus-visible:shadow-focus" />
       <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-xs text-muted">
         {field.kind === 'pct' ? '%' : field.kind === 'x' ? '×' : 'y'}
       </span>
@@ -81,7 +81,7 @@ export function AssumptionsPanel({ compact = false }: { compact?: boolean }) {
     <div className={clsx('flex flex-col gap-2', compact && 'pb-2')}>
       <div className="flex items-center justify-between gap-1">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">Assumptions</h2>
-        <Button variant="ghost" size="sm" onClick={reset} disabled={nOver === 0} aria-label="Reset all assumptions to base">
+        <Button variant="ghost" size="sm" onClick={reset} disabled={nOver === 0}>
           Reset to base{nOver ? ` (${nOver})` : ''}
         </Button>
       </div>
@@ -130,18 +130,18 @@ export function AssumptionsPanel({ compact = false }: { compact?: boolean }) {
                   {d && <Badge tone="warning"><span className="num">{d}</span></Badge>}
                   {overridden && (
                     <button type="button" onClick={() => clearAssumption(f.key)} aria-label={`Reset ${f.label}`}
-                      className="h-2.5 rounded-control px-0.5 text-xs text-muted hover:text-accent">↺</button>
+                      className="hit h-2.5 rounded-control px-0.5 text-xs text-muted hover:text-accent focus-visible:shadow-focus">↺</button>
                   )}
                 </span>
               </div>
               <div className="flex items-center gap-1">
-                <S.Root className="relative flex h-4 min-w-0 flex-1 touch-none select-none items-center" value={[v]}
+                <S.Root className="relative flex h-[44px] min-w-0 flex-1 touch-none select-none items-center" value={[v]}
                   min={f.min} max={f.max} step={f.step} aria-label={f.label}
                   onValueChange={(x) => setAssumption(f.key, x[0] ?? v)}>
                   <S.Track className="relative h-0.5 grow rounded-pill bg-line">
                     <S.Range className="absolute h-full rounded-pill bg-accent" />
                   </S.Track>
-                  <S.Thumb className="block h-2 w-2 rounded-pill border-2 border-accent bg-bg transition-transform hover:scale-110 focus-visible:shadow-focus" />
+                  <S.Thumb className="thumb" aria-label={f.label} aria-valuetext={`${toDisplay(f.kind, v)}${f.kind === 'pct' ? '%' : f.kind === 'x' ? '×' : ' years'}`} />
                 </S.Root>
                 <NumberBox field={f} value={v} onCommit={(x) => setAssumption(f.key, x)} />
               </div>
@@ -150,7 +150,7 @@ export function AssumptionsPanel({ compact = false }: { compact?: boolean }) {
         })}
       </div>
       <p className="text-[11px] text-muted">Badges show the difference from the base case.</p>
-      <p className="num text-[11px] text-muted" data-testid="recompute-ms">
+      <p className="num text-[11px] text-muted" data-testid="recompute-ms" data-volatile>
         recompute {live.ms.toFixed(2)} ms · avg {stats.avg.toFixed(2)} / max {stats.max.toFixed(2)} ms (last {stats.n})
       </p>
     </div>

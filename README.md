@@ -94,6 +94,8 @@ cd web && npm ci
 npm test            # vitest (store + URL sync)
 npm run build       # sync data, typecheck, build (base /dcf-valuation-model/)
 npm run shots       # Playwright screenshots + 390px overflow check
+npx playwright test # M7: axe, keyboard, mobile/touch, visual regression (see docs/a11y.md)
+node scripts/lighthouse.mjs  # with `vite preview --port 4185`; writes docs/lighthouse/summary.json
 ```
 
 ## Live engine (M5)

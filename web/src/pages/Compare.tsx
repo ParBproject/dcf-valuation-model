@@ -8,6 +8,7 @@ import { serialize } from '../store/urlSync'
 import { value } from '../engine/model'
 import { Card } from '../components/ui/Card'
 import { PageHeader } from './PageHeader'
+import { ScrollX } from '../components/ui/ScrollX'
 import { CompareBars } from '../charts/CompareBars'
 
 type Key = 'ticker' | 'gap' | 'wacc' | 'tv' | 'prob'
@@ -44,22 +45,25 @@ export function Compare() {
       <div className="grid gap-2 xl:grid-cols-2">
         <Card title="Implied value vs market price"><CompareBars rows={sorted} onPick={open} /></Card>
         <Card title="Table">
-          <div className="-mx-2 overflow-x-auto px-2">
+          <ScrollX label="Comparison table">
             <table className="num w-full min-w-[420px] text-right text-sm" data-testid="compare-table">
               <thead><tr>{COLS.map((c) => (
                 <th key={c.k} className="px-1 py-1 font-medium text-muted first:text-left" aria-sort={sort.k === c.k ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}>
-                  <button type="button" className="hover:text-fg" onClick={() => setSort((s) => ({ k: c.k, dir: s.k === c.k ? (s.dir === 1 ? -1 : 1) : -1 }))}>
+                  <button type="button" className="hit rounded-control hover:text-fg focus-visible:shadow-focus" onClick={() => setSort((s) => ({ k: c.k, dir: s.k === c.k ? (s.dir === 1 ? -1 : 1) : -1 }))}>
                     {c.label}{sort.k === c.k ? (sort.dir === 1 ? ' ↑' : ' ↓') : ''}
                   </button>
                 </th>))}</tr></thead>
               <tbody>{sorted.map((r) => (
                 <tr key={r.ticker} className="cursor-pointer border-t border-line hover:bg-white/5" onClick={() => open(r.ticker)} data-row={r.ticker}>
-                  <td className="px-1 py-1 text-left font-semibold">{r.ticker}</td>
+                  <td className="px-1 py-1 text-left font-semibold">
+                    <button type="button" className="hit rounded-control hover:text-accent focus-visible:shadow-focus" aria-label={`Open ${r.ticker}`}
+                      onClick={(e) => { e.stopPropagation(); open(r.ticker) }}>{r.ticker}</button>
+                  </td>
                   <td className={clsx('px-1', r.gap >= 0 ? 'text-accent' : 'text-negative')}>{Number.isFinite(r.gap) ? `${(r.gap * 100).toFixed(0)}%` : 'n/a'}</td>
                   <td className="px-1">{(r.wacc * 100).toFixed(2)}%</td><td className="px-1">{(r.tv * 100).toFixed(0)}%</td><td className="px-1">{(r.prob * 100).toFixed(1)}%</td>
                 </tr>))}</tbody>
             </table>
-          </div>
+          </ScrollX>
           <p className="mt-1 text-xs text-muted">P(value&gt;price) is from the committed base-case Monte Carlo (Python, 10,000 draws).</p>
         </Card>
       </div>

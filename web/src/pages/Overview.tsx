@@ -13,7 +13,7 @@ import { Gauge } from '../charts/Gauge'
 import { FootballField, type FFRow } from '../charts/FootballField'
 import { buildOverrides } from '../engine/useLive'
 import { value } from '../engine/model'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
 const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { duration: 0.25 } } }
@@ -50,38 +50,37 @@ export function Overview() {
         <Card className="mb-2 border-warning/40"><p role="alert" className="text-sm text-warning">{live.result.error}. Adjust g or the discount-rate inputs.</p></Card>
       )}
 
-      <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-2 gap-1.5 sm:gap-2 xl:grid-cols-4">
-        <motion.div variants={item}><StatTile loading={loading} label={`Implied price (${scenario}${custom ? ', custom' : ''})`} value={r ? <span data-testid="implied-value"><AnimatedNumber value={r.implied_price} format={usd} /></span> : '—'}
+      <m.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-2 gap-1.5 sm:gap-2 xl:grid-cols-4">
+        <m.div variants={item}><StatTile loading={loading} label={`Implied price (${scenario}${custom ? ', custom' : ''})`} value={r ? <span data-testid="implied-value"><AnimatedNumber value={r.implied_price} format={usd} /></span> : '—'}
           tone={!r ? 'warning' : gap >= 0 ? 'positive' : 'negative'} sub={r ? `${signedPct(gap)} vs market` : undefined}
-          hint="Per-share equity value: explicit FCFF forecast plus a Gordon terminal value with reinvestment g/ROIC. Recomputed live in the browser." /></motion.div>
-        <motion.div variants={item}><StatTile loading={loading} label="Market price" value={live ? usd(market) : ''}
-          sub={live ? `Mkt cap ${bn(live.params.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." /></motion.div>
-        <motion.div variants={item}><StatTile loading={loading} label="WACC" value={r ? <AnimatedNumber value={r.inputs.wacc} format={(x) => pct(x, 2)} /> : '—'}
+          hint="Per-share equity value: explicit FCFF forecast plus a Gordon terminal value with reinvestment g/ROIC. Recomputed live in the browser." /></m.div>
+        <m.div variants={item}><StatTile loading={loading} label="Market price" value={live ? usd(market) : ''}
+          sub={live ? `Mkt cap ${bn(live.params.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." /></m.div>
+        <m.div variants={item}><StatTile loading={loading} label="WACC" value={r ? <AnimatedNumber value={r.inputs.wacc} format={(x) => pct(x, 2)} /> : '—'}
           sub={r ? `β ${r.inputs.beta.toFixed(2)} · rf ${pct(r.inputs.rf, 2)} · ERP ${pct(r.inputs.erp, 2)}` : undefined}
-          hint="CAPM cost of equity blended with after-tax cost of debt at market-value weights." /></motion.div>
-        <motion.div variants={item}><StatTile loading={loading} label="Terminal growth" value={r ? pct(r.inputs.terminal_growth, 1) : '—'}
+          hint="CAPM cost of equity blended with after-tax cost of debt at market-value weights." /></m.div>
+        <m.div variants={item}><StatTile loading={loading} label="Terminal growth" value={r ? pct(r.inputs.terminal_growth, 1) : '—'}
           sub={r ? `TV ${pct(r.tv_share_of_ev, 0)} of EV · ${r.inputs.forecast_years}y` : undefined}
-          tone={r && r.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value from the terminal value." /></motion.div>
-      </motion.div>
+          tone={r && r.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value from the terminal value." /></m.div>
+      </m.div>
 
       <div className="mt-2 grid gap-2 xl:grid-cols-3">
         <Card title={`Monte Carlo (${(mc?.n_draws ?? 10000).toLocaleString('en-US')} draws)`} className="xl:col-span-2"
-          action={running ? <Badge tone="neutral">updating…</Badge> : mc ? <Badge tone="positive"><span className="num">{mc.ms.toFixed(0)} ms in worker</span></Badge> : null}>
-          {mc ? (
-            <div className={running ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
-              <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
-                {(['p5', 'p25', 'p50', 'p75', 'p95'] as const).map((k) => (
-                  <div key={k} className="min-w-0">
-                    <div className="text-xs uppercase text-muted">{k}</div>
-                    <div className="num truncate text-lg font-semibold">{usd(mc.percentiles[k])}</div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-1 text-sm text-muted">
-                P(intrinsic value &gt; price) <span className="num font-semibold text-fg">{pct(mc.prob_value_gt_price, 1)}</span>
-              </div>
+          action={running ? <Badge tone="neutral">updating…</Badge> : mc ? <Badge tone="positive"><span className="num" data-volatile>{mc.ms.toFixed(0)} ms in worker</span></Badge> : null}>
+          {/* same markup while the worker runs, so the card doesn't change height when results land */}
+          <div className={running || !mc ? 'opacity-60 transition-opacity' : 'transition-opacity'} aria-busy={!mc}>
+            <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-5">
+              {(['p5', 'p25', 'p50', 'p75', 'p95'] as const).map((k) => (
+                <div key={k} className="min-w-0">
+                  <div className="text-xs uppercase text-muted">{k}</div>
+                  <div className="num truncate text-lg font-semibold">{mc ? usd(mc.percentiles[k]) : <span className="inline-block h-[0.9em] w-4/5 animate-pulse rounded-control bg-line align-middle" />}</div>
+                </div>
+              ))}
             </div>
-          ) : <div className="h-8 animate-pulse rounded-control bg-line" />}
+            <div className="mt-1 text-sm text-muted">
+              P(intrinsic value &gt; price) <span className="num font-semibold text-fg">{mc ? pct(mc.prob_value_gt_price, 1) : '…'}</span>
+            </div>
+          </div>
         </Card>
         <Card title="Reverse DCF">
           {live ? (
