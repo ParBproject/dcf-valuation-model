@@ -40,3 +40,8 @@ def wacc(
 ) -> float:
     v = equity_value + debt_value
     return equity_value / v * ke + debt_value / v * kd_pretax * (1 - tax_rate)
+
+
+def blume(beta: float) -> float:
+    """Blume (1971) adjustment toward 1: 0.67 * raw + 0.33."""
+    return 0.67 * beta + 0.33
