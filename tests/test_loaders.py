@@ -91,7 +91,8 @@ def test_fetch_companyfacts_uses_url_and_user_agent(monkeypatch):
     monkeypatch.setattr(http.requests, "get", fake_get)
     assert edgar.fetch_companyfacts(320193) == {"ok": True}
     assert seen["url"].endswith("CIK0000320193.json")
-    assert "ParBproject" in seen["ua"]
+    assert seen["ua"] == http.DEFAULT_USER_AGENT
+    assert "@" in http.FALLBACK_USER_AGENT  # SEC wants "Name email"
 
 
 def test_rate_limiter_spaces_calls(monkeypatch):
