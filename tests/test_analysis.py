@@ -120,6 +120,7 @@ def test_results_schema():
             "tornado",
             "monte_carlo",
             "reverse_dcf",
+            "engine",
         }
         sc = v["scenarios"]
         assert (
@@ -190,3 +191,17 @@ def test_bull_scenario_is_documented_set_not_tuned():
     assert bull["assumptions"]["target_margin"] == pytest.approx(p["base_margin"])
     assert bull["assumptions"]["terminal_roic"] == 0.25
     assert bull["assumptions"]["capex_to_rev"] == pytest.approx(p["capex_to_rev"] - 0.01)
+
+
+def test_engine_block_and_parity_fixtures_are_fresh():
+    """The TS engine's inputs and parity fixtures must come from the current model."""
+    fx = json.loads((ROOT / "web" / "src" / "engine" / "__fixtures__" / "parity.json").read_text())
+    assert fx["snapshot_date"] == SNAP.name
+    for t, p in PARAMS.items():
+        eng = results.engine_params(p)
+        assert COMMITTED["tickers"][t]["engine"] == json.loads(json.dumps(eng))
+        assert fx["tickers"][t]["params"] == json.loads(json.dumps(eng))
+        base = next(c for c in fx["tickers"][t]["cases"] if c["name"] == "base")
+        assert base["expected"]["implied_price"] == pytest.approx(
+            COMMITTED["tickers"][t]["base"]["implied_price"], rel=1e-12
+        )

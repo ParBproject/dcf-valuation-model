@@ -96,6 +96,26 @@ npm run build       # sync data, typecheck, build (base /dcf-valuation-model/)
 npm run shots       # Playwright screenshots + 390px overflow check
 ```
 
+## Live engine (M5)
+
+`web/src/engine/` is a TypeScript port of the Python model: the 10-year fade, margin
+reversion, terminal reinvestment g/ROIC, CAPM with the Blume beta, the cost-of-debt floor
+and fallback, CAT receivables netting, the EV-to-equity bridge, Gordon growth with the
+exit-multiple cross-check, and the reverse-DCF solver. Its inputs are
+`tickers[T].engine` in `results/valuations.json` (schema 1.2.0, additive).
+
+- **Parity gate:** `scripts/export_engine_fixtures.py` writes
+  `web/src/engine/__fixtures__/parity.json` with base, bear, bull and 5 perturbed sets per
+  ticker (including the Damodaran rf pairing). Vitest requires agreement within 0.01%.
+- **Monte Carlo** runs in a Web Worker with the same distributions and a seeded PRNG
+  (mulberry32 + Box-Muller). The PRNG differs from NumPy, so the match is statistical. Tolerance
+  vs Python at 10k draws: P50 ±2%, P25/P75 ±3%, P5/P95 ±5%, P(value>price) ±2pp.
+- **Assumptions panel:** a right column on desktop and a slide-up sheet on mobile. It has
+  sliders plus numeric inputs, per-field and global reset, diff badges, and the rf/ERP pairing
+  toggle. All state is in the URL, e.g. `#/overview?t=KO&s=bull&p=damodaran&beta=0.9`.
+
+Regenerate after any model change: `make valuations && python scripts/export_engine_fixtures.py`, then `cd web && npm test && npm run e2e`.
+
 ## CI
 
 The intended workflow lives at [`ci/github-workflow-ci.yml`](ci/github-workflow-ci.yml).

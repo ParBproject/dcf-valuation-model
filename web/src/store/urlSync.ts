@@ -6,15 +6,19 @@ import {
 } from './useDcfStore'
 import type { Scenario } from '../data/types'
 
-type Shared = Pick<DcfState, 'ticker' | 'scenario' | 'assumptions'>
+type Shared = Pick<DcfState, 'ticker' | 'scenario' | 'assumptions'> & { pairing?: DcfState['pairing'] }
 
 /** Bounds keep hand-edited URLs from producing nonsense inputs. */
-const BOUNDS: Record<(typeof ASSUMPTION_KEYS)[number], [number, number]> = {
+export const BOUNDS: Record<(typeof ASSUMPTION_KEYS)[number], [number, number]> = {
   growth_start: [-0.3, 0.6],
   target_margin: [-0.2, 0.8],
-  wacc: [0.02, 0.25],
-  terminal_growth: [-0.02, 0.04],
   capex_to_rev: [0, 0.6],
+  terminal_roic: [0.03, 0.6],
+  rf: [0, 0.1],
+  erp: [0, 0.12],
+  beta: [0, 3],
+  terminal_growth: [-0.02, 0.04],
+  forecast_years: [3, 15],
 }
 
 /** State -> query string. Defaults are omitted so share links stay short. */
@@ -22,6 +26,7 @@ export function serialize(s: Shared): string {
   const q = new URLSearchParams()
   if (s.ticker !== DEFAULTS.ticker) q.set('t', s.ticker)
   if (s.scenario !== DEFAULTS.scenario) q.set('s', s.scenario)
+  if (s.pairing && s.pairing !== DEFAULTS.pairing) q.set('p', s.pairing)
   for (const k of ASSUMPTION_KEYS) {
     const v = s.assumptions[k]
     if (v !== undefined) q.set(k, String(Number(v.toFixed(6))))
@@ -37,13 +42,15 @@ export function parse(search: string | URLSearchParams): Partial<Shared> {
   if (t && (TICKERS as readonly string[]).includes(t)) out.ticker = t as Ticker
   const s = q.get('s')
   if (s && (SCENARIOS as readonly string[]).includes(s)) out.scenario = s as Scenario
+  const pr = q.get('p')
+  if (pr === 'damodaran' || pr === 'snapshot') out.pairing = pr
   const a: Assumptions = {}
   for (const k of ASSUMPTION_KEYS) {
     const raw = q.get(k)
     if (raw === null) continue
     const v = Number(raw)
     const [lo, hi] = BOUNDS[k]
-    if (Number.isFinite(v) && v >= lo && v <= hi) a[k] = v
+    if (Number.isFinite(v) && v >= lo && v <= hi) a[k] = k === 'forecast_years' ? Math.round(v) : v
   }
   if (Object.keys(a).length) out.assumptions = a
   return out

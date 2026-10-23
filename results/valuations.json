@@ -1,5 +1,5 @@
 {
- "schema_version": "1.1.0",
+ "schema_version": "1.2.0",
  "snapshot_date": "2026-10-22",
  "rates": {
   "rf": 0.0513,
@@ -511,6 +511,41 @@
     "historical_cagr": 0.08677354924090741,
     "implied_growth_margin_held": 0.19196605980396264,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 416161000000.0,
+    "base_margin": 0.31970799762591884,
+    "tax_rate": 0.16392541497967747,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.06388708018948,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.069,
+     "regression_raw": 1.0953538510290746,
+     "regression_blume": 1.06388708018948,
+     "n_months": 59
+    },
+    "interest_expense": null,
+    "debt_spread": 0.01,
+    "debt": 98657000000.0,
+    "gross_debt": 98657000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 54697000000.0,
+    "market_cap": 5081985359600.0,
+    "shares": 14594180000.0,
+    "market_price": 348.22,
+    "wacc": 0.09544449868801458,
+    "growth_start": 0.08677354924090741,
+    "terminal_growth": 0.025,
+    "target_margin": 0.29586811862531537,
+    "capex_to_rev": 0.027897762769359194,
+    "da_to_rev": 0.0311185228353502,
+    "nwc_to_rev": -0.13044369039136758,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   },
   "MSFT": {
@@ -1014,6 +1049,41 @@
     "historical_cagr": 0.1457190738095313,
     "implied_growth_margin_held": 0.14967518746852876,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2026,
+    "base_revenue": 331839000000.0,
+    "base_margin": 0.4678081840892722,
+    "tax_rate": 0.1686264341249993,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.034689611419121,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.099,
+     "regression_raw": 1.051775539431524,
+     "regression_blume": 1.034689611419121,
+     "n_months": 59
+    },
+    "interest_expense": 3051000000.0,
+    "debt_spread": 0.01,
+    "debt": 40294000000.0,
+    "gross_debt": 40294000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 76843000000.0,
+    "market_cap": 3869303244450.2803,
+    "shares": 7425545491.0,
+    "market_price": 521.08,
+    "wacc": 0.09473635849220258,
+    "growth_start": 0.1457190738095313,
+    "terminal_growth": 0.025,
+    "target_margin": 0.43745018648031003,
+    "capex_to_rev": 0.1892964206544828,
+    "da_to_rev": 0.06904156671525084,
+    "nwc_to_rev": -0.1306355484498753,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   },
   "KO": {
@@ -1514,6 +1584,41 @@
     "historical_cagr": 0.07746156826284567,
     "implied_growth_margin_held": 0.11094666421413422,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 47941000000.0,
+    "base_margin": 0.28706117936630443,
+    "tax_rate": 0.188972891069799,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.5158574185480486,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.318,
+     "regression_raw": 0.27739913216126644,
+     "regression_blume": 0.5158574185480486,
+     "n_months": 59
+    },
+    "interest_expense": 1654000000.0,
+    "debt_spread": 0.01,
+    "debt": 45436000000.0,
+    "gross_debt": 45436000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 10270000000.0,
+    "market_cap": 410205044827.62,
+    "shares": 4302549243.0,
+    "market_price": 95.34,
+    "wacc": 0.06997812152652315,
+    "growth_start": 0.07746156826284567,
+    "terminal_growth": 0.025,
+    "target_margin": 0.25657603503714027,
+    "capex_to_rev": 0.03898558914201964,
+    "da_to_rev": 0.03046442850939741,
+    "nwc_to_rev": -0.06341009148930905,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   },
   "JNJ": {
@@ -2016,6 +2121,41 @@
     "historical_cagr": 0.02665503872479502,
     "implied_growth_margin_held": 0.03436314165592193,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 94193000000.0,
+    "base_margin": 0.3562048135211746,
+    "tax_rate": 0.1353526621413584,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.4752874029947364,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.206,
+     "regression_raw": 0.21684687014139759,
+     "regression_blume": 0.4752874029947364,
+     "n_months": 59
+    },
+    "interest_expense": 971000000.0,
+    "debt_spread": 0.01,
+    "debt": 49933000000.0,
+    "gross_debt": 49933000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 20102000000.0,
+    "market_cap": 644912963543.17,
+    "shares": 2409898597.0,
+    "market_price": 267.61,
+    "wacc": 0.06946091670070055,
+    "growth_start": 0.02665503872479502,
+    "terminal_growth": 0.025,
+    "target_margin": 0.23867655731269044,
+    "capex_to_rev": 0.04858032116699106,
+    "da_to_rev": 0.08645617037293223,
+    "nwc_to_rev": -0.11951403318745235,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   },
   "CAT": {
@@ -2519,6 +2659,41 @@
     "historical_cagr": 0.10115402157081044,
     "implied_growth_margin_held": 0.19675821363925933,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 67589000000.0,
+    "base_margin": 0.16498246756128956,
+    "tax_rate": 0.22497649404244288,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 1.4155799779593339,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 1.58,
+     "regression_raw": 1.620268623819901,
+     "regression_blume": 1.4155799779593339,
+     "n_months": 59
+    },
+    "interest_expense": 1842000000.0,
+    "debt_spread": 0.01,
+    "debt": 11289000000.0,
+    "gross_debt": 36210000000.0,
+    "finance_receivables_netted": 24921000000.0,
+    "cash": 9980000000.0,
+    "market_cap": 323634105600.44995,
+    "shares": 459674889.0,
+    "market_price": 704.05,
+    "wacc": 0.11135007516228088,
+    "growth_start": 0.10115402157081044,
+    "terminal_growth": 0.025,
+    "target_margin": 0.15617236618008246,
+    "capex_to_rev": 0.027150819021141335,
+    "da_to_rev": 0.04006619181394062,
+    "nwc_to_rev": 0.003183008599537862,
+    "exit_ev_ebitda": 12.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   },
   "XOM": {
@@ -3023,6 +3198,41 @@
     "historical_cagr": 0.12853121931324463,
     "implied_growth_margin_held": 0.030188086628913882,
     "years": 10
+   },
+   "engine": {
+    "base_fiscal_year": 2025,
+    "base_revenue": 332238000000.0,
+    "base_margin": 0.12602712513318765,
+    "tax_rate": 0.2612679817147161,
+    "rf": 0.0513,
+    "erp": 0.0423,
+    "beta": 0.44175483450669445,
+    "beta_method": "regression_blume",
+    "betas": {
+     "yfinance": 0.209,
+     "regression_raw": 0.16679826045775287,
+     "regression_blume": 0.44175483450669445,
+     "n_months": 59
+    },
+    "interest_expense": 603000000.0,
+    "debt_spread": 0.01,
+    "debt": 43500000000.0,
+    "gross_debt": 43500000000.0,
+    "finance_receivables_netted": 0.0,
+    "cash": 10681000000.0,
+    "market_cap": 732866068630.7999,
+    "shares": 4111911960.0,
+    "market_price": 178.23,
+    "wacc": 0.06818825866573094,
+    "growth_start": 0.12853121931324463,
+    "terminal_growth": 0.025,
+    "target_margin": 0.0956859859396871,
+    "capex_to_rev": 0.06674705868379198,
+    "da_to_rev": 0.09815673770478928,
+    "nwc_to_rev": 0.011928300117749445,
+    "exit_ev_ebitda": 7.0,
+    "forecast_years": 10,
+    "terminal_roic": 0.15
    }
   }
  }
