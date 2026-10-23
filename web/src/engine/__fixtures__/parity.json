@@ -163,6 +163,35 @@
       "terminal_value": 1819646135292.5288,
       "tv_share_of_ev": 0.44559191441617424
      }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 163.55680878742407,
+      "implied_price_exit_multiple": 160.0027592759635,
+      "enterprise_value": 2430937507669.2485,
+      "terminal_value": 2987922035491.9146,
+      "tv_share_of_ev": 0.5693219284240414
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.09544449868801458,
+      "implied_price": 109.55208663312673,
+      "implied_price_exit_multiple": 133.85335471368865,
+      "enterprise_value": 1642782871699.4456,
+      "terminal_value": 1925451660939.193,
+      "tv_share_of_ev": 0.4710301071604998
+     }
     }
    ],
    "reverse_dcf": {
@@ -432,6 +461,35 @@
       "enterprise_value": 2058236904687.162,
       "terminal_value": 2927217376595.296,
       "tv_share_of_ev": 0.5752600200288058
+     }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 426.91176000077735,
+      "implied_price_exit_multiple": 430.9428710804473,
+      "enterprise_value": 3133503694528.6465,
+      "terminal_value": 4590209874755.943,
+      "tv_share_of_ev": 0.6785233177294182
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.09473635849220258,
+      "implied_price": 276.4352466266359,
+      "implied_price_exit_multiple": 360.3471639732457,
+      "enterprise_value": 2016133499141.8892,
+      "terminal_value": 3006060909376.9253,
+      "tv_share_of_ev": 0.6030913073615896
      }
     }
    ],
@@ -703,6 +761,35 @@
       "terminal_value": 250382965596.41235,
       "tv_share_of_ev": 0.5831852528082819
      }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 43.47940932877519,
+      "implied_price_exit_multiple": 43.61132666028643,
+      "enterprise_value": 222238299693.60883,
+      "terminal_value": 277181130318.35736,
+      "tv_share_of_ev": 0.5777064293617235
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.06997812152652315,
+      "implied_price": 46.85527730037081,
+      "implied_price_exit_multiple": 44.89756358143727,
+      "enterprise_value": 236763137879.2655,
+      "terminal_value": 288373604439.4954,
+      "tv_share_of_ev": 0.6192876847472356
+     }
     }
    ],
    "reverse_dcf": {
@@ -972,6 +1059,35 @@
       "enterprise_value": 407649978735.71686,
       "terminal_value": 382523908284.4143,
       "tv_share_of_ev": 0.47942643924862655
+     }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 158.39366526635825,
+      "implied_price_exit_multiple": 170.37716058117945,
+      "enterprise_value": 411543671699.0844,
+      "terminal_value": 423581371652.60944,
+      "tv_share_of_ev": 0.4767419511359324
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.06946091670070055,
+      "implied_price": 158.57493237492932,
+      "implied_price_exit_multiple": 170.49529927790368,
+      "enterprise_value": 411980507049.71204,
+      "terminal_value": 418019694211.4735,
+      "tv_share_of_ev": 0.5184070461256184
      }
     }
    ],
@@ -1243,6 +1359,35 @@
       "terminal_value": 114821954699.73637,
       "tv_share_of_ev": 0.36043211698039085
      }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 451.81266356015516,
+      "implied_price_exit_multiple": 498.00347087293073,
+      "enterprise_value": 208995935970.80865,
+      "terminal_value": 253871615459.7693,
+      "tv_share_of_ev": 0.5626505536783676
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.11135007516228088,
+      "implied_price": 271.2025887557529,
+      "implied_price_exit_multiple": 383.726104602939,
+      "enterprise_value": 125974019882.81337,
+      "terminal_value": 143990273134.75217,
+      "tv_share_of_ev": 0.3976887771842063
+     }
     }
    ],
    "reverse_dcf": {
@@ -1512,6 +1657,35 @@
       "enterprise_value": 683629404396.7334,
       "terminal_value": 602250571022.659,
       "tv_share_of_ev": 0.4554896219800321
+     }
+    },
+    {
+     "name": "perturbed_5",
+     "overrides": {
+      "wacc": 0.08,
+      "terminal_growth": 0.030000000000000002
+     },
+     "expected": {
+      "wacc": 0.08,
+      "implied_price": 182.4812781484873,
+      "implied_price_exit_multiple": 197.82329626243296,
+      "enterprise_value": 783165950094.8516,
+      "terminal_value": 826381123194.1346,
+      "tv_share_of_ev": 0.4887525496904856
+     }
+    },
+    {
+     "name": "perturbed_6",
+     "overrides": {
+      "tax_rate": 0.25
+     },
+     "expected": {
+      "wacc": 0.06818825866573094,
+      "implied_price": 219.25054695554462,
+      "implied_price_exit_multiple": 213.81098217239892,
+      "enterprise_value": 934357946263.0455,
+      "terminal_value": 983334347706.6927,
+      "tv_share_of_ev": 0.5441390901858199
      }
     }
    ],

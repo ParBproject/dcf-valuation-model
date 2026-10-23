@@ -121,6 +121,7 @@ def test_results_schema():
             "monte_carlo",
             "reverse_dcf",
             "engine",
+            "history",
         }
         sc = v["scenarios"]
         assert (

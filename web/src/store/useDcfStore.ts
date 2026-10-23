@@ -8,7 +8,7 @@ export const SCENARIOS: readonly Scenario[] = ['bear', 'base', 'bull']
 /** User overrides (absolute values, decimals) on top of the scenario's assumptions. */
 export const ASSUMPTION_KEYS = [
   'growth_start', 'target_margin', 'capex_to_rev', 'terminal_roic',
-  'rf', 'erp', 'beta', 'terminal_growth', 'forecast_years',
+  'rf', 'erp', 'beta', 'terminal_growth', 'forecast_years', 'wacc',
 ] as const
 export type AssumptionKey = (typeof ASSUMPTION_KEYS)[number]
 export type Assumptions = Partial<Record<AssumptionKey, number>>
@@ -57,4 +57,14 @@ export const useDcfStore = create<DcfState>()((set) => ({
   }),
   resetAssumptions: () => set({ assumptions: {} }),
   hydrate: (p) => set((s) => ({ ...s, ...p })),
+}))
+
+/** Ephemeral UI state shared across charts (linked highlighting); not synced to the URL. */
+interface UiState {
+  hoverYear: number | null
+  setHoverYear: (y: number | null) => void
+}
+export const useUiStore = create<UiState>()((set) => ({
+  hoverYear: null,
+  setHoverYear: (hoverYear) => set({ hoverYear }),
 }))
