@@ -7,8 +7,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 1.069,
-        "cost_of_equity": 0.09651869999999999,
+        "beta": 1.06388708018948,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 1.069,
+          "regression_raw": 1.0953538510290746,
+          "regression_blume": 1.06388708018948,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.096302423492015,
         "pretax_cost_of_debt": 0.0613,
         "cost_of_debt_method": "fallback:rf+spread",
         "tax_rate": 0.16392541497967747,
@@ -45,6 +52,7 @@
         "2024": 112098805288.09167,
         "2025": 112073891892.50276
       },
+      "wacc": 0.09544449868801458,
       "forecast": [
         {
           "year": 2026,
@@ -107,18 +115,17 @@
           "fcff": 137243016643.81458
         }
       ],
-      "wacc": 0.09565665655781395,
-      "terminal_value": 1990953137512.3176,
-      "tv_implied_ev_ebitda": 11.159573248945073,
-      "enterprise_value": 1762136576700.6025,
-      "pv_fcf": 501213392906.974,
-      "pv_tv": 1260923183793.6284,
-      "tv_share_of_ev": 0.7155649570333315,
-      "equity_value": 1699413576700.6025,
-      "implied_price": 116.44460851521652,
-      "implied_price_exit_multiple": 122.95131493598811,
+      "terminal_value": 1996949295968.8591,
+      "tv_implied_ev_ebitda": 11.193182563120928,
+      "enterprise_value": 1767438717634.5332,
+      "pv_fcf": 501492823522.9081,
+      "pv_tv": 1265945894111.625,
+      "tv_share_of_ev": 0.7162601347818807,
+      "equity_value": 1704715717634.5332,
+      "implied_price": 116.8079136775436,
+      "implied_price_exit_multiple": 123.0604631178855,
       "market_price": 348.22,
-      "upside": -0.6656004580000674,
+      "upside": -0.6645571372191614,
       "notes": [
         "Interest expense is untagged for FY2024-25, so the cost of debt falls back to rf + 1%."
       ]
@@ -129,8 +136,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 1.099,
-        "cost_of_equity": 0.09778769999999999,
+        "beta": 1.034689611419121,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 1.099,
+          "regression_raw": 1.051775539431524,
+          "regression_blume": 1.034689611419121,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.09506737056302882,
         "pretax_cost_of_debt": 0.07571846925100512,
         "cost_of_debt_method": "interest/debt",
         "tax_rate": 0.1686264341249993,
@@ -167,6 +181,7 @@
         "2025": 65722971147.07953,
         "2026": 38971818572.44446
       },
+      "wacc": 0.09473635849220258,
       "forecast": [
         {
           "year": 2027,
@@ -229,18 +244,17 @@
           "fcff": 118450368050.42332
         }
       ],
-      "wacc": 0.09742865103752489,
-      "terminal_value": 1676292813858.7202,
-      "tv_implied_ev_ebitda": 6.647572932777436,
-      "enterprise_value": 1453045715124.6582,
-      "pv_fcf": 399948627693.73584,
-      "pv_tv": 1053097087430.9222,
-      "tv_share_of_ev": 0.7247515177735313,
-      "equity_value": 1433686715124.6582,
-      "implied_price": 193.0749352841933,
-      "implied_price_exit_multiple": 307.2648361781177,
+      "terminal_value": 1741008992680.0417,
+      "tv_implied_ev_ebitda": 6.904213965351629,
+      "enterprise_value": 1510135257676.3638,
+      "pv_fcf": 402865843764.2677,
+      "pv_tv": 1107269413912.0962,
+      "tv_share_of_ev": 0.7332253242109221,
+      "equity_value": 1490776257676.3638,
+      "implied_price": 200.7631977318343,
+      "implied_price_exit_multiple": 310.82126524234457,
       "market_price": 521.08,
-      "upside": -0.6294716065015098,
+      "upside": -0.6147171303219576,
       "notes": [
         "D&A is tagged as Depreciation only (amortisation excluded), so historical FCF and the D&A ratio are slightly understated.",
         "Capex/revenue jumped to 35% in FY2026 (AI build-out) from 12% in FY2021. The forecast uses the 6-year average (about 21%), not the latest year; the result is very sensitive to this."
@@ -252,8 +266,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 0.318,
-        "cost_of_equity": 0.0647514,
+        "beta": 0.5158574185480486,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 0.318,
+          "regression_raw": 0.27739913216126644,
+          "regression_blume": 0.5158574185480486,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.07312076880458246,
         "pretax_cost_of_debt": 0.0513,
         "cost_of_debt_method": "interest/debt",
         "tax_rate": 0.188972891069799,
@@ -290,6 +311,7 @@
         "2024": 15399194253.400581,
         "2025": -864125265.6582069
       },
+      "wacc": 0.06997812152652315,
       "forecast": [
         {
           "year": 2026,
@@ -352,18 +374,17 @@
           "fcff": 12350377368.633684
         }
       ],
-      "wacc": 0.06244333653593592,
-      "terminal_value": 338087840828.5017,
-      "tv_implied_ev_ebitda": 19.1525710380672,
-      "enterprise_value": 300244228750.1725,
-      "pv_fcf": 50497006473.62971,
-      "pv_tv": 249747222276.5428,
-      "tv_share_of_ev": 0.8318135649639837,
-      "equity_value": 265078228750.1725,
-      "implied_price": 61.60957464494788,
-      "implied_price_exit_multiple": 39.93203869767949,
+      "terminal_value": 281450989352.33563,
+      "tv_implied_ev_ebitda": 15.944111015927637,
+      "enterprise_value": 250161208140.4971,
+      "pv_fcf": 49470025534.20289,
+      "pv_tv": 200691182606.29422,
+      "tv_share_of_ev": 0.8022474151691048,
+      "equity_value": 214995208140.4971,
+      "implied_price": 49.96926147685164,
+      "implied_price_exit_multiple": 38.43071075262643,
       "market_price": 95.34,
-      "upside": -0.3537909099543961,
+      "upside": -0.47588355908483704,
       "notes": []
     },
     "JNJ": {
@@ -372,8 +393,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 0.206,
-        "cost_of_equity": 0.0600138,
+        "beta": 0.4752874029947364,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 0.206,
+          "regression_raw": 0.21684687014139759,
+          "regression_blume": 0.4752874029947364,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.07140465714667735,
         "pretax_cost_of_debt": 0.0513,
         "cost_of_debt_method": "interest/debt",
         "tax_rate": 0.1353526621413584,
@@ -410,6 +438,7 @@
         "2024": 18692413375.681667,
         "2025": 27188830115.71161
       },
+      "wacc": 0.06946091670070055,
       "forecast": [
         {
           "year": 2026,
@@ -472,18 +501,17 @@
           "fcff": 26232749066.224743
         }
       ],
-      "wacc": 0.05888862899206773,
-      "terminal_value": 793439232940.764,
-      "tv_implied_ev_ebitda": 22.806727849448926,
-      "enterprise_value": 719202868156.8475,
-      "pv_fcf": 123180926317.46716,
-      "pv_tv": 596021941839.3804,
-      "tv_share_of_ev": 0.8287257576806504,
-      "equity_value": 688978868156.8475,
-      "implied_price": 285.8953770978305,
-      "implied_price_exit_multiple": 168.70425473423492,
+      "terminal_value": 604768632502.2778,
+      "tv_implied_ev_ebitda": 17.383553825844878,
+      "enterprise_value": 552098934063.1202,
+      "pv_fcf": 119819406935.98369,
+      "pv_tv": 432279527127.13654,
+      "tv_share_of_ev": 0.7829747540822366,
+      "equity_value": 521874934063.12024,
+      "implied_price": 216.55472753616456,
+      "implied_price_exit_multiple": 161.00315059078156,
       "market_price": 267.61,
-      "upside": 0.06832845221714612,
+      "upside": -0.19078237907341078,
       "notes": [
         "EBIT is derived (pretax income + interest) because OperatingIncomeLoss is not tagged; FY2025 pretax includes large one-offs, so the last-year margin is elevated and mean-reverts."
       ]
@@ -494,8 +522,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 1.58,
-        "cost_of_equity": 0.118134,
+        "beta": 1.4155799779593339,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 1.58,
+          "regression_raw": 1.620268623819901,
+          "regression_blume": 1.4155799779593339,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.11117903306767982,
         "pretax_cost_of_debt": 0.0513,
         "cost_of_debt_method": "interest/debt",
         "tax_rate": 0.22497649404244288,
@@ -532,6 +567,7 @@
         "2024": 9639173633.440514,
         "2025": 7370537821.67923
       },
+      "wacc": 0.10399222631414617,
       "forecast": [
         {
           "year": 2026,
@@ -594,18 +630,17 @@
           "fcff": 11893583090.006104
         }
       ],
-      "wacc": 0.11024733642319261,
-      "terminal_value": 143006493560.53735,
-      "tv_implied_ev_ebitda": 7.953688743241857,
-      "enterprise_value": 123761012975.6037,
-      "pv_fcf": 38988109419.531746,
-      "pv_tv": 84772903556.07195,
-      "tv_share_of_ev": 0.6849726058139387,
-      "equity_value": 97531012975.6037,
-      "implied_price": 212.17389792115378,
-      "implied_price_exit_multiple": 305.9942318353485,
+      "terminal_value": 154330663105.68164,
+      "tv_implied_ev_ebitda": 8.583512729518736,
+      "enterprise_value": 133744848787.83109,
+      "pv_fcf": 39637801869.37564,
+      "pv_tv": 94107046918.45544,
+      "tv_share_of_ev": 0.7036311885756745,
+      "equity_value": 107514848787.83109,
+      "implied_price": 233.89323924507673,
+      "implied_price_exit_multiple": 315.3798241530453,
       "market_price": 704.05,
-      "upside": -0.6986380258203908,
+      "upside": -0.6677888797030371,
       "notes": [
         "Interest is InterestPaidNet (cash paid, not expense); used as the cost-of-debt proxy.",
         "Total debt includes Cat Financial's captive-finance debt, which is backed by finance receivables. Subtracting all of it understates equity value; a later milestone may net it off."
@@ -617,8 +652,15 @@
       "inputs": {
         "rf": 0.0513,
         "erp": 0.0423,
-        "beta": 0.209,
-        "cost_of_equity": 0.0601407,
+        "beta": 0.44175483450669445,
+        "beta_method": "regression_blume",
+        "betas": {
+          "yfinance": 0.209,
+          "regression_raw": 0.16679826045775287,
+          "regression_blume": 0.44175483450669445,
+          "n_months": 59
+        },
+        "cost_of_equity": 0.06998622949963318,
         "pretax_cost_of_debt": 0.0513,
         "cost_of_debt_method": "interest/debt",
         "tax_rate": 0.2612679817147161,
@@ -655,6 +697,7 @@
         "2024": 35205561168.74348,
         "2025": 21749905786.565857
       },
+      "wacc": 0.06818825866573094,
       "forecast": [
         {
           "year": 2026,
@@ -717,18 +760,17 @@
           "fcff": 48816717398.45778
         }
       ],
-      "wacc": 0.05889437683662175,
-      "terminal_value": 1476266567006.3525,
-      "tv_implied_ev_ebitda": 15.882395793280008,
-      "enterprise_value": 1310572147883.0938,
-      "pv_fcf": 201648680476.16437,
-      "pv_tv": 1108923467406.9294,
-      "tv_share_of_ev": 0.8461369098970415,
-      "equity_value": 1277753147883.0938,
-      "implied_price": 310.7442864324103,
-      "implied_price_exit_multiple": 159.9197936721831,
+      "terminal_value": 1158581912753.1235,
+      "tv_implied_ev_ebitda": 12.464589328602829,
+      "enterprise_value": 1029642171673.31,
+      "pv_fcf": 196560184391.63147,
+      "pv_tv": 833081987281.6786,
+      "tv_share_of_ev": 0.8090985491860787,
+      "equity_value": 996823171673.31,
+      "implied_price": 242.42327690141255,
+      "implied_price_exit_multiple": 153.60067472550324,
       "market_price": 178.23,
-      "upside": 0.7435015790406236,
+      "upside": 0.3601709975953127,
       "notes": [
         "Current long-term debt and commercial paper are both included in total debt; they are separate XBRL lines, but if the filer nests one in the other, debt is overstated by up to the CP amount.",
         "Diluted shares fall back to basic (XOM reports identical basic and diluted EPS).",

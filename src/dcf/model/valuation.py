@@ -1,4 +1,9 @@
-"""End-to-end valuation from a snapshot + per-ticker YAML config."""
+"""End-to-end valuation from a snapshot + per-ticker YAML config.
+
+`build_params` turns raw inputs into a flat parameter dict once; `price` values a
+parameter dict (with optional overrides), so sensitivity / Monte Carlo / reverse DCF
+reuse exactly the same math as the base case.
+"""
 
 from __future__ import annotations
 
@@ -7,6 +12,7 @@ from pathlib import Path
 
 import yaml
 
+from ..data.prices import monthly_returns
 from . import fcf, forecast, terminal, wacc
 
 
@@ -30,83 +36,114 @@ def load_config(path: Path) -> dict:
     return yaml.safe_load(path.read_text())
 
 
-def value_ticker(record: dict, mkt: dict, rates: dict, cfg: dict) -> dict:
+def beta_estimates(ticker: str, mkt: dict, prices: dict | None) -> dict:
+    out = {"yfinance": mkt["beta"], "regression_raw": None, "regression_blume": None, "n_months": 0}
+    if prices:
+        s = monthly_returns(prices["close"][ticker])
+        m = monthly_returns(prices["close"][prices["benchmark"]])
+        raw = wacc.regression_beta(s, m)
+        out.update(regression_raw=raw, regression_blume=wacc.blume(raw), n_months=len(s))
+    return out
+
+
+def select_beta(est: dict, cfg: dict) -> tuple[float, str]:
+    """Default: Blume-adjusted 5y monthly regression beta; falls back to yfinance."""
+    if "beta" in cfg:
+        return cfg["beta"], "config override"
+    method = cfg.get("beta_method", "regression_blume")
+    if method == "yfinance" or est["regression_raw"] is None:
+        return est["yfinance"], "yfinance"
+    return (
+        (est["regression_blume"], method)
+        if method == "regression_blume"
+        else (est["regression_raw"], "regression_raw")
+    )
+
+
+def build_params(
+    record: dict, mkt: dict, rates: dict, cfg: dict, prices: dict | None = None
+) -> dict:
     rows = fcf.history(record)
     drv = fcf.drivers(rows)
     last = record["years"][-1]
     rf = rates["yield"]
     erp = rates["equity_risk_premium"]["value"]
-
     tax = cfg.get("tax_rate", drv["tax_rate"])
     debt = last["total_debt"]
     if cfg.get("exclude_short_term_borrowings"):
         debt -= last.get("short_term_borrowings") or 0.0
-    beta = cfg.get("beta", mkt["beta"])
+    betas = beta_estimates(record["ticker"], mkt, prices)
+    beta, beta_method = select_beta(betas, cfg)
     ke = wacc.cost_of_equity(rf, beta, erp)
     interest = None if cfg.get("ignore_interest") else last.get("interest_expense")
     kd, kd_method = wacc.pretax_cost_of_debt(interest, debt, rf, cfg.get("debt_spread", 0.01))
     mcap = mkt["price"] * mkt["shares_outstanding"]
-    r = wacc.wacc(mcap, debt, ke, kd, tax)
-
-    g = cfg["terminal_growth"]
-    growth_start = cfg.get("growth_start", drv["revenue_cagr"])
-    growth_start = min(
-        max(growth_start, cfg.get("growth_floor", -0.05)), cfg.get("growth_cap", 0.15)
-    )
-    target_margin = cfg.get("target_margin", drv["ebit_margin_mean"])
-    capex_to_rev = cfg.get("capex_to_rev", drv["capex_to_rev"])
-    da_to_rev = cfg.get("da_to_rev", drv["da_to_rev"])
-    nwc_to_rev = cfg.get("nwc_to_rev", drv["nwc_to_rev"])
-    proj = forecast.project(
-        last["fiscal_year"],
-        last["revenue"],
-        drv["ebit_margin_last"],
-        growth_start=growth_start,
-        terminal_growth=g,
-        target_margin=target_margin,
-        capex_to_rev=capex_to_rev,
-        da_to_rev=da_to_rev,
-        nwc_to_rev=nwc_to_rev,
-        tax_rate=tax,
-        years=cfg.get("forecast_years", 5),
-    )
-    tv = terminal.gordon(proj[-1].fcff, r, g)
-    ev, pv_fcf, pv_tv = enterprise_value([p.fcff for p in proj], tv, r)
-    shares = mkt["shares_outstanding"]
-    eq, per_share = equity_bridge(ev, debt, last["cash"], shares)
-    ebitda_n = proj[-1].ebit + proj[-1].d_and_a
-    tv_exit = terminal.exit_multiple(ebitda_n, cfg["exit_ev_ebitda"])
-    ev_exit, _, _ = enterprise_value([p.fcff for p in proj], tv_exit, r)
-    _, per_share_exit = equity_bridge(ev_exit, debt, last["cash"], shares)
+    gs = cfg.get("growth_start", drv["revenue_cagr"])
+    gs = min(max(gs, cfg.get("growth_floor", -0.05)), cfg.get("growth_cap", 0.15))
     return {
         "ticker": record["ticker"],
         "base_fiscal_year": last["fiscal_year"],
-        "inputs": {
-            "rf": rf,
-            "erp": erp,
-            "beta": beta,
-            "cost_of_equity": ke,
-            "pretax_cost_of_debt": kd,
-            "cost_of_debt_method": kd_method,
-            "tax_rate": tax,
-            "debt": debt,
-            "cash": last["cash"],
-            "market_cap": mcap,
-            "shares": shares,
-        },
+        "base_revenue": last["revenue"],
+        "base_margin": drv["ebit_margin_last"],
+        "rf": rf,
+        "erp": erp,
+        "beta": beta,
+        "beta_method": beta_method,
+        "betas": betas,
+        "cost_of_equity": ke,
+        "pretax_cost_of_debt": kd,
+        "cost_of_debt_method": kd_method,
+        "tax_rate": tax,
+        "debt": debt,
+        "cash": last["cash"],
+        "market_cap": mcap,
+        "shares": mkt["shares_outstanding"],
+        "market_price": mkt["price"],
+        "wacc": wacc.wacc(mcap, debt, ke, kd, tax),
+        "growth_start": gs,
+        "terminal_growth": cfg["terminal_growth"],
+        "target_margin": cfg.get("target_margin", drv["ebit_margin_mean"]),
+        "capex_to_rev": cfg.get("capex_to_rev", drv["capex_to_rev"]),
+        "da_to_rev": cfg.get("da_to_rev", drv["da_to_rev"]),
+        "nwc_to_rev": cfg.get("nwc_to_rev", drv["nwc_to_rev"]),
+        "exit_ev_ebitda": cfg["exit_ev_ebitda"],
+        "forecast_years": cfg.get("forecast_years", 5),
         "drivers": drv,
-        "assumptions": {
-            "growth_start": growth_start,
-            "terminal_growth": g,
-            "target_margin": target_margin,
-            "capex_to_rev": capex_to_rev,
-            "da_to_rev": da_to_rev,
-            "nwc_to_rev": nwc_to_rev,
-            "exit_ev_ebitda": cfg["exit_ev_ebitda"],
-        },
-        "historical_fcff": {r_.fiscal_year: r_.fcff for r_ in rows},
-        "forecast": [p.__dict__ for p in proj],
-        "wacc": r,
+        "historical_fcff": {r.fiscal_year: r.fcff for r in rows},
+        "notes": cfg.get("notes", []),
+    }
+
+
+def price(
+    p: dict, *, detail: bool = False, growth_path: list[float] | None = None, **over
+) -> float | dict:
+    q = {**p, **over}
+    proj = forecast.project(
+        q["base_fiscal_year"],
+        q["base_revenue"],
+        q["base_margin"],
+        growth_start=q["growth_start"],
+        terminal_growth=q["terminal_growth"],
+        target_margin=q["target_margin"],
+        capex_to_rev=q["capex_to_rev"],
+        da_to_rev=q["da_to_rev"],
+        nwc_to_rev=q["nwc_to_rev"],
+        tax_rate=q["tax_rate"],
+        years=q["forecast_years"],
+        growth_path=growth_path,
+    )
+    r, g = q["wacc"], q["terminal_growth"]
+    tv = terminal.gordon(proj[-1].fcff, r, g)
+    fcfs = [x.fcff for x in proj]
+    ev, pv_fcf, pv_tv = enterprise_value(fcfs, tv, r)
+    eq, per_share = equity_bridge(ev, q["debt"], q["cash"], q["shares"])
+    if not detail:
+        return per_share
+    ebitda_n = proj[-1].ebit + proj[-1].d_and_a
+    ev_x, _, _ = enterprise_value(fcfs, terminal.exit_multiple(ebitda_n, q["exit_ev_ebitda"]), r)
+    _, per_share_x = equity_bridge(ev_x, q["debt"], q["cash"], q["shares"])
+    return {
+        "forecast": [x.__dict__ for x in proj],
         "terminal_value": tv,
         "tv_implied_ev_ebitda": terminal.implied_multiple(tv, ebitda_n),
         "enterprise_value": ev,
@@ -115,20 +152,85 @@ def value_ticker(record: dict, mkt: dict, rates: dict, cfg: dict) -> dict:
         "tv_share_of_ev": pv_tv / ev if ev else None,
         "equity_value": eq,
         "implied_price": per_share,
-        "implied_price_exit_multiple": per_share_exit,
-        "market_price": mkt["price"],
-        "upside": per_share / mkt["price"] - 1,
-        "notes": cfg.get("notes", []),
+        "implied_price_exit_multiple": per_share_x,
     }
 
 
+INPUT_KEYS = [
+    "rf",
+    "erp",
+    "beta",
+    "beta_method",
+    "betas",
+    "cost_of_equity",
+    "pretax_cost_of_debt",
+    "cost_of_debt_method",
+    "tax_rate",
+    "debt",
+    "cash",
+    "market_cap",
+    "shares",
+]
+ASSUMPTION_KEYS = [
+    "growth_start",
+    "terminal_growth",
+    "target_margin",
+    "capex_to_rev",
+    "da_to_rev",
+    "nwc_to_rev",
+    "exit_ev_ebitda",
+]
+
+
+def summarize(p: dict, d: dict) -> dict:
+    return {
+        "ticker": p["ticker"],
+        "base_fiscal_year": p["base_fiscal_year"],
+        "inputs": {k: p[k] for k in INPUT_KEYS},
+        "drivers": p["drivers"],
+        "assumptions": {k: p[k] for k in ASSUMPTION_KEYS},
+        "historical_fcff": p["historical_fcff"],
+        "wacc": p["wacc"],
+        **d,
+        "market_price": p["market_price"],
+        "upside": d["implied_price"] / p["market_price"] - 1,
+        "notes": p["notes"],
+    }
+
+
+def value_ticker(
+    record: dict, mkt: dict, rates: dict, cfg: dict, prices: dict | None = None
+) -> dict:
+    p = build_params(record, mkt, rates, cfg, prices)
+    return summarize(p, price(p, detail=True))
+
+
+def load_snapshot(snapshot_dir: Path) -> dict:
+    rd = lambda n: json.loads((snapshot_dir / n).read_text())  # noqa: E731
+    man = rd("manifest.json")
+    return {
+        "manifest": man,
+        "market": rd("market.json"),
+        "rates": rd("rates.json"),
+        "prices": rd("prices.json") if (snapshot_dir / "prices.json").exists() else None,
+        "records": {t: rd(f"{t}.json") for t in man["tickers"]},
+    }
+
+
+def all_params(snapshot_dir: Path, config_dir: Path) -> tuple[dict, dict]:
+    s = load_snapshot(snapshot_dir)
+    ps = {
+        t: build_params(
+            rec, s["market"][t], s["rates"], load_config(config_dir / f"{t}.yaml"), s["prices"]
+        )
+        for t, rec in s["records"].items()
+    }
+    return s, ps
+
+
 def run(snapshot_dir: Path, config_dir: Path) -> dict:
-    manifest = json.loads((snapshot_dir / "manifest.json").read_text())
-    mkt = json.loads((snapshot_dir / "market.json").read_text())
-    rates = json.loads((snapshot_dir / "rates.json").read_text())
-    out = {"snapshot_date": manifest["snapshot_date"], "valuations": {}}
-    for t in manifest["tickers"]:
-        rec = json.loads((snapshot_dir / f"{t}.json").read_text())
-        cfg = load_config(config_dir / f"{t}.yaml")
-        out["valuations"][t] = value_ticker(rec, mkt[t], rates, cfg)
-    return out
+    s, ps = all_params(snapshot_dir, config_dir)
+    return {
+        "snapshot_date": s["manifest"]["snapshot_date"],
+        "valuations": {t: summarize(p, price(p, detail=True)) for t, p in ps.items()},
+    }

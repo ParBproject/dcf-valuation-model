@@ -40,8 +40,9 @@ def project(
     nwc_to_rev: float,
     tax_rate: float,
     years: int = 5,
+    growth_path: list[float] | None = None,
 ) -> list[ForecastYear]:
-    growth = linear_path(growth_start, terminal_growth, years)
+    growth = growth_path or linear_path(growth_start, terminal_growth, years)
     # margin moves from the last actual toward the target, reaching it in the final year
     margins = [base_margin + (target_margin - base_margin) * (i + 1) / years for i in range(years)]
     out: list[ForecastYear] = []
