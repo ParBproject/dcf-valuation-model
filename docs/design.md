@@ -21,7 +21,7 @@ All tokens live in [`web/src/design/tokens.ts`](../web/src/design/tokens.ts). Th
 - Scale: 28/24 headings, 16 body, 14 labels, 12 captions.
 
 ## Space, shape, depth
-- **8px grid:** Tailwind spacing is replaced by multiples of 8 (`p-1` = 8px, `p-2` = 16px, … plus 4px half-steps).
+- **8px grid:** Tailwind spacing is replaced by multiples of 8 (`p-1` = 8px, `p-2` = 16px, … up to 48 = 384px, plus 4px half-steps). Keys outside the scale silently produce no CSS. M5 found and fixed this for `h-7`/`bottom-9`, so the scale now covers 0–12, 14, 16, 20, 24, 32 and 48.
 - **Radius:** cards 12px, controls 8px, pills fully rounded.
 - **Focus:** a subtle emerald glow (`shadow-focus`: 2px ring at 55% plus a 16px halo at 25%) on every focusable element via `:focus-visible`.
 
@@ -35,3 +35,9 @@ Framer Motion. Route changes fade and slide 8px in 180ms, the active tab indicat
 
 ## State
 Zustand store `{ ticker, scenario, assumptions }`, synced two-way with the URL query (e.g. `#/overview?t=KO&s=bull&wacc=0.08`). Values are validated and bounded when parsed, defaults are omitted, and updates use `replace` so they don't fill the browser history.
+
+## Assumptions panel (M5)
+- Desktop: a 320px sticky right column. Mobile: an emerald floating button above the tab bar opens a spring-animated bottom sheet (Radix Dialog: focus trap, Esc to close).
+- Each field has a slider and a numeric input (Enter/blur commits, clamped to range), a warning-tone diff badge vs base (`+1.00pp`), and a ↺ per-field reset.
+- The WACC badge shows the live WACC and `±x.xpp vs base`. The rate-pairing toggle is labelled with both rates.
+- The recompute time is shown at the bottom of the panel.

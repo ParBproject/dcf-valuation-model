@@ -10,7 +10,7 @@ import yaml
 from ..model import valuation
 from . import montecarlo, reverse_dcf, sensitivity
 
-SCHEMA_VERSION = "1.1.0"
+SCHEMA_VERSION = "1.2.0"
 
 
 def _overrides(p: dict, spec: dict) -> dict:
@@ -40,6 +40,43 @@ def scenarios(p: dict, shifts: dict) -> dict:
     return out
 
 
+ENGINE_KEYS = [
+    "base_fiscal_year",
+    "base_revenue",
+    "base_margin",
+    "tax_rate",
+    "rf",
+    "erp",
+    "beta",
+    "beta_method",
+    "betas",
+    "interest_expense",
+    "debt_spread",
+    "debt",
+    "gross_debt",
+    "finance_receivables_netted",
+    "cash",
+    "market_cap",
+    "shares",
+    "market_price",
+    "wacc",
+    "growth_start",
+    "terminal_growth",
+    "target_margin",
+    "capex_to_rev",
+    "da_to_rev",
+    "nwc_to_rev",
+    "exit_ev_ebitda",
+    "forecast_years",
+    "terminal_roic",
+]
+
+
+def engine_params(p: dict) -> dict:
+    """Flat inputs for the TypeScript engine (web/src/engine), schema >= 1.2.0."""
+    return {k: p[k] for k in ENGINE_KEYS}
+
+
 def build(snapshot_dir: Path, config_dir: Path, n_draws: int = montecarlo.N_DRAWS) -> dict:
     snap, ps = valuation.all_params(snapshot_dir, config_dir)
     shifts = yaml.safe_load((config_dir / "scenarios.yaml").read_text())
@@ -52,6 +89,7 @@ def build(snapshot_dir: Path, config_dir: Path, n_draws: int = montecarlo.N_DRAW
             "tornado": sensitivity.tornado(p),
             "monte_carlo": montecarlo.summary(p, n=n_draws),
             "reverse_dcf": reverse_dcf.implied_growth(p),
+            "engine": engine_params(p),
         }
     return {
         "schema_version": SCHEMA_VERSION,

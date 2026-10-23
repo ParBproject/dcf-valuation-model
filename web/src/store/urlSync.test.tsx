@@ -13,16 +13,19 @@ describe('serialize / parse', () => {
     expect(serialize(DEFAULTS)).toBe('')
   })
   it('round-trips', () => {
-    const s = { ticker: 'MSFT' as const, scenario: 'bear' as const, assumptions: { wacc: 0.0875, terminal_growth: 0.02 } }
+    const s = { ticker: 'MSFT' as const, scenario: 'bear' as const, pairing: 'damodaran' as const, assumptions: { beta: 0.875, terminal_growth: 0.02, forecast_years: 7 } }
     expect(parse(serialize(s))).toEqual(s)
   })
   it('rounds floats to 6 dp', () => {
-    expect(serialize({ ...DEFAULTS, assumptions: { wacc: 0.1 + 0.2 } })).toBe('wacc=0.3')
+    expect(serialize({ ...DEFAULTS, assumptions: { capex_to_rev: 0.1 + 0.2 } })).toBe('capex_to_rev=0.3')
   })
   it('drops invalid values', () => {
-    expect(parse('t=TSLA&s=meh&wacc=abc&terminal_growth=0.09&growth_start=0.05')).toEqual({
+    expect(parse('t=TSLA&s=meh&p=x&beta=abc&terminal_growth=0.09&growth_start=0.05')).toEqual({
       assumptions: { growth_start: 0.05 },
     })
+  })
+  it('rounds horizon to whole years and reads pairing', () => {
+    expect(parse('forecast_years=7.6&p=damodaran')).toEqual({ pairing: 'damodaran', assumptions: { forecast_years: 8 } })
   })
   it('accepts lower-case tickers', () => {
     expect(parse('t=ko')).toEqual({ ticker: 'KO' })
@@ -38,11 +41,11 @@ describe('useUrlSync', () => {
   beforeEach(() => useDcfStore.setState({ ...DEFAULTS }))
 
   it('hydrates from the URL and writes changes back', async () => {
-    window.location.hash = '#/overview?t=JNJ&s=bull&wacc=0.08'
+    window.location.hash = '#/overview?t=JNJ&s=bull&rf=0.04'
     const el = document.createElement('div')
     const root = createRoot(el)
     await act(async () => root.render(createElement(HashRouter, null, createElement(Probe))))
-    expect(useDcfStore.getState()).toMatchObject({ ticker: 'JNJ', scenario: 'bull', assumptions: { wacc: 0.08 } })
+    expect(useDcfStore.getState()).toMatchObject({ ticker: 'JNJ', scenario: 'bull', assumptions: { rf: 0.04 } })
 
     await act(async () => useDcfStore.getState().setTicker('CAT'))
     expect(window.location.hash).toBe('#/overview?t=CAT&s=bull')
