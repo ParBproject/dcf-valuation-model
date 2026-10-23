@@ -19,6 +19,7 @@ export const BOUNDS: Record<(typeof ASSUMPTION_KEYS)[number], [number, number]> 
   beta: [0, 3],
   terminal_growth: [-0.02, 0.04],
   forecast_years: [3, 15],
+  wacc: [0.02, 0.25],
 }
 
 /** State -> query string. Defaults are omitted so share links stay short. */

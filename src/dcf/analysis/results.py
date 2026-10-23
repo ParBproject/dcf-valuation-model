@@ -10,7 +10,7 @@ import yaml
 from ..model import valuation
 from . import montecarlo, reverse_dcf, sensitivity
 
-SCHEMA_VERSION = "1.2.0"
+SCHEMA_VERSION = "1.3.0"
 
 
 def _overrides(p: dict, spec: dict) -> dict:
@@ -77,8 +77,48 @@ def engine_params(p: dict) -> dict:
     return {k: p[k] for k in ENGINE_KEYS}
 
 
+HISTORY_FIELDS = [
+    "revenue",
+    "operating_income",
+    "pretax_income",
+    "tax_expense",
+    "d_and_a",
+    "capex",
+    "interest_expense",
+    "current_assets",
+    "current_liabilities",
+    "cash",
+    "short_term_investments",
+    "debt_noncurrent",
+    "debt_current",
+    "short_term_borrowings",
+    "total_debt",
+    "finance_receivables_current",
+    "finance_receivables_noncurrent",
+    "diluted_shares",
+]
+
+
+def history(record: dict, p: dict) -> dict:
+    """Snapshot line items per fiscal year with their SEC provenance, plus model FCFF.
+    Used by the web drill-downs (schema >= 1.3.0)."""
+    years = []
+    for y in record["years"]:
+        years.append(
+            {
+                "fiscal_year": y["fiscal_year"],
+                "period_end": y["period_end"],
+                "values": {k: y.get(k) for k in HISTORY_FIELDS},
+                "sources": {k: v for k, v in y["sources"].items() if k in HISTORY_FIELDS},
+                "fcff": p["historical_fcff"].get(y["fiscal_year"]),
+            }
+        )
+    return {"cik": record.get("cik"), "entity_name": record.get("entity_name"), "years": years}
+
+
 def build(snapshot_dir: Path, config_dir: Path, n_draws: int = montecarlo.N_DRAWS) -> dict:
     snap, ps = valuation.all_params(snapshot_dir, config_dir)
+    records = snap["records"]
     shifts = yaml.safe_load((config_dir / "scenarios.yaml").read_text())
     tickers = {}
     for t, p in ps.items():
@@ -90,6 +130,7 @@ def build(snapshot_dir: Path, config_dir: Path, n_draws: int = montecarlo.N_DRAW
             "monte_carlo": montecarlo.summary(p, n=n_draws),
             "reverse_dcf": reverse_dcf.implied_growth(p),
             "engine": engine_params(p),
+            "history": history(records[t], p),
         }
     return {
         "schema_version": SCHEMA_VERSION,

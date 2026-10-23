@@ -29,7 +29,7 @@ export function linearPath(start: number, end: number, n: number): number[] {
   return Array.from({ length: n }, (_, i) => start + ((end - start) * i) / (n - 1))
 }
 
-export function project(p: EngineParams, a: { growth_start: number; terminal_growth: number; target_margin: number; capex_to_rev: number; forecast_years: number },
+export function project(p: EngineParams, a: { growth_start: number; terminal_growth: number; target_margin: number; capex_to_rev: number; forecast_years: number; tax_rate?: number },
   growthPath?: number[]): ForecastYear[] {
   const n = a.forecast_years
   const growth = growthPath ?? linearPath(a.growth_start, a.terminal_growth, n)
@@ -40,7 +40,7 @@ export function project(p: EngineParams, a: { growth_start: number; terminal_gro
     const m = p.base_margin + ((a.target_margin - p.base_margin) * (i + 1)) / n
     const rev = revPrev * (1 + g)
     const ebit = rev * m
-    const nopat = ebit * (1 - p.tax_rate)
+    const nopat = ebit * (1 - (a.tax_rate ?? p.tax_rate))
     const da = rev * p.da_to_rev
     const cx = rev * a.capex_to_rev
     const dn = p.nwc_to_rev * (rev - revPrev)
@@ -75,7 +75,9 @@ export function resolve(p: EngineParams, o: Overrides) {
     rf, erp, beta, wacc_shift,
     cost_of_equity: ke,
     pretax_cost_of_debt: kd,
-    wacc: wacc(p.market_cap, p.debt, ke, kd, p.tax_rate) + wacc_shift,
+    tax_rate: o.tax_rate ?? p.tax_rate,
+    wacc: o.wacc ?? wacc(p.market_cap, p.debt, ke, kd, p.tax_rate) + wacc_shift,
+    wacc_overridden: o.wacc !== undefined,
   }
 }
 

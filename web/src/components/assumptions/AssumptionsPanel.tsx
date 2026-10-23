@@ -21,6 +21,7 @@ const FIELDS: Field[] = [
   { key: 'rf', label: 'Risk-free rate', min: 0, max: 0.08, step: 0.0005, kind: 'pct', hint: '10-year US Treasury yield. Also floors the pre-tax cost of debt.' },
   { key: 'erp', label: 'Equity risk premium', min: 0.02, max: 0.08, step: 0.0005, kind: 'pct', hint: 'Damodaran implied ERP (Jan 2026) by default.' },
   { key: 'beta', label: 'Beta', min: 0, max: 2.5, step: 0.01, kind: 'x', hint: 'Default: Blume-adjusted 5y monthly regression beta vs S&P 500.' },
+  { key: 'wacc', label: 'WACC (override)', min: 0.04, max: 0.16, step: 0.0005, kind: 'pct', hint: 'Normally built from rf, ERP, beta and the cost of debt. Setting it here (or clicking a heatmap cell) overrides that; reset to return to the CAPM build.' },
   { key: 'terminal_growth', label: 'Terminal growth g', min: 0, max: 0.04, step: 0.0005, kind: 'pct', hint: 'Perpetual growth after the horizon; capped at 4% and must stay below WACC.' },
   { key: 'forecast_years', label: 'Horizon', min: 5, max: 15, step: 1, kind: 'yrs', hint: 'Explicit forecast years before the terminal value.' },
 ]
@@ -89,7 +90,7 @@ export function AssumptionsPanel({ compact = false }: { compact?: boolean }) {
         <div className="mb-1 flex items-center gap-1 text-xs text-muted">
           Rate pairing <InfoTip text="Calibration (docs/calibration.md) found the risk-free rate is the single biggest driver. Snapshot uses the FRED 10-year yield on the snapshot date with Damodaran's January ERP; Damodaran pair uses his matched 4.18% T-bond and the 4.23% ERP implied from it." />
         </div>
-        <Tabs label="Rate pairing" value={pairing} onChange={setPairing} items={[
+        <Tabs small label="Rate pairing" value={pairing} onChange={setPairing} items={[
           { value: 'snapshot', label: <span className="num">Snapshot {(live.params.rf * 100).toFixed(2)}%</span> },
           { value: 'damodaran', label: <span className="num">Damodaran {(DAMODARAN_PAIR.rf * 100).toFixed(2)}%</span> },
         ]} />
@@ -107,6 +108,9 @@ export function AssumptionsPanel({ compact = false }: { compact?: boolean }) {
         {scenario !== 'base' && <Badge tone="warning">{scenario} scenario</Badge>}
       </div>
 
+      {assumptions.wacc !== undefined && (
+        <p className="rounded-control border border-warning/40 bg-warning/10 p-1 text-xs text-warning">WACC is overridden, so rf, ERP and beta don't affect it. Reset WACC (↺) to restore the CAPM build.</p>
+      )}
       {!live.result.ok && <div role="alert" className="rounded-control border border-warning/40 bg-warning/10 p-1 text-xs text-warning">{live.result.error}</div>}
 
       <div className="flex flex-col gap-1.5">
