@@ -1,0 +1,14 @@
+# Scenario shifts applied to every ticker's base parameters (absolute changes).
+# Bear/bull are deliberately symmetric so the spread shows model sensitivity rather
+# than a view on any company.
+bear:
+  growth_start: -0.03     # year-1 growth 3pp lower (still fades to g)
+  target_margin: -0.02    # long-run EBIT margin 2pp lower
+  wacc: 0.01              # discount rate 1pp higher
+  terminal_growth: -0.005 # g 0.5pp lower
+base: {}
+bull:
+  growth_start: 0.03
+  target_margin: 0.02
+  wacc: -0.01
+  terminal_growth: 0.005

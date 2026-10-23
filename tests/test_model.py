@@ -151,7 +151,8 @@ def test_reconciliation_ko_spreadsheet_style():
     mkt = json.loads((snap / "market.json").read_text())["KO"]
     rates = json.loads((snap / "rates.json").read_text())
     cfg = valuation.load_config(ROOT / "config" / "KO.yaml")
-    got = valuation.value_ticker(rec, mkt, rates, cfg)
+    prices = json.loads((snap / "prices.json").read_text())
+    got = valuation.value_ticker(rec, mkt, rates, cfg, prices)
 
     ys = rec["years"]
     taxes = [min(max(y["tax_expense"] / y["pretax_income"], 0.10), 0.30) for y in ys]
@@ -170,7 +171,17 @@ def test_reconciliation_ko_spreadsheet_style():
     da = sum(y["d_and_a"] / y["revenue"] for y in ys) / n
     nw = sum(v / y["revenue"] for v, y in zip(nwc, ys, strict=True)) / n
     g = 0.025
-    rf, erp, beta = rates["yield"], 0.0423, mkt["beta"]
+
+    # Blume-adjusted OLS beta on monthly returns, computed independently
+    def rets(c):
+        return [c[i] / c[i - 1] - 1 for i in range(1, len(c))]
+
+    rs, rm = rets(prices["close"]["KO"]), rets(prices["close"]["^GSPC"])
+    ms, mm = sum(rs) / len(rs), sum(rm) / len(rm)
+    b_raw = sum((a - ms) * (b - mm) for a, b in zip(rs, rm, strict=True)) / sum(
+        (b - mm) ** 2 for b in rm
+    )
+    rf, erp, beta = rates["yield"], 0.0423, 0.67 * b_raw + 0.33
     debt, cash = ys[-1]["total_debt"], ys[-1]["cash"]
     ke = rf + beta * erp
     kd = min(max(ys[-1]["interest_expense"] / debt, rf), 0.15)
