@@ -8,6 +8,15 @@ import { Badge } from '../components/ui/Badge'
 import { PageHeader } from './PageHeader'
 import { useLive, useMonteCarlo } from '../engine/useLive'
 import type { Scenario } from '../data/types'
+import { AnimatedNumber } from '../components/ui/AnimatedNumber'
+import { Gauge } from '../charts/Gauge'
+import { FootballField, type FFRow } from '../charts/FootballField'
+import { buildOverrides } from '../engine/useLive'
+import { value } from '../engine/model'
+import { motion } from 'framer-motion'
+
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
+const item = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0, transition: { duration: 0.25 } } }
 
 const SCEN: { value: Scenario; label: string }[] = [
   { value: 'bear', label: 'Bear' }, { value: 'base', label: 'Base' }, { value: 'bull', label: 'Bull' },
@@ -41,19 +50,19 @@ export function Overview() {
         <Card className="mb-2 border-warning/40"><p role="alert" className="text-sm text-warning">{live.result.error}. Adjust g or the discount-rate inputs.</p></Card>
       )}
 
-      <div className="grid grid-cols-2 gap-1.5 sm:gap-2 xl:grid-cols-4">
-        <StatTile loading={loading} label={`Implied price (${scenario}${custom ? ', custom' : ''})`} value={r ? usd(r.implied_price) : '—'}
+      <motion.div variants={stagger} initial="hidden" animate="show" className="grid grid-cols-2 gap-1.5 sm:gap-2 xl:grid-cols-4">
+        <motion.div variants={item}><StatTile loading={loading} label={`Implied price (${scenario}${custom ? ', custom' : ''})`} value={r ? <span data-testid="implied-value"><AnimatedNumber value={r.implied_price} format={usd} /></span> : '—'}
           tone={!r ? 'warning' : gap >= 0 ? 'positive' : 'negative'} sub={r ? `${signedPct(gap)} vs market` : undefined}
-          hint="Per-share equity value: explicit FCFF forecast plus a Gordon terminal value with reinvestment g/ROIC. Recomputed live in the browser." />
-        <StatTile loading={loading} label="Market price" value={live ? usd(market) : ''}
-          sub={live ? `Mkt cap ${bn(live.params.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." />
-        <StatTile loading={loading} label="WACC" value={r ? pct(r.inputs.wacc, 2) : '—'}
+          hint="Per-share equity value: explicit FCFF forecast plus a Gordon terminal value with reinvestment g/ROIC. Recomputed live in the browser." /></motion.div>
+        <motion.div variants={item}><StatTile loading={loading} label="Market price" value={live ? usd(market) : ''}
+          sub={live ? `Mkt cap ${bn(live.params.market_cap)}` : undefined} hint="Yahoo Finance price at snapshot time." /></motion.div>
+        <motion.div variants={item}><StatTile loading={loading} label="WACC" value={r ? <AnimatedNumber value={r.inputs.wacc} format={(x) => pct(x, 2)} /> : '—'}
           sub={r ? `β ${r.inputs.beta.toFixed(2)} · rf ${pct(r.inputs.rf, 2)} · ERP ${pct(r.inputs.erp, 2)}` : undefined}
-          hint="CAPM cost of equity blended with after-tax cost of debt at market-value weights." />
-        <StatTile loading={loading} label="Terminal growth" value={r ? pct(r.inputs.terminal_growth, 1) : '—'}
+          hint="CAPM cost of equity blended with after-tax cost of debt at market-value weights." /></motion.div>
+        <motion.div variants={item}><StatTile loading={loading} label="Terminal growth" value={r ? pct(r.inputs.terminal_growth, 1) : '—'}
           sub={r ? `TV ${pct(r.tv_share_of_ev, 0)} of EV · ${r.inputs.forecast_years}y` : undefined}
-          tone={r && r.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value from the terminal value." />
-      </div>
+          tone={r && r.tv_share_of_ev > 0.8 ? 'warning' : 'neutral'} hint="Share of enterprise value from the terminal value." /></motion.div>
+      </motion.div>
 
       <div className="mt-2 grid gap-2 xl:grid-cols-3">
         <Card title={`Monte Carlo (${(mc?.n_draws ?? 10000).toLocaleString('en-US')} draws)`} className="xl:col-span-2"
@@ -86,6 +95,27 @@ export function Overview() {
           ) : <div className="h-8 animate-pulse rounded-control bg-line" />}
         </Card>
       </div>
+
+      {live && r && (
+        <div className="mt-2 grid gap-2 xl:grid-cols-3">
+          <Card title="Value vs price">
+            <Gauge ratio={r.implied_price / market} />
+            <p className="text-center text-xs text-muted">implied ÷ market price · 1× = fairly valued under these assumptions</p>
+          </Card>
+          <Card title="Football field" className="xl:col-span-2">
+            <FootballField market={market} rows={(() => {
+              const sc = (s: Scenario) => { const v = value(live.params, buildOverrides(live.t, s, pairing, {})); return v.ok ? v.implied_price : null }
+              const bear = sc('bear'), bull = sc('bull')
+              const rows: FFRow[] = []
+              if (bear !== null && bull !== null) rows.push({ label: 'DCF bear–bull', lo: Math.min(bear, bull), hi: Math.max(bear, bull), mid: r.implied_price })
+              rows.push({ label: `Exit ${live.params.exit_ev_ebitda}× EBITDA`, lo: Math.min(r.implied_price_exit_multiple, r.implied_price), hi: Math.max(r.implied_price_exit_multiple, r.implied_price), mid: r.implied_price_exit_multiple })
+              if (mc) rows.push({ label: 'MC P5–P95', lo: mc.percentiles.p5, hi: mc.percentiles.p95, mid: mc.percentiles.p50 })
+              return rows
+            })()} />
+            <p className="mt-1 text-xs text-muted">Tick = point estimate (current DCF, exit-multiple price, MC median). The exit-multiple bar spans Gordon to exit-multiple value. No 52-week range: the snapshot has month-end closes only.</p>
+          </Card>
+        </div>
+      )}
 
       {live && live.t.base.notes.length > 0 && (
         <Card title="Data caveats" className="mt-2" action={<Badge tone="warning">{live.t.base.notes.length}</Badge>}>

@@ -58,13 +58,28 @@ export interface McSummary {
   mean: number; prob_value_gt_price: number
   histogram: { edges: number[]; counts: number[] }
   ms: number
+  /** per histogram bin: mean inputs and up to 5 example draws (for drill-down) */
+  bins?: BinDetail[]
 }
 
+export interface BinDetail {
+  count: number
+  mean: { growth_start: number; target_margin: number; wacc: number; g: number; value: number }
+  samples: { growth_start: number; target_margin: number; wacc: number; g: number; value: number }[]
+}
+
+export interface Draws { value: Float64Array; growth_start: Float64Array; target_margin: Float64Array; wacc: Float64Array; g: Float64Array }
+
 export function simulate(p: EngineParams, o: Overrides = {}, n = 10_000, seed = 20261022): Float64Array {
+  return simulateDraws(p, o, n, seed).value
+}
+
+export function simulateDraws(p: EngineParams, o: Overrides = {}, n = 10_000, seed = 20261022): Draws {
   const a = resolve(p, o)
   const rand = mulberry32(seed)
   const nrm = normal(rand)
   const out = new Float64Array(n)
+  const dGs = new Float64Array(n), dTm = new Float64Array(n), dW = new Float64Array(n), dG = new Float64Array(n)
   const years = a.forecast_years
   const t = p.tax_rate
   for (let k = 0; k < n; k++) {
@@ -91,8 +106,9 @@ export function simulate(p: EngineParams, o: Overrides = {}, n = 10_000, seed = 
     const fcfN = a.terminal_roic === null ? fcf : nopat * (1 - g / a.terminal_roic)
     const tv = (fcfN * (1 + g)) / (w - g)
     out[k] = (pv + tv * df - p.debt + p.cash) / p.shares
+    dGs[k] = gs; dTm[k] = tm; dW[k] = w; dG[k] = g
   }
-  return out
+  return { value: out, growth_start: dGs, target_margin: dTm, wacc: dW, g: dG }
 }
 
 export function summarize(x: Float64Array, price: number, seed: number, bins = 40, ms = 0): McSummary {
@@ -111,8 +127,29 @@ export function summarize(x: Float64Array, price: number, seed: number, bins = 4
   }
 }
 
+export function binDetails(d: Draws, edges: number[]): BinDetail[] {
+  const bins = edges.length - 1
+  const lo = edges[0]!, width = edges[1]! - lo
+  const acc = Array.from({ length: bins }, () => ({ count: 0, s: [0, 0, 0, 0, 0], samples: [] as BinDetail['samples'] }))
+  for (let k = 0; k < d.value.length; k++) {
+    const v = d.value[k]!
+    const b = Math.min(bins - 1, Math.max(0, Math.floor((v - lo) / width)))
+    const a = acc[b]!
+    const row = { growth_start: d.growth_start[k]!, target_margin: d.target_margin[k]!, wacc: d.wacc[k]!, g: d.g[k]!, value: v }
+    a.count++
+    a.s[0]! += row.growth_start; a.s[1]! += row.target_margin; a.s[2]! += row.wacc; a.s[3]! += row.g; a.s[4]! += v
+    if (a.samples.length < 5) a.samples.push(row)
+  }
+  return acc.map((a) => ({
+    count: a.count,
+    mean: { growth_start: a.s[0]! / (a.count || 1), target_margin: a.s[1]! / (a.count || 1), wacc: a.s[2]! / (a.count || 1), g: a.s[3]! / (a.count || 1), value: a.s[4]! / (a.count || 1) },
+    samples: a.samples,
+  }))
+}
+
 export function runMc(p: EngineParams, o: Overrides = {}, n = 10_000, seed = 20261022): McSummary {
   const t0 = performance.now()
-  const x = simulate(p, o, n, seed)
-  return summarize(x, p.market_price, seed, 40, performance.now() - t0)
+  const d = simulateDraws(p, o, n, seed)
+  const s = summarize(d.value, p.market_price, seed, 40, performance.now() - t0)
+  return { ...s, bins: binDetails(d, s.histogram.edges) }
 }

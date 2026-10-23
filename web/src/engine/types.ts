@@ -42,6 +42,10 @@ export interface Overrides {
   erp?: number
   beta?: number
   wacc_shift?: number
+  /** direct WACC override (e.g. heatmap click); replaces the CAPM-built value */
+  wacc?: number
+  /** projection tax rate (tornado shock); WACC keeps the base tax rate, as in Python */
+  tax_rate?: number
 }
 
 export interface ForecastYear {
@@ -51,7 +55,7 @@ export interface ForecastYear {
 
 export interface Valuation {
   ok: true
-  inputs: Required<Omit<Overrides, 'terminal_roic'>> & { terminal_roic: number | null; cost_of_equity: number; pretax_cost_of_debt: number; wacc: number }
+  inputs: Required<Omit<Overrides, 'terminal_roic' | 'wacc'>> & { terminal_roic: number | null; cost_of_equity: number; pretax_cost_of_debt: number; wacc: number; wacc_overridden: boolean }
   forecast: ForecastYear[]
   terminal_value: number
   enterprise_value: number

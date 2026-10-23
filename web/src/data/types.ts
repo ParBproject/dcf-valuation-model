@@ -58,6 +58,11 @@ export interface TickerResult {
   }
   reverse_dcf: { implied_growth: number | null; implied_growth_margin_held?: number | null; historical_cagr?: number; status: string; years?: number }
   engine: EngineParams
+  history: {
+    cik: number; entity_name: string
+    years: { fiscal_year: number; period_end: string; values: Record<string, number | null>
+      sources: Record<string, { tag: string; accn?: string; filed?: string }>; fcff: number | null }[]
+  }
 }
 
 export interface Valuations {
