@@ -86,8 +86,21 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-22-000050",
           "filed": "2022-02-16"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-22-000050",
+          "filed": "2022-02-16"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-22-000050",
+          "filed": "2022-02-16"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 9463000000.0,
+      "finance_receivables_noncurrent": 12222000000.0
     },
     {
       "fiscal_year": 2021,
@@ -172,8 +185,21 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-23-000011",
           "filed": "2023-02-15"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-23-000011",
+          "filed": "2023-02-15"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-23-000011",
+          "filed": "2023-02-15"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 8898000000.0,
+      "finance_receivables_noncurrent": 12707000000.0
     },
     {
       "fiscal_year": 2022,
@@ -258,8 +284,21 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-24-000009",
           "filed": "2024-02-16"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-24-000009",
+          "filed": "2024-02-16"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-24-000009",
+          "filed": "2024-02-16"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 9013000000.0,
+      "finance_receivables_noncurrent": 12013000000.0
     },
     {
       "fiscal_year": 2023,
@@ -344,8 +383,21 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-25-000008",
           "filed": "2025-02-14"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-25-000008",
+          "filed": "2025-02-14"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-25-000008",
+          "filed": "2025-02-14"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 9510000000.0,
+      "finance_receivables_noncurrent": 12664000000.0
     },
     {
       "fiscal_year": 2024,
@@ -430,8 +482,21 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-26-000008",
           "filed": "2026-02-13"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-26-000008",
+          "filed": "2026-02-13"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-26-000008",
+          "filed": "2026-02-13"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 9565000000.0,
+      "finance_receivables_noncurrent": 13242000000.0
     },
     {
       "fiscal_year": 2025,
@@ -516,10 +581,24 @@
           "tag": "ShortTermBorrowings",
           "accn": "0000018230-26-000008",
           "filed": "2026-02-13"
+        },
+        "finance_receivables_current": {
+          "tag": "NotesAndLoansReceivableNetCurrent",
+          "accn": "0000018230-26-000008",
+          "filed": "2026-02-13"
+        },
+        "finance_receivables_noncurrent": {
+          "tag": "NotesAndLoansReceivableNetNoncurrent",
+          "accn": "0000018230-26-000008",
+          "filed": "2026-02-13"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": 10649000000.0,
+      "finance_receivables_noncurrent": 14272000000.0
     }
   ],
   "fetched_at": "2026-10-23T00:47:40+00:00",
-  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json"
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000018230.json",
+  "supplement_fetched_at": "2026-10-23T00:58:13+00:00"
 }

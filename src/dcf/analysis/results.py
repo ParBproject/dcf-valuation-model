@@ -10,16 +10,27 @@ import yaml
 from ..model import valuation
 from . import montecarlo, reverse_dcf, sensitivity
 
-SCHEMA_VERSION = "1.0.0"
+SCHEMA_VERSION = "1.1.0"
+
+
+def _overrides(p: dict, spec: dict) -> dict:
+    """spec = {"shift": {k: delta}, "set": {k: value | "last_margin"}}."""
+    over = {k: p[k] + v for k, v in (spec.get("shift") or {}).items()}
+    for k, v in (spec.get("set") or {}).items():
+        over[k] = p["base_margin"] if v == "last_margin" else v
+    return over
 
 
 def scenarios(p: dict, shifts: dict) -> dict:
     out = {}
     for name, sh in shifts.items():
-        over = {k: p[k] + v for k, v in (sh or {}).items()}
+        sh = sh or {}
+        over = _overrides(p, sh)
         d = valuation.price(p, detail=True, **over)
         out[name] = {
-            "shifts": sh or {},
+            "shifts": sh.get("shift", {}),
+            "sets": sh.get("set", {}),
+            "assumptions": {k: over.get(k, p[k]) for k in valuation.ASSUMPTION_KEYS},
             "implied_price": d["implied_price"],
             "upside": d["implied_price"] / p["market_price"] - 1,
             "wacc": over.get("wacc", p["wacc"]),

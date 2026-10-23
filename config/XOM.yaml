@@ -1,6 +1,6 @@
 # Base-case assumptions for XOM. Unset drivers default to historical averages
 # from the snapshot (see src/dcf/model/fcf.py::drivers).
-forecast_years: 5
+forecast_years: 10          # M3.5: 10-year explicit period, growth fades linearly to g
 terminal_growth: 0.025      # long-run nominal growth, capped at 4% in terminal.py
 exit_ev_ebitda: 7.0         # energy trades at lower multiples
 notes:
