@@ -241,16 +241,10 @@ Regenerate after any model change: `make valuations && python scripts/export_eng
 
 ## CI
 
-The intended workflow lives at [`ci/github-workflow-ci.yml`](ci/github-workflow-ci.yml) and is
-**not active yet**: the deploy token has no `workflow` scope. To activate it:
+[![CI](https://github.com/ParBproject/dcf-valuation-model/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ParBproject/dcf-valuation-model/actions/workflows/ci.yml)
 
-```
-gh auth refresh -s workflow
-mkdir -p .github/workflows && git mv ci/github-workflow-ci.yml .github/workflows/ci.yml
-git commit -m "Activate CI" && git push
-```
-
-Until then, every PR is verified locally and the results are listed in the PR body.
+CI is active: [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on GitHub Actions
+on every push to `main` and on every pull request.
 
 ## Deployment
 
