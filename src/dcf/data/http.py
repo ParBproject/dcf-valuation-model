@@ -8,10 +8,10 @@ import time
 import requests
 
 # SEC asks automated clients to identify themselves and stay under 10 requests/second.
-# Override with the SEC_USER_AGENT environment variable (e.g. "Name email@example.com").
-DEFAULT_USER_AGENT = os.environ.get(
-    "SEC_USER_AGENT", "Mozilla/5.0 (ParBproject DCF research; Par Bahrae portfolio)"
-)
+# Read from the SEC_USER_AGENT environment variable ("Name email"); in CI it comes from the
+# SEC_USER_AGENT Actions secret. Documented fallback: the project contact below.
+FALLBACK_USER_AGENT = "Par Bahrae githubproproject@proton.me"
+DEFAULT_USER_AGENT = os.environ.get("SEC_USER_AGENT") or FALLBACK_USER_AGENT
 
 
 class RateLimiter:
