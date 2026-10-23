@@ -1,0 +1,543 @@
+{
+  "ticker": "JNJ",
+  "cik": 200406,
+  "entity_name": "Johnson & Johnson",
+  "years": [
+    {
+      "fiscal_year": 2020,
+      "period_end": "2021-01-03",
+      "revenue": 82584000000.0,
+      "operating_income": 16698000000.0,
+      "pretax_income": 16497000000.0,
+      "tax_expense": 1783000000.0,
+      "d_and_a": 7231000000.0,
+      "capex": 3347000000.0,
+      "interest_expense": 201000000.0,
+      "diluted_shares": 2670700000.0,
+      "current_assets": 51237000000.0,
+      "current_liabilities": 42493000000.0,
+      "cash": 13985000000.0,
+      "debt_noncurrent": 32635000000.0,
+      "debt_current": 1799000000.0,
+      "short_term_borrowings": 2631000000.0,
+      "total_debt": 37065000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "interest_expense": {
+          "tag": "InterestExpense",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    },
+    {
+      "fiscal_year": 2021,
+      "period_end": "2022-01-02",
+      "revenue": 78740000000.0,
+      "operating_income": 19361000000.0,
+      "pretax_income": 19178000000.0,
+      "tax_expense": 1377000000.0,
+      "d_and_a": 7390000000.0,
+      "capex": 3652000000.0,
+      "interest_expense": 183000000.0,
+      "diluted_shares": 2674000000.0,
+      "current_assets": 60979000000.0,
+      "current_liabilities": 45226000000.0,
+      "cash": 14487000000.0,
+      "debt_noncurrent": 29985000000.0,
+      "debt_current": 2131000000.0,
+      "short_term_borrowings": 3766000000.0,
+      "total_debt": 35882000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "interest_expense": {
+          "tag": "InterestExpense",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    },
+    {
+      "fiscal_year": 2022,
+      "period_end": "2023-01-01",
+      "revenue": 79990000000.0,
+      "operating_income": 19635000000.0,
+      "pretax_income": 19359000000.0,
+      "tax_expense": 2989000000.0,
+      "d_and_a": 6970000000.0,
+      "capex": 4009000000.0,
+      "interest_expense": 276000000.0,
+      "diluted_shares": 2663900000.0,
+      "current_assets": 55294000000.0,
+      "current_liabilities": 55802000000.0,
+      "cash": 12889000000.0,
+      "debt_noncurrent": 26886000000.0,
+      "debt_current": 1551000000.0,
+      "short_term_borrowings": 12756000000.0,
+      "total_debt": 41193000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "interest_expense": {
+          "tag": "InterestExpense",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    },
+    {
+      "fiscal_year": 2023,
+      "period_end": "2023-12-31",
+      "revenue": 85159000000.0,
+      "operating_income": 15834000000.0,
+      "pretax_income": 15062000000.0,
+      "tax_expense": 1736000000.0,
+      "d_and_a": 7486000000.0,
+      "capex": 4543000000.0,
+      "interest_expense": 772000000.0,
+      "diluted_shares": 2560400000.0,
+      "current_assets": 53495000000.0,
+      "current_liabilities": 46282000000.0,
+      "cash": 21859000000.0,
+      "debt_noncurrent": 25881000000.0,
+      "debt_current": 1469000000.0,
+      "short_term_borrowings": 3451000000.0,
+      "total_debt": 30801000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "interest_expense": {
+          "tag": "InterestExpense",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    },
+    {
+      "fiscal_year": 2024,
+      "period_end": "2024-12-29",
+      "revenue": 88821000000.0,
+      "operating_income": 17442000000.0,
+      "pretax_income": 16687000000.0,
+      "tax_expense": 2621000000.0,
+      "d_and_a": 7339000000.0,
+      "capex": 4424000000.0,
+      "interest_expense": 755000000.0,
+      "diluted_shares": 2429400000.0,
+      "current_assets": 55893000000.0,
+      "current_liabilities": 50321000000.0,
+      "cash": 24105000000.0,
+      "debt_noncurrent": 30651000000.0,
+      "debt_current": 1749000000.0,
+      "short_term_borrowings": 5983000000.0,
+      "total_debt": 38383000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "interest_expense": {
+          "tag": "InterestExpenseNonoperating",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    },
+    {
+      "fiscal_year": 2025,
+      "period_end": "2025-12-28",
+      "revenue": 94193000000.0,
+      "operating_income": 33552000000.0,
+      "pretax_income": 32581000000.0,
+      "tax_expense": 5777000000.0,
+      "d_and_a": 7503000000.0,
+      "capex": 4832000000.0,
+      "interest_expense": 971000000.0,
+      "diluted_shares": 2429400000.0,
+      "current_assets": 55624000000.0,
+      "current_liabilities": 54126000000.0,
+      "cash": 19709000000.0,
+      "debt_noncurrent": 39438000000.0,
+      "debt_current": 2000000000.0,
+      "short_term_borrowings": 8495000000.0,
+      "total_debt": 49933000000.0,
+      "sources": {
+        "revenue": {
+          "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "pretax_income": {
+          "tag": "IncomeLossFromContinuingOperationsBeforeIncomeTaxesExtraordinaryItemsNoncontrollingInterest",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "tax_expense": {
+          "tag": "IncomeTaxExpenseBenefit",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "d_and_a": {
+          "tag": "DepreciationDepletionAndAmortization",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "capex": {
+          "tag": "PaymentsToAcquirePropertyPlantAndEquipment",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "interest_expense": {
+          "tag": "InterestExpenseNonoperating",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "diluted_shares": {
+          "tag": "WeightedAverageNumberOfDilutedSharesOutstanding",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "current_assets": {
+          "tag": "AssetsCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "current_liabilities": {
+          "tag": "LiabilitiesCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "cash": {
+          "tag": "CashAndCashEquivalentsAtCarryingValue",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "debt_noncurrent": {
+          "tag": "LongTermDebtNoncurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "debt_current": {
+          "tag": "LongTermDebtCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "short_term_borrowings": {
+          "tag": "ShortTermBorrowings",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
+        },
+        "operating_income": {
+          "tag": "derived:pretax_income+interest_expense"
+        }
+      }
+    }
+  ],
+  "fetched_at": "2026-10-23T00:47:39+00:00",
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json"
+}

@@ -1,0 +1,74 @@
+{
+  "AAPL": {
+    "ticker": "AAPL",
+    "price": 348.22,
+    "last_close": 343.989990234375,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 14594180000.0,
+    "market_cap": 5081985449984.0,
+    "beta": 1.069,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:40+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "price": 521.08,
+    "last_close": 532.9500122070312,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 7425545491.0,
+    "market_cap": 3869303373824.0,
+    "beta": 1.099,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:41+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  },
+  "KO": {
+    "ticker": "KO",
+    "price": 95.34,
+    "last_close": 92.68000030517578,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 4302549243.0,
+    "market_cap": 410204995584.0,
+    "beta": 0.318,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:41+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  },
+  "JNJ": {
+    "ticker": "JNJ",
+    "price": 267.61,
+    "last_close": 257.7799987792969,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 2409898597.0,
+    "market_cap": 644912906240.0,
+    "beta": 0.206,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:41+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  },
+  "CAT": {
+    "ticker": "CAT",
+    "price": 704.05,
+    "last_close": 740.2100219726562,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 459674889.0,
+    "market_cap": 323634102272.0,
+    "beta": 1.58,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:41+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  },
+  "XOM": {
+    "ticker": "XOM",
+    "price": 178.23,
+    "last_close": 178.08999633789062,
+    "last_close_date": "2026-10-21",
+    "shares_outstanding": 4111911960.0,
+    "market_cap": 732866019328.0,
+    "beta": 0.209,
+    "currency": "USD",
+    "fetched_at": "2026-10-23T00:47:41+00:00",
+    "source": "yfinance (Yahoo Finance) Ticker.info / history"
+  }
+}
