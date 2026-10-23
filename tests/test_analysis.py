@@ -127,7 +127,16 @@ def test_results_schema():
         )
 
 
-PINNED = {  # headline base-case implied prices, snapshot 2026-10-22
+PINNED = {  # M3.5 headline base-case implied prices, snapshot 2026-10-22
+    "AAPL": 122.18,
+    "MSFT": 311.52,
+    "KO": 51.38,
+    "JNJ": 182.75,
+    "CAT": 279.82,
+    "XOM": 216.26,
+}
+
+M3_PINNED = {  # M3 values; the calibration 'm3' step must reproduce them exactly
     "AAPL": 116.81,
     "MSFT": 200.76,
     "KO": 49.97,
@@ -147,3 +156,37 @@ def test_fresh_run_matches_committed_file():
         json.dumps(results.build(SNAP, ROOT / "config", n_draws=10_000), default=float)
     )
     assert fresh == COMMITTED
+
+
+@pytest.mark.parametrize("t", list(M3_PINNED))
+def test_calibration_reproduces_m3_then_m35(t):
+    cal = json.loads((ROOT / "results" / "calibration.json").read_text())["tickers"][t]
+    steps = {x["step"]: x["price"] for x in cal["steps"]}
+    assert steps["m3"] == pytest.approx(M3_PINNED[t], abs=0.01)
+    assert steps["horizon"] == pytest.approx(PINNED[t], abs=0.01)
+
+
+def test_calibration_file_is_fresh():
+    from dcf.analysis.calibration import decompose
+
+    fresh = json.loads(json.dumps(decompose(SNAP, ROOT / "config"), default=float))
+    assert fresh == json.loads((ROOT / "results" / "calibration.json").read_text())["tickers"]
+
+
+@pytest.mark.parametrize("t", ["AAPL", "MSFT", "CAT"])
+def test_reverse_dcf_margin_held_reproduces_price(t):
+    p = PARAMS[t]
+    rv = reverse_dcf.implied_growth(p)
+    g = rv["implied_growth_margin_held"]
+    q = {**p, "target_margin": p["base_margin"]}
+    v = valuation.price(q, growth_path=[g] * p["forecast_years"])
+    assert v == pytest.approx(p["market_price"], rel=1e-4)
+    assert g <= rv["implied_growth"] + 1e-9
+
+
+def test_bull_scenario_is_documented_set_not_tuned():
+    bull = COMMITTED["tickers"]["MSFT"]["scenarios"]["bull"]
+    p = PARAMS["MSFT"]
+    assert bull["assumptions"]["target_margin"] == pytest.approx(p["base_margin"])
+    assert bull["assumptions"]["terminal_roic"] == 0.25
+    assert bull["assumptions"]["capex_to_rev"] == pytest.approx(p["capex_to_rev"] - 0.01)

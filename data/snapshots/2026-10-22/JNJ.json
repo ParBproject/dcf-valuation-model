@@ -89,8 +89,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-22-000022",
+          "filed": "2022-02-17"
         }
-      }
+      },
+      "short_term_investments": 11200000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2021,
@@ -178,8 +186,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-23-000016",
+          "filed": "2023-02-16"
         }
-      }
+      },
+      "short_term_investments": 17121000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2022,
@@ -267,8 +283,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-24-000013",
+          "filed": "2024-02-16"
         }
-      }
+      },
+      "short_term_investments": 9392000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2023,
@@ -356,8 +380,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-25-000038",
+          "filed": "2025-02-13"
         }
-      }
+      },
+      "short_term_investments": 1068000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2024,
@@ -445,8 +477,16 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
         }
-      }
+      },
+      "short_term_investments": 417000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2025,
@@ -534,10 +574,19 @@
         },
         "operating_income": {
           "tag": "derived:pretax_income+interest_expense"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000200406-26-000016",
+          "filed": "2026-02-11"
         }
-      }
+      },
+      "short_term_investments": 393000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     }
   ],
   "fetched_at": "2026-10-23T00:47:39+00:00",
-  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json"
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000200406.json",
+  "supplement_fetched_at": "2026-10-23T00:58:13+00:00"
 }

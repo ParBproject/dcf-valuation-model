@@ -105,6 +105,20 @@ FIELDS: dict[str, dict[str, Any]] = {
             "OtherShortTermBorrowings",
         ],
     },
+    # M3.5: liquid securities outside "cash" (MSFT, AAPL hold large balances) and
+    # captive-finance receivables (CAT Financial). Optional; used by the model bridge.
+    "short_term_investments": {
+        "kind": "instant",
+        "tags": ["ShortTermInvestments", "MarketableSecuritiesCurrent"],
+    },
+    "finance_receivables_current": {
+        "kind": "instant",
+        "tags": ["NotesAndLoansReceivableNetCurrent"],
+    },
+    "finance_receivables_noncurrent": {
+        "kind": "instant",
+        "tags": ["NotesAndLoansReceivableNetNoncurrent"],
+    },
 }
 
 # Fields a downstream DCF needs; tests require these to be present for every year.

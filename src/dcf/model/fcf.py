@@ -6,6 +6,10 @@ FCFF = EBIT * (1 - t) + D&A - capex - change in NWC
   [TAX_FLOOR, TAX_CAP]; if pretax income <= 0 the default rate is used.
 * NWC is operating: (current assets - cash) - (current liabilities - current debt
   - short-term borrowings), so financing items stay out of working capital.
+* Short-term investments (marketable securities outside "cash") are financial assets:
+  they are excluded from NWC and added to cash in the equity bridge (M3.5 fix).
+* Captive finance (CAT Financial): with `captive=True`, current finance receivables are
+  also excluded from NWC; the model nets total finance receivables against debt.
 * The first historical year has no prior NWC, so it gets no FCF (None).
 """
 
@@ -30,9 +34,12 @@ def effective_tax_rate(
     return min(max(tax_expense / pretax_income, floor), cap)
 
 
-def operating_nwc(year: dict) -> float:
+def operating_nwc(year: dict, captive: bool = False) -> float:
     cur_debt = (year.get("debt_current") or 0.0) + (year.get("short_term_borrowings") or 0.0)
-    return (year["current_assets"] - year["cash"]) - (year["current_liabilities"] - cur_debt)
+    fin = (year.get("short_term_investments") or 0.0) + (
+        (year.get("finance_receivables_current") or 0.0) if captive else 0.0
+    )
+    return (year["current_assets"] - year["cash"] - fin) - (year["current_liabilities"] - cur_debt)
 
 
 def fcff(ebit: float, tax_rate: float, d_and_a: float, capex: float, delta_nwc: float) -> float:
@@ -53,11 +60,11 @@ class HistoryRow:
     fcff: float | None
 
 
-def history(record: dict) -> list[HistoryRow]:
+def history(record: dict, captive: bool = False) -> list[HistoryRow]:
     rows: list[HistoryRow] = []
     prev_nwc: float | None = None
     for y in record["years"]:
-        nwc = operating_nwc(y)
+        nwc = operating_nwc(y, captive)
         t = effective_tax_rate(y["tax_expense"], y["pretax_income"])
         ebit = y["operating_income"]
         dn = None if prev_nwc is None else nwc - prev_nwc

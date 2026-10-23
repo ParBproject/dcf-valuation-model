@@ -86,8 +86,16 @@
           "tag": "LongTermDebtCurrent",
           "accn": "0001564590-22-026876",
           "filed": "2022-07-28"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0001564590-22-026876",
+          "filed": "2022-07-28"
         }
-      }
+      },
+      "short_term_investments": 116110000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2022,
@@ -172,8 +180,16 @@
           "tag": "LongTermDebtCurrent",
           "accn": "0000950170-23-035122",
           "filed": "2023-07-27"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0000950170-23-035122",
+          "filed": "2023-07-27"
         }
-      }
+      },
+      "short_term_investments": 90826000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2023,
@@ -263,8 +279,16 @@
           "tag": "CommercialPaper",
           "accn": "0000950170-24-087843",
           "filed": "2024-07-30"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0000950170-24-087843",
+          "filed": "2024-07-30"
         }
-      }
+      },
+      "short_term_investments": 76558000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2024,
@@ -354,8 +378,16 @@
           "tag": "CommercialPaper",
           "accn": "0000950170-25-100235",
           "filed": "2025-07-30"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0000950170-25-100235",
+          "filed": "2025-07-30"
         }
-      }
+      },
+      "short_term_investments": 57228000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2025,
@@ -445,8 +477,16 @@
           "tag": "CommercialPaper",
           "accn": "0000950170-25-100235",
           "filed": "2025-07-30"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0001193125-26-323660",
+          "filed": "2026-07-29"
         }
-      }
+      },
+      "short_term_investments": 64323000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2026,
@@ -531,10 +571,19 @@
           "tag": "LongTermDebtCurrent",
           "accn": "0001193125-26-323660",
           "filed": "2026-07-29"
+        },
+        "short_term_investments": {
+          "tag": "ShortTermInvestments",
+          "accn": "0001193125-26-323660",
+          "filed": "2026-07-29"
         }
-      }
+      },
+      "short_term_investments": 55908000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     }
   ],
   "fetched_at": "2026-10-23T00:47:39+00:00",
-  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json"
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+  "supplement_fetched_at": "2026-10-23T00:58:13+00:00"
 }

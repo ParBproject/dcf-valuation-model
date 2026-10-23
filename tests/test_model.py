@@ -158,7 +158,7 @@ def test_reconciliation_ko_spreadsheet_style():
     taxes = [min(max(y["tax_expense"] / y["pretax_income"], 0.10), 0.30) for y in ys]
     t = sum(taxes) / len(taxes)
     nwc = [
-        (y["current_assets"] - y["cash"])
+        (y["current_assets"] - y["cash"] - (y["short_term_investments"] or 0))
         - (y["current_liabilities"] - y["debt_current"] - (y["short_term_borrowings"] or 0))
         for y in ys
     ]
@@ -182,23 +182,26 @@ def test_reconciliation_ko_spreadsheet_style():
         (b - mm) ** 2 for b in rm
     )
     rf, erp, beta = rates["yield"], 0.0423, 0.67 * b_raw + 0.33
-    debt, cash = ys[-1]["total_debt"], ys[-1]["cash"]
+    debt = ys[-1]["total_debt"]
+    cash = ys[-1]["cash"] + (ys[-1]["short_term_investments"] or 0)
     ke = rf + beta * erp
     kd = min(max(ys[-1]["interest_expense"] / debt, rf), 0.15)
     E = mkt["price"] * mkt["shares_outstanding"]
     w = E / (E + debt) * ke + debt / (E + debt) * kd * (1 - t)
 
-    rev, pv, fcfs = ys[-1]["revenue"], 0.0, []
-    for i in range(5):
-        gi = g1 + (g - g1) * i / 4
-        mi = m_last + (m_mean - m_last) * (i + 1) / 5
+    years, roic = 10, 0.15
+    rev, pv, nopat = ys[-1]["revenue"], 0.0, 0.0
+    for i in range(years):
+        gi = g1 + (g - g1) * i / (years - 1)
+        mi = m_last + (m_mean - m_last) * (i + 1) / years
         new = rev * (1 + gi)
-        f = new * mi * (1 - t) + new * da - new * cx - nw * (new - rev)
-        fcfs.append(f)
+        nopat = new * mi * (1 - t)
+        f = nopat + new * da - new * cx - nw * (new - rev)
         pv += f / (1 + w) ** (i + 1)
         rev = new
-    tv = fcfs[-1] * (1 + g) / (w - g)
-    ev = pv + tv / (1 + w) ** 5
+    # terminal: reinvestment rate g / ROIC on final-year NOPAT
+    tv = nopat * (1 - g / roic) * (1 + g) / (w - g)
+    ev = pv + tv / (1 + w) ** years
     price = (ev - debt + cash) / mkt["shares_outstanding"]
 
     assert got["wacc"] == pytest.approx(w, rel=1e-9)
@@ -222,3 +225,41 @@ def test_full_run_sane_and_matches_committed_results():
     committed = json.loads((ROOT / "results" / "base_valuations.json").read_text())
     for t, v in res["valuations"].items():
         assert committed["valuations"][t]["implied_price"] == pytest.approx(v["implied_price"])
+
+
+def test_terminal_reinvestment_consistent_with_g_and_roic():
+    # value-driver formula: FCF = NOPAT * (1 - g / ROIC); zero growth -> no reinvestment
+    assert valuation.terminal_fcf(100.0, 0.025, 0.15) == pytest.approx(100 * (1 - 0.025 / 0.15))
+    assert valuation.terminal_fcf(100.0, 0.0, 0.15) == 100.0
+    # ROIC == WACC: growth adds no value (Gordon value equals NOPAT_next / WACC)
+    w, g, nopat = 0.09, 0.03, 100.0
+    tv = valuation.terminal.gordon(valuation.terminal_fcf(nopat, g, w), w, g)
+    assert tv == pytest.approx(nopat * (1 + g) / w)
+
+
+def test_operating_nwc_excludes_short_term_investments_and_captive_receivables():
+    y = {
+        "current_assets": 200,
+        "cash": 20,
+        "short_term_investments": 50,
+        "finance_receivables_current": 30,
+        "current_liabilities": 100,
+        "debt_current": 10,
+        "short_term_borrowings": 5,
+    }
+    assert fcf.operating_nwc(y) == pytest.approx((200 - 20 - 50) - (100 - 15))
+    assert fcf.operating_nwc(y, captive=True) == pytest.approx((200 - 20 - 50 - 30) - (100 - 15))
+
+
+def test_cat_financial_receivables_netted_and_msft_investments_in_cash():
+    s = valuation.load_snapshot(_snap())
+    ps = valuation.all_params(_snap(), ROOT / "config")[1]
+    cat, last = ps["CAT"], s["records"]["CAT"]["years"][-1]
+    fr = last["finance_receivables_current"] + last["finance_receivables_noncurrent"]
+    assert cat["finance_receivables_netted"] == pytest.approx(fr)
+    assert cat["debt"] == pytest.approx(last["total_debt"] - fr)
+    assert 0 < cat["debt"] < cat["gross_debt"]
+    msft, ml = ps["MSFT"], s["records"]["MSFT"]["years"][-1]
+    assert msft["cash"] == pytest.approx(ml["cash"] + ml["short_term_investments"])
+    # only CAT is flagged captive (XOM also tags notes receivable, which must stay operating)
+    assert ps["XOM"]["finance_receivables_netted"] == 0.0

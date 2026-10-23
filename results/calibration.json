@@ -1,0 +1,293 @@
+{
+ "snapshot_date": "2026-10-22",
+ "tickers": {
+  "AAPL": {
+   "market_price": 348.22,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 116.8079136775436,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 119.50961613182534,
+     "delta": 2.701702454281744
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 119.50961613182534,
+     "delta": 0.0
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 103.08437367947126,
+     "delta": -16.425242452354084
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 122.17722769660466,
+     "delta": 19.092854017133405
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 129.49038514719055,
+    "terminal_roic_25pct": 126.90572211102284,
+    "terminal_roic_eq_wacc": 115.4202802880187,
+    "capex_minus_1pp": 124.64925207510561,
+    "exit_multiple_tv": 140.39346458222144,
+    "rf_4_18_with_erp_4_23": 140.56015829606469
+   },
+   "wacc": 0.09544449868801458,
+   "wacc_m3": 0.09544449868801458,
+   "implied_wacc": 0.048953733902562344,
+   "implied_growth": 0.2008324950933456,
+   "implied_growth_margin_held": 0.19196605980396264
+  },
+  "MSFT": {
+   "market_price": 521.08,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 200.7631977318343,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 220.17484882626957,
+     "delta": 19.411651094435257
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 220.17484882626957,
+     "delta": 0.0
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 255.55842692102874,
+     "delta": 35.38357809475917
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 311.51604809306326,
+     "delta": 55.95762117203452
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 330.5119388805736,
+    "terminal_roic_25pct": 326.03712838484034,
+    "terminal_roic_eq_wacc": 290.3391792455882,
+    "capex_minus_1pp": 316.2289983124317,
+    "exit_multiple_tv": 377.66170289235106,
+    "rf_4_18_with_erp_4_23": 364.54583339598537
+   },
+   "wacc": 0.09473635849220258,
+   "wacc_m3": 0.09473635849220258,
+   "implied_wacc": 0.0682773677326027,
+   "implied_growth": 0.15790662467479705,
+   "implied_growth_margin_held": 0.14967518746852876
+  },
+  "KO": {
+   "market_price": 95.34,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 49.96926147685164,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 50.06788339149704,
+     "delta": 0.09862191464539904
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 50.06788339149704,
+     "delta": 0.0
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 43.63252337759763,
+     "delta": -6.4353600138994125
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 51.379400089322495,
+     "delta": 7.746876711724866
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 57.15529151216088,
+    "terminal_roic_25pct": 54.32751750121081,
+    "terminal_roic_eq_wacc": 42.951269692515126,
+    "capex_minus_1pp": 52.43903308896552,
+    "exit_multiple_tv": 46.648735249931796,
+    "rf_4_18_with_erp_4_23": 66.33283697931925
+   },
+   "wacc": 0.06997812152652315,
+   "wacc_m3": 0.06997812152652315,
+   "implied_wacc": 0.05040379959206426,
+   "implied_growth": 0.12335872948169707,
+   "implied_growth_margin_held": 0.11094666421413422
+  },
+  "JNJ": {
+   "market_price": 267.61,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 216.55472753616456,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 218.53813646636158,
+     "delta": 1.9834089301970153
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 218.53813646636158,
+     "delta": 0.0
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 163.52719455121502,
+     "delta": -55.01094191514656
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 182.74757161497507,
+     "delta": 19.220377063760054
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 249.4882706460108,
+    "terminal_roic_25pct": 190.92123083582223,
+    "terminal_roic_eq_wacc": 159.0544268899914,
+    "capex_minus_1pp": 185.88287291131584,
+    "exit_multiple_tv": 181.12067726467038,
+    "rf_4_18_with_erp_4_23": 226.26178359966798
+   },
+   "wacc": 0.06946091670070055,
+   "wacc_m3": 0.06946091670070055,
+   "implied_wacc": 0.05412954068587074,
+   "implied_growth": 0.07359913885593412,
+   "implied_growth_margin_held": 0.03436314165592193
+  },
+  "CAT": {
+   "market_price": 704.05,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 233.89323924507673,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 233.89323924507673,
+     "delta": 0.0
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 275.2983025528693,
+     "delta": 41.405063307792574
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 229.22892148396454,
+     "delta": -46.06938106890476
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 279.81983508107146,
+     "delta": 50.59091359710692
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 290.5018702885441,
+    "terminal_roic_25pct": 288.82967638877415,
+    "terminal_roic_eq_wacc": 272.001481819186,
+    "capex_minus_1pp": 292.22331446537476,
+    "exit_multiple_tv": 388.7070448048487,
+    "rf_4_18_with_erp_4_23": 311.4711129365001
+   },
+   "wacc": 0.11135007516228088,
+   "wacc_m3": 0.10399222631414617,
+   "implied_wacc": 0.05777713662856336,
+   "implied_growth": 0.2031392067670822,
+   "implied_growth_margin_held": 0.19675821363925933
+  },
+  "XOM": {
+   "market_price": 178.23,
+   "steps": [
+    {
+     "step": "m3",
+     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "price": 242.42327690141255,
+     "delta": null
+    },
+    {
+     "step": "sti",
+     "label": "+ short-term investments treated as cash, not working capital",
+     "price": 242.42327690141255,
+     "delta": 0.0
+    },
+    {
+     "step": "captive",
+     "label": "+ CAT Financial receivables netted against debt (CAT only)",
+     "price": 242.42327690141255,
+     "delta": 0.0
+    },
+    {
+     "step": "roic",
+     "label": "+ terminal reinvestment = g / ROIC (ROIC 15%)",
+     "price": 157.04844748723878,
+     "delta": -85.37482941417377
+    },
+    {
+     "step": "horizon",
+     "label": "+ 10-year explicit period (= M3.5 base)",
+     "price": 216.25940837435527,
+     "delta": 59.2109608871165
+    }
+   ],
+   "sensitivities": {
+    "margin_held_at_last": 266.26380674362514,
+    "terminal_roic_25pct": 226.00246100225743,
+    "terminal_roic_eq_wacc": 187.03531184376388,
+    "capex_minus_1pp": 225.464346275018,
+    "exit_multiple_tv": 212.6774952182425,
+    "rf_4_18_with_erp_4_23": 269.2571261454596
+   },
+   "wacc": 0.06818825866573094,
+   "wacc_m3": 0.06818825866573094,
+   "implied_wacc": 0.07864725295265484,
+   "implied_growth": 0.05649307072162629,
+   "implied_growth_margin_held": 0.030188086628913882
+  }
+ }
+}

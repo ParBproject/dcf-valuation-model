@@ -91,8 +91,16 @@
           "tag": "CommercialPaper",
           "accn": "0000021344-22-000009",
           "filed": "2022-02-22"
+        },
+        "short_term_investments": {
+          "tag": "MarketableSecuritiesCurrent",
+          "accn": "0000021344-21-000008",
+          "filed": "2021-02-25"
         }
-      }
+      },
+      "short_term_investments": 2348000000.0,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2021,
@@ -183,7 +191,10 @@
           "accn": "0000021344-23-000011",
           "filed": "2023-02-21"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2022,
@@ -274,7 +285,10 @@
           "accn": "0000021344-24-000009",
           "filed": "2024-02-20"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2023,
@@ -365,7 +379,10 @@
           "accn": "0000021344-25-000011",
           "filed": "2025-02-20"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2024,
@@ -456,7 +473,10 @@
           "accn": "0001628280-26-010047",
           "filed": "2026-02-20"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     },
     {
       "fiscal_year": 2025,
@@ -547,9 +567,13 @@
           "accn": "0001628280-26-010047",
           "filed": "2026-02-20"
         }
-      }
+      },
+      "short_term_investments": null,
+      "finance_receivables_current": null,
+      "finance_receivables_noncurrent": null
     }
   ],
   "fetched_at": "2026-10-23T00:47:39+00:00",
-  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json"
+  "source": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000021344.json",
+  "supplement_fetched_at": "2026-10-23T00:58:13+00:00"
 }

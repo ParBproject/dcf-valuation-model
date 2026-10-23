@@ -7,6 +7,7 @@ Distributions (per draw, independent):
   terminal g     ~ Triangular(0.01, base, 0.035)
   Constraint: g < wacc. Draws with g >= wacc - 0.005 are rejected and redrawn, so every
   kept draw has a finite Gordon value.
+Terminal FCF = NOPAT * (1 - g / terminal_roic), matching valuation.price.
 Everything else (capex/D&A/NWC ratios, tax, debt, cash, shares) is held at base.
 """
 
@@ -43,6 +44,7 @@ def prices(p: dict, n: int = N_DRAWS, seed: int = SEED) -> np.ndarray:
     t = p["tax_rate"]
     rev_prev = np.full(n, p["base_revenue"])
     pv = np.zeros(n)
+    nopat = np.zeros(n)
     fcf = np.zeros(n)
     for i in range(years):
         # same linear fades as forecast.project
@@ -50,15 +52,19 @@ def prices(p: dict, n: int = N_DRAWS, seed: int = SEED) -> np.ndarray:
         gi = d["growth_start"] + (d["g"] - d["growth_start"]) * frac
         mi = p["base_margin"] + (d["target_margin"] - p["base_margin"]) * (i + 1) / years
         rev = rev_prev * (1 + gi)
+        nopat = rev * mi * (1 - t)
         fcf = (
-            rev * mi * (1 - t)
+            nopat
             + rev * p["da_to_rev"]
             - rev * p["capex_to_rev"]
             - p["nwc_to_rev"] * (rev - rev_prev)
         )
         pv += fcf / (1 + d["wacc"]) ** (i + 1)
         rev_prev = rev
-    tv = fcf * (1 + d["g"]) / (d["wacc"] - d["g"])
+    # terminal FCF: reinvestment = g / ROIC, same as valuation.terminal_fcf
+    roic = p["terminal_roic"]
+    fcf_n = fcf if roic is None else nopat * (1 - d["g"] / roic)
+    tv = fcf_n * (1 + d["g"]) / (d["wacc"] - d["g"])
     ev = pv + tv / (1 + d["wacc"]) ** years
     return (ev - p["debt"] + p["cash"]) / p["shares"]
 

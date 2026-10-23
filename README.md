@@ -9,7 +9,8 @@ dated snapshots so results can be rebuilt offline.
 | Milestone | Scope |
 |---|---|
 | M1 | Data layer (SEC EDGAR, yfinance, FRED) and dated snapshots |
-| M2+ | FCF projections, WACC, terminal value, sensitivity, Monte Carlo, React dashboard |
+| M2–M3.5 | FCF projections, WACC, analysis, calibration review |
+| M4+ | React + TypeScript dashboard |
 
 ## Layout
 
@@ -49,15 +50,37 @@ yfinance beta are reported alongside it in `results/valuations.json`. Override p
 
 ## Analysis (M3)
 
-`results/valuations.json` (schema 1.0.0) is the single file the dashboard reads. Per ticker it
+`results/valuations.json` (schema 1.1.0) is the single file the dashboard reads. Per ticker it
 holds the base case, bear/base/bull scenarios (`config/scenarios.yaml`), a WACC ±2pp × g 1–4%
 grid, a tornado of driver shocks, a Monte Carlo summary and histogram, and a reverse DCF.
 
 - **Monte Carlo:** 10,000 draws, seed 20261022. growth ~ N(base, 3pp), margin ~ N(base, 2pp),
   WACC ~ N(base, 1pp) floored at rf, g ~ Triangular(1%, base, 3.5%). Draws with g ≥ WACC − 0.5pp
   are rejected and redrawn.
-- **Reverse DCF:** the constant 5-year revenue growth at which value equals the market price,
-  with all other base assumptions held.
+- **Reverse DCF:** the constant revenue growth over the 10-year explicit period at which value
+  equals the market price, reported twice: with margins reverting as in the base case, and
+  with margins held at the last actual (`implied_growth_margin_held`).
+
+## Calibration review (M3.5)
+
+M3 valued AAPL, MSFT and CAT at roughly a third of their market prices. M3.5 audited why; the
+full write-up with before/after tables, a step-by-step gap decomposition and dated benchmarks is
+in [docs/calibration.md](docs/calibration.md), and the decomposition is reproducible in
+`results/calibration.json` (`python scripts/run_calibration.py`). In short:
+
+- **Errors fixed:** the terminal value carried explicit-period capex − D&A − ΔNWC into
+  perpetuity (now reinvestment = g / ROIC, ROIC 15%); short-term investments (e.g. MSFT's
+  $55.9B) sat in working capital instead of cash; Cat Financial's receivable-backed debt was
+  subtracted as if it were operating debt (now netted against finance receivables).
+- **Deliberate choices kept:** a 5.13% risk-free rate with Damodaran's 4.23% ERP, margins
+  reverting to the 6-year mean, growth fading to 2.5%, and the 6-year average capex ratio.
+- **Bull case** is a fixed, documented set (higher early growth, margins held, 1pp less
+  capex, ROIC 25%, WACC −1pp, g +0.5pp), not tuned to prices. It reaches about 96% of the market price for MSFT, exceeds it for
+  KO and JNJ, and still falls well short for AAPL (55%) and CAT (58%). Against base WACCs of 9.5–11.1%,
+  the market prices of AAPL, MSFT and CAT imply base-case discount rates of about 4.9%, 6.8%
+  and 5.8%.
+
+The values are a modelling exercise, not investment advice or buy/sell calls.
 
 ## CI
 

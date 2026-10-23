@@ -1,5 +1,9 @@
 """Reverse DCF: the constant 5-year revenue growth that makes intrinsic value equal the
-market price (all other base assumptions held; terminal g unchanged after year 5)."""
+market price over the explicit period (terminal g and ROIC unchanged afterwards).
+
+Two variants are reported: margins reverting to target as in the base case, and margins
+held at the last actual ("margin_held"). Holding margins avoids inflating implied growth
+when the base case has margins mean-reverting downward."""
 
 from __future__ import annotations
 
@@ -13,6 +17,14 @@ def _f(p: dict, g: float) -> float:
 
 
 def implied_growth(p: dict, tol: float = 1e-7) -> dict:
+    out = _solve(p, tol)
+    held = _solve({**p, "target_margin": p["base_margin"]}, tol)
+    out["implied_growth_margin_held"] = held["implied_growth"]
+    out["years"] = p["forecast_years"]
+    return out
+
+
+def _solve(p: dict, tol: float) -> dict:
     flo, fhi = _f(p, LO), _f(p, HI)
     if flo * fhi > 0:
         return {
