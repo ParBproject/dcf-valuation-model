@@ -1,0 +1,9 @@
+# Base-case assumptions for XOM. Unset drivers default to historical averages
+# from the snapshot (see src/dcf/model/fcf.py::drivers).
+forecast_years: 5
+terminal_growth: 0.025      # long-run nominal growth, capped at 4% in terminal.py
+exit_ev_ebitda: 7.0         # energy trades at lower multiples
+notes:
+  - "Current long-term debt and commercial paper are both included in total debt; they are separate XBRL lines, but if the filer nests one in the other, debt is overstated by up to the CP amount."
+  - "Diluted shares fall back to basic (XOM reports identical basic and diluted EPS)."
+  - "EBIT is derived (pretax income + interest). FY2020 includes impairments (negative EBIT), which pulls the mean margin down."
