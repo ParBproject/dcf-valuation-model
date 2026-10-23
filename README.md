@@ -139,7 +139,10 @@ each value tagged with the us-gaap tag, accession number and filing date it came
 `market.json`, `rates.json` and `manifest.json` (fetch times, sources, coverage).
 Tests run fully offline against the committed snapshot. See [SOURCES.md](SOURCES.md).
 
-Set `SEC_USER_AGENT` to identify yourself to SEC (e.g. `"Your Name you@example.com"`).
+**SEC User-Agent.** SEC EDGAR asks automated clients for a `"Name email"` User-Agent. The code reads it from the
+`SEC_USER_AGENT` environment variable; if that is unset it falls back to the project contact
+`Par Bahrae githubproproject@proton.me`. In GitHub Actions the value comes from the `SEC_USER_AGENT` repository secret.
+Set your own when you re-fetch: `export SEC_USER_AGENT="Your Name you@example.com"`.
 
 ```
 make install && make check     # ruff + pytest, offline
