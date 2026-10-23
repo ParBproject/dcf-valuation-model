@@ -59,6 +59,20 @@ grid, a tornado of driver shocks, a Monte Carlo summary and histogram, and a rev
 - **Reverse DCF:** the constant 5-year revenue growth at which value equals the market price,
   with all other base assumptions held.
 
+## Web app (M4)
+
+`web/` is a Vite + React + TypeScript (strict) app with Tailwind, Radix UI, Framer Motion and
+Zustand. Design tokens and rules are in [docs/design.md](docs/design.md). The app reads
+`web/public/data/valuations.json`, which `npm run sync-data` copies from `results/`; it is
+generated, git-ignored and never hand-edited.
+
+```
+cd web && npm ci
+npm test            # vitest (store + URL sync)
+npm run build       # sync data, typecheck, build (base /dcf-valuation-model/)
+npm run shots       # Playwright screenshots + 390px overflow check
+```
+
 ## CI
 
 The intended workflow lives at [`ci/github-workflow-ci.yml`](ci/github-workflow-ci.yml).
