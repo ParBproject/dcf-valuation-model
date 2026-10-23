@@ -1,3 +1,4 @@
+import type { EngineParams } from '../engine/types'
 /** Subset of results/valuations.json (schema 1.x) used by the app. */
 export type Scenario = 'bear' | 'base' | 'bull'
 
@@ -39,6 +40,7 @@ export interface BaseValuation {
 }
 
 export interface ScenarioResult {
+  assumptions: Record<string, number | null>
   implied_price: number
   upside: number
   wacc: number
@@ -54,7 +56,8 @@ export interface TickerResult {
     percentiles: { p5: number; p25: number; p50: number; p75: number; p95: number }
     prob_value_gt_price: number
   }
-  reverse_dcf: { implied_growth: number | null; historical_cagr?: number; status: string }
+  reverse_dcf: { implied_growth: number | null; implied_growth_margin_held?: number | null; historical_cagr?: number; status: string; years?: number }
+  engine: EngineParams
 }
 
 export interface Valuations {

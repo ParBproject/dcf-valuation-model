@@ -112,6 +112,8 @@ def build_params(
         "cost_of_equity": ke,
         "pretax_cost_of_debt": kd,
         "cost_of_debt_method": kd_method,
+        "interest_expense": interest,
+        "debt_spread": cfg.get("debt_spread", 0.01),
         "tax_rate": tax,
         "debt": debt,
         "gross_debt": gross_debt,
