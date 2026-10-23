@@ -1,0 +1,8 @@
+# Base-case assumptions for CAT. Unset drivers default to historical averages
+# from the snapshot (see src/dcf/model/fcf.py::drivers).
+forecast_years: 5
+terminal_growth: 0.025      # long-run nominal growth, capped at 4% in terminal.py
+exit_ev_ebitda: 12.0        # cross-check only; not used for the headline price
+notes:
+  - "Interest is InterestPaidNet (cash paid, not expense); used as the cost-of-debt proxy."
+  - "Total debt includes Cat Financial's captive-finance debt, which is backed by finance receivables. Subtracting all of it understates equity value; a later milestone may net it off."
