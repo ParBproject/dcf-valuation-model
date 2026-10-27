@@ -1,7 +1,7 @@
-"""M3.5 calibration review: decompose the gap between the M3 and M3.5 base values, and
-run one-at-a-time sensitivities that were considered but NOT adopted in the base case.
+"""Decompose the gap between the earlier 5-year model and the current base case, and
+run one-at-a-time sensitivities that were considered and not adopted.
 
-Every step re-runs the real model on the dated snapshot; nothing here is hand-entered.
+Every step re-runs the model on the dated snapshot.
 """
 
 from __future__ import annotations
@@ -12,7 +12,7 @@ from pathlib import Path
 from ..model import valuation
 from . import reverse_dcf
 
-M35_FIELDS = (
+SUPPLEMENT_FIELDS = (
     "short_term_investments",
     "finance_receivables_current",
     "finance_receivables_noncurrent",
@@ -22,7 +22,7 @@ M35_FIELDS = (
 def _strip_supplement(rec: dict) -> dict:
     r = copy.deepcopy(rec)
     for y in r["years"]:
-        for k in M35_FIELDS:
+        for k in SUPPLEMENT_FIELDS:
             y[k] = None
     return r
 
@@ -34,11 +34,11 @@ def _params(snap: dict, t: str, cfg: dict, rec: dict | None = None, rates: dict 
 
 
 STEPS = [
-    ("m3", "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)"),
+    ("m3", "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes"),
     ("sti", "+ short-term investments treated as cash, not working capital"),
     ("captive", "+ CAT Financial receivables netted against debt (CAT only)"),
     ("roic", "+ terminal reinvestment = g / ROIC (ROIC 15%)"),
-    ("horizon", "+ 10-year explicit period (= M3.5 base)"),
+    ("horizon", "+ 10-year explicit period (current base case)"),
 ]
 
 

@@ -129,7 +129,7 @@ def test_results_schema():
         )
 
 
-PINNED = {  # M3.5 headline base-case implied prices, snapshot 2026-10-22
+PINNED = {  # base-case implied prices, snapshot 2026-10-22
     "AAPL": 122.18,
     "MSFT": 311.52,
     "KO": 51.38,
@@ -138,7 +138,7 @@ PINNED = {  # M3.5 headline base-case implied prices, snapshot 2026-10-22
     "XOM": 216.26,
 }
 
-M3_PINNED = {  # M3 values; the calibration 'm3' step must reproduce them exactly
+M3_PINNED = {  # 5-year model; the calibration 'm3' step must reproduce these
     "AAPL": 116.81,
     "MSFT": 200.76,
     "KO": 49.97,

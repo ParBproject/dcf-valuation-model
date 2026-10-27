@@ -6,7 +6,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 116.8079136775436,
      "delta": null
     },
@@ -30,7 +30,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 122.17722769660466,
      "delta": 19.092854017133405
     }
@@ -54,7 +54,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 200.7631977318343,
      "delta": null
     },
@@ -78,7 +78,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 311.51604809306326,
      "delta": 55.95762117203452
     }
@@ -102,7 +102,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 49.96926147685164,
      "delta": null
     },
@@ -126,7 +126,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 51.379400089322495,
      "delta": 7.746876711724866
     }
@@ -150,7 +150,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 216.55472753616456,
      "delta": null
     },
@@ -174,7 +174,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 182.74757161497507,
      "delta": 19.220377063760054
     }
@@ -198,7 +198,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 233.89323924507673,
      "delta": null
     },
@@ -222,7 +222,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 279.81983508107146,
      "delta": 50.59091359710692
     }
@@ -246,7 +246,7 @@
    "steps": [
     {
      "step": "m3",
-     "label": "M3 as published (5y, final-year FCF carried into perpetuity, no fixes)",
+     "label": "5-year model: final-year FCF carried into perpetuity, no balance-sheet fixes",
      "price": 242.42327690141255,
      "delta": null
     },
@@ -270,7 +270,7 @@
     },
     {
      "step": "horizon",
-     "label": "+ 10-year explicit period (= M3.5 base)",
+     "label": "+ 10-year explicit period (current base case)",
      "price": 216.25940837435527,
      "delta": 59.2109608871165
     }

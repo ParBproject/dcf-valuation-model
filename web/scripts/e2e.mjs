@@ -1,4 +1,4 @@
-// M5 browser checks: slider changes price, URL restores state, no overflow at 390, screenshots.
+// Browser checks: slider changes price, URL restores state, no overflow at 390, screenshots.
 // Usage: npm run build && npm run e2e
 import { spawn } from 'node:child_process'
 import { mkdirSync } from 'node:fs'
@@ -48,7 +48,7 @@ try {
   const perf = await d.evaluate(() => window.__dcfPerf())
   check('recompute < 16ms (max over slider moves)', perf.max < 16, JSON.stringify(perf))
   await d.waitForFunction(() => document.body.innerText.includes('ms in worker'))
-  await d.screenshot({ path: `${OUT}/m5-overview-1440.png`, fullPage: true })
+  await d.screenshot({ path: `${OUT}/overview-1440.png`, fullPage: true })
 
   // 2. URL restores state
   const target = '#/overview?t=KO&s=bull&p=damodaran&beta=0.9&forecast_years=8'
@@ -64,7 +64,7 @@ try {
   check('URL restores ticker/scenario/pairing/assumptions', picker.includes('KO') && betaVal === '0.9' && yrs === '8' && bullSel === 1 && damSel === 1,
     `picker=${picker.trim()} beta=${betaVal} years=${yrs} bull=${bullSel} damodaran=${damSel}`)
   check('URL kept intact after hydrate', r.url().includes('t=KO') && r.url().includes('beta=0.9'), r.url().split('#')[1])
-  await r.screenshot({ path: `${OUT}/m5-restored-1440.png`, fullPage: true })
+  await r.screenshot({ path: `${OUT}/restored-1440.png`, fullPage: true })
 
   // 3. Mobile 390: overflow closed + sheet open
   const m = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 })
@@ -73,7 +73,7 @@ try {
   await m.waitForFunction(() => document.body.innerText.includes('ms in worker'))
   const o1 = await overflow(m)
   check('no horizontal overflow at 390 (overview)', o1.scroll <= o1.client && o1.maxRight <= o1.client + 1, JSON.stringify(o1))
-  await m.screenshot({ path: `${OUT}/m5-overview-390.png`, fullPage: true })
+  await m.screenshot({ path: `${OUT}/overview-390.png`, fullPage: true })
   await m.getByRole('button', { name: /^Assumptions/ }).click()
   await m.waitForSelector('[data-testid="assumptions-sheet"]')
   await m.waitForTimeout(600)
@@ -85,7 +85,7 @@ try {
   check('mobile sheet slider changes price', before390 !== (await chip(m)), `${before390} -> ${await chip(m)}`)
   const o2 = await overflow(m)
   check('no horizontal overflow at 390 (sheet open)', o2.scroll <= o2.client && o2.maxRight <= o2.client + 1, JSON.stringify(o2))
-  await m.screenshot({ path: `${OUT}/m5-sheet-390.png` })
+  await m.screenshot({ path: `${OUT}/sheet-390.png` })
 } finally {
   await browser.close()
   process.kill(-server.pid)

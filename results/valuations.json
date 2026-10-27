@@ -1349,7 +1349,7 @@
     "upside": -0.4021723188511107,
     "notes": [
      "D&A is tagged as Depreciation only (amortisation excluded), so historical FCF and the D&A ratio are slightly understated.",
-     "Capex/revenue jumped to 35% in FY2026 (AI build-out) from 12% in FY2021. The explicit forecast uses the 6-year average (about 19%), a deliberate middle ground; the terminal value no longer carries capex - D&A into perpetuity (reinvestment = g / ROIC since M3.5)."
+     "Capex/revenue was about 35% in FY2026, up from about 12% in FY2021. The explicit forecast uses the 6-year average (about 19%). Terminal value uses reinvestment = g / ROIC, so that ratio is not carried forward."
     ]
    },
    "scenarios": {
@@ -4761,7 +4761,7 @@
     "upside": -0.6025568708457191,
     "notes": [
      "Interest is InterestPaidNet (cash paid, not expense); used as the cost-of-debt proxy.",
-     "M3.5: Cat Financial finance receivables (current + noncurrent, NotesAndLoansReceivableNet*) are netted against total debt and current receivables are excluded from NWC. Approximation: assumes captive debt roughly equals the receivables it funds."
+     "Cat Financial finance receivables (current and noncurrent, NotesAndLoansReceivableNet*) are netted against total debt, and current receivables are excluded from net working capital. This assumes captive debt is about equal to the receivables it funds."
     ]
    },
    "scenarios": {

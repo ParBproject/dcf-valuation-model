@@ -1,5 +1,5 @@
-"""M3.5: add the optional balance-sheet fields (short-term investments, captive-finance
-receivables) to the latest snapshot's EDGAR records without touching any other value.
+"""Add short-term investments and captive-finance receivables to the latest snapshot
+without touching any other value.
 
 Re-fetches SEC companyfacts, extracts only the new fields for the fiscal years already in
 the snapshot, and records provenance plus a `supplement_fetched_at` timestamp.

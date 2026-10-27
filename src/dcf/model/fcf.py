@@ -7,7 +7,7 @@ FCFF = EBIT * (1 - t) + D&A - capex - change in NWC
 * NWC is operating: (current assets - cash) - (current liabilities - current debt
   - short-term borrowings), so financing items stay out of working capital.
 * Short-term investments (marketable securities outside "cash") are financial assets:
-  they are excluded from NWC and added to cash in the equity bridge (M3.5 fix).
+  they are excluded from NWC and added to cash in the equity bridge.
 * Captive finance (CAT Financial): with `captive=True`, current finance receivables are
   also excluded from NWC; the model nets total finance receivables against debt.
 * The first historical year has no prior NWC, so it gets no FCF (None).

@@ -32,7 +32,7 @@ try {
         for (const el of document.querySelectorAll('body *')) if (!el.closest('.sr-only')) maxRight = Math.max(maxRight, el.getBoundingClientRect().right)
         return { scroll: document.documentElement.scrollWidth, client, maxRight: Math.round(maxRight) }
       })
-      const path = `${OUT}/m4-${name}-${width}.png`
+      const path = `${OUT}/${name}-${width}.png`
       await page.screenshot({ path, fullPage: true })
       results.push({ name, width, ...m, overflow: m.scroll > m.client || m.maxRight > m.client + 1, path })
       await page.close()
