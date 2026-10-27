@@ -7,3 +7,12 @@ node_modules/
 dist/
 web/test-results/
 web/playwright-report/
+
+# Editor and agent tooling
+.cursor/
+.cursorrules
+AGENTS.md
+CLAUDE.md
+.claude/
+.windsurfrules
+.github/copilot-instructions.md

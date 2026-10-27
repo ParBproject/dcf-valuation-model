@@ -1,4 +1,4 @@
-// M6 browser checks: chart interactions, reduced motion, overflow on every route, screenshots.
+// Browser checks: chart interactions, reduced motion, overflow on every route, screenshots.
 import { spawn } from 'node:child_process'
 import { mkdirSync } from 'node:fs'
 import { chromium } from 'playwright'
@@ -55,7 +55,7 @@ try {
   const drillTxt = await d.locator('[data-testid="drill-panel"]').innerText()
   check('waterfall drill-down opens with source filing', /accn \d{10}-\d{2}-\d{6}/.test(drillTxt) && /filed \d{4}-\d{2}-\d{2}/.test(drillTxt), drillTxt.split('\n').slice(0, 3).join(' | '))
   await d.waitForTimeout(700)
-  await d.screenshot({ path: `${OUT}/m6-forecast-drill-1440.png` })
+  await d.screenshot({ path: `${OUT}/forecast-drill-1440.png` })
   await d.keyboard.press('Escape'); await d.waitForTimeout(400)
 
   // drill-down on mobile (bottom sheet) + overflow
@@ -65,7 +65,7 @@ try {
   await mob.waitForSelector('[data-testid="drill-panel"]'); await mob.waitForTimeout(700)
   const om = await overflow(mob)
   check('mobile drill-down sheet opens without overflow', om.scroll <= om.client, JSON.stringify(om))
-  await mob.screenshot({ path: `${OUT}/m6-forecast-drill-390.png` })
+  await mob.screenshot({ path: `${OUT}/forecast-drill-390.png` })
   await mob.close()
 
   // heatmap click
@@ -121,7 +121,7 @@ try {
         const o = await overflow(p)
         check(`no horizontal overflow at 390: ${r}`, o.scroll <= o.client && o.maxRight <= o.client + 1, JSON.stringify(o))
       }
-      await p.screenshot({ path: `${OUT}/m6-${r}-${width}.png`, fullPage: true })
+      await p.screenshot({ path: `${OUT}/${r}-${width}.png`, fullPage: true })
     }
     await p.close()
   }

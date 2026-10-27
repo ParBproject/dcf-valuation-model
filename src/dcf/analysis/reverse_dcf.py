@@ -1,9 +1,9 @@
-"""Reverse DCF: the constant 5-year revenue growth that makes intrinsic value equal the
-market price over the explicit period (terminal g and ROIC unchanged afterwards).
+"""Reverse DCF: the constant revenue growth over the explicit forecast that sets
+intrinsic value equal to the market price. Terminal growth and ROIC are unchanged.
 
-Two variants are reported: margins reverting to target as in the base case, and margins
-held at the last actual ("margin_held"). Holding margins avoids inflating implied growth
-when the base case has margins mean-reverting downward."""
+Two variants: margins revert to the base-case target, and margins stay at the last
+actual. Holding margins avoids a higher implied growth when the base case mean-reverts
+downward."""
 
 from __future__ import annotations
 

@@ -105,8 +105,8 @@ FIELDS: dict[str, dict[str, Any]] = {
             "OtherShortTermBorrowings",
         ],
     },
-    # M3.5: liquid securities outside "cash" (MSFT, AAPL hold large balances) and
-    # captive-finance receivables (CAT Financial). Optional; used by the model bridge.
+    # Liquid securities outside "cash" (MSFT and AAPL hold large balances) and
+    # captive-finance receivables (CAT). Optional; used in the equity bridge.
     "short_term_investments": {
         "kind": "instant",
         "tags": ["ShortTermInvestments", "MarketableSecuritiesCurrent"],

@@ -1,4 +1,4 @@
-"""M3.5: write results/calibration.json (gap decomposition + sensitivities) and print it."""
+"""Write results/calibration.json (gap decomposition and sensitivities) and print it."""
 
 import json
 from pathlib import Path

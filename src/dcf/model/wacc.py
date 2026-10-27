@@ -1,8 +1,7 @@
 """Cost of capital: CAPM cost of equity, after-tax cost of debt, market-value weights.
 
-Beta: the yfinance beta stored in the snapshot (Yahoo: 5-year monthly vs S&P 500). A
-regression beta needs offline price history, which the snapshot does not hold yet, so
-`regression_beta` is provided for when it does and is used only if returns are passed.
+The default beta is a 5-year monthly regression against the S&P 500, then the Blume
+adjustment. The snapshot stores those monthly closes and the yfinance beta.
 """
 
 from __future__ import annotations

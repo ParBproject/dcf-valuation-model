@@ -159,7 +159,7 @@ def price(
     )
     r, g = q["wacc"], q["terminal_growth"]
     roic = q["terminal_roic"]
-    # roic=None reproduces the M3 behaviour (final explicit-year FCF carried forward)
+    # roic=None carries the final explicit-year FCF into perpetuity (earlier treatment)
     fcf_n = proj[-1].fcff if roic is None else terminal_fcf(proj[-1].nopat, g, roic)
     tv = terminal.gordon(fcf_n, r, g)
     fcfs = [x.fcff for x in proj]

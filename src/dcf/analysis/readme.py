@@ -1,8 +1,8 @@
 # ruff: noqa: E501, E741  (SVG markup and single-letter chart margins read better unwrapped)
-"""README assets generated from results/valuations.json: the results table and chart SVGs.
+"""Results table and chart SVGs for the README, drawn from results/valuations.json.
 
-Nothing here is hand-entered. `python scripts/readme_assets.py` rewrites the table between the
-README markers and the SVGs under docs/img/; tests/test_readme.py fails if either is stale.
+`python scripts/readme_assets.py` rewrites the table between the README markers and the
+SVGs under docs/img/. tests/test_readme.py fails if either is stale.
 """
 
 from __future__ import annotations
