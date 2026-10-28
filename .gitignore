@@ -8,11 +8,5 @@ dist/
 web/test-results/
 web/playwright-report/
 
-# Editor and agent tooling
-.cursor/
-.cursorrules
-AGENTS.md
-CLAUDE.md
-.claude/
-.windsurfrules
+# Editors and operating systems
 .github/copilot-instructions.md
