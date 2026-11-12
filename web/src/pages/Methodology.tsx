@@ -28,7 +28,8 @@ export function Methodology() {
         </Card>
         <Card title="Discount rate">
           <F tex={String.raw`k_e = r_f + \beta\,\text{ERP},\quad \beta = 0.67\,\hat\beta_{\text{OLS}} + 0.33`} />
-          <F tex={String.raw`\text{WACC} = \tfrac{E}{E+D}k_e + \tfrac{D}{E+D}k_d(1-\tau),\quad k_d = \min\!\left(\max\!\left(\tfrac{\text{interest}}{D_{\mathrm{gross}}}, r_f\right), 15\%\right)`} />
+          <F tex={String.raw`\text{WACC} = \tfrac{E}{E+D}k_e + \tfrac{D}{E+D}k_d(1-\tau)`} />
+          <F tex={String.raw`k_d = \min(\max(\tfrac{\text{interest}}{D_{\mathrm{gross}}}, r_f), 15\%)`} />
           <p className="text-sm text-muted">D in the weight is the debt claim (CAT: gross debt net of finance receivables). Interest is divided by gross debt. β̂ is from 59 monthly returns vs the S&amp;P 500. k_d falls back to r_f + 1% when interest is untagged.</p>
         </Card>
         <Card title="Terminal value">
