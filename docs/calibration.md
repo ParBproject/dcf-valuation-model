@@ -16,7 +16,7 @@ The base prices in the 5-year column are still produced by `scripts/run_calibrat
 | MSFT | $521.08 | $200.76 | $288.45 | 0.0% | 42.1% | $311.52 | $214.18 | $501.64 | 1.1% | 15.8% | 15.0% |
 | KO | $95.34 | $49.97 | $91.53 | 2.2% | 18.3% | $51.38 | $29.18 | $106.42 | 2.7% | 12.3% | 11.1% |
 | JNJ | $267.61 | $216.55 | $376.02 | 18.9% | 7.1% | $182.75 | $116.02 | $438.04 | 7.4% | 7.4% | 3.4% |
-| CAT | $704.05 | $233.89 | $362.42 | 0.0% | 45.4% | $279.82 | $197.71 | $411.05 | 0.0% | 20.3% | 19.7% |
+| CAT | $704.05 | $233.89 | $362.42 | 0.0% | 45.4% | $288.03 | $202.34 | $425.98 | 0.0% | 19.8% | 19.2% |
 | XOM | $178.23 | $242.42 | $453.28 | 82.4% | 1.0% | $216.26 | $126.64 | $472.38 | 71.9% | 5.6% | 3.0% |
 
 Implied growth is the constant revenue growth over the explicit period at which the base case equals the market price. The earlier model used five years and this one uses ten, so the rates are not like-for-like: a 10-year rate compounds for twice as long. "Margins held" keeps the EBIT margin at the last reported level instead of reverting to the 6-year mean.
@@ -31,7 +31,7 @@ Each column adds one change to the previous column. Brackets are the step.
 | MSFT | $200.76 | $220.17 (+19.41) | $220.17 (+0.00) | $255.56 (+35.38) | $311.52 (+55.96) |
 | KO | $49.97 | $50.07 (+0.10) | $50.07 (+0.00) | $43.63 (−6.44) | $51.38 (+7.75) |
 | JNJ | $216.55 | $218.54 (+1.98) | $218.54 (+0.00) | $163.53 (−55.01) | $182.75 (+19.22) |
-| CAT | $233.89 | $233.89 (+0.00) | $275.30 (+41.41) | $229.23 (−46.07) | $279.82 (+50.59) |
+| CAT | $233.89 | $233.89 (+0.00) | $283.91 (+50.02) | $235.87 (−48.04) | $288.03 (+52.16) |
 | XOM | $242.42 | $242.42 (+0.00) | $242.42 (+0.00) | $157.05 (−85.37) | $216.26 (+59.21) |
 
 `results/calibration.json` is this table, unrounded. Regenerate it with `python scripts/run_calibration.py`.
@@ -40,7 +40,7 @@ Each column adds one change to the previous column. Brackets are the step.
 
 1. **Terminal reinvestment did not match growth.** The 5-year model carried the final year's capex − D&A + ΔNWC into perpetuity. For AAPL and KO that reinvestment is near zero or negative, so the model assumed 2.5% growth for free and overstated value. For MSFT (capex 19% of revenue, D&A 7%) it assumed that capex forever and understated value. Terminal FCF is now NOPAT × (1 − g / ROIC), with ROIC 15% (`TERMINAL_ROIC`, overridable as `terminal_roic`). This step lowers AAPL, KO, JNJ, CAT and XOM and raises MSFT.
 2. **Short-term investments were in working capital.** Cash was only `CashAndCashEquivalents`, so marketable securities (MSFT $55.9B, AAPL $18.8B; tags `ShortTermInvestments` / `MarketableSecuritiesCurrent`) sat in operating NWC. That inflated MSFT's NWC/revenue ratio (22.6%) and left the securities out of the equity bridge. They are now excluded from NWC and added to cash. Noncurrent marketable securities, which are large for AAPL, are still left out.
-3. **Cat Financial debt was treated as operating debt.** CAT's $36.2B total debt includes captive-finance debt against $24.9B of finance receivables (`NotesAndLoansReceivableNetCurrent` $10.6B + `NotesAndLoansReceivableNetNoncurrent` $14.3B, FY2025 10-K). With `captive_finance: true` the model nets those receivables against debt (net debt claim $11.3B) and drops current finance receivables from NWC. It assumes captive debt is about equal to the receivables. CAT's value rises, and so does its WACC (10.40% to 11.14%) because the debt weight falls.
+3. **Cat Financial debt was treated as operating debt.** CAT's $36.2B total debt includes captive-finance debt against $24.9B of finance receivables (`NotesAndLoansReceivableNetCurrent` $10.6B + `NotesAndLoansReceivableNetNoncurrent` $14.3B, FY2025 10-K). With `captive_finance: true` the model nets those receivables against debt (net debt claim $11.3B) and drops current finance receivables from NWC. It assumes captive debt is about equal to the receivables. Cost of debt stays interest / gross debt (5.09%, floored at the 5.13% risk-free rate). Charging that same interest against the net claim would be 16.3% and the 15% cap would bind. CAT's value rises, and its WACC rises from 10.40% to 10.88% because the debt weight falls while the borrowing rate does not.
 
 The extra balance-sheet fields were added to the existing snapshot by `scripts/add_supplement.py` from SEC companyfacts (fetched 2026-10-22, provenance on each value, `supplement_fetched_at`). No other snapshot value changed.
 
@@ -61,10 +61,10 @@ The extra balance-sheet fields were added to the existing snapshot by `scripts/a
 | MSFT | $311.52 | $330.51 | $326.04 | $290.34 | $316.23 | $377.66 | $364.55 | 6.8% | 9.5% |
 | KO | $51.38 | $57.16 | $54.33 | $42.95 | $52.44 | $46.65 | $66.33 | 5.0% | 7.0% |
 | JNJ | $182.75 | $249.49 | $190.92 | $159.05 | $185.88 | $181.12 | $226.26 | 5.4% | 6.9% |
-| CAT | $279.82 | $290.50 | $288.83 | $272.00 | $292.22 | $388.71 | $311.47 | 5.8% | 11.1% |
+| CAT | $288.03 | $299.13 | $297.54 | $279.03 | $300.59 | $395.93 | $321.76 | 5.8% | 10.9% |
 | XOM | $216.26 | $266.26 | $226.00 | $187.04 | $225.46 | $212.68 | $269.26 | 7.9% | 6.8% |
 
-Implied WACC is the discount rate at which the current base case equals the market price. For AAPL, MSFT and CAT that is 4.9%, 6.8% and 5.8%, against 9.5–11.1% in the model. AAPL's implied rate is below the 5.13% risk-free rate. Cash-flow tweaks in the table do not close the gap. It is the cost of capital (5.13% rf + Blume beta × 4.23% ERP) against the lower return the market is accepting, plus growth beyond what a mean-reverting model assumes.
+Implied WACC is the discount rate at which the current base case equals the market price. For AAPL, MSFT and CAT that is 4.9%, 6.8% and 5.8%, against 9.5–10.9% in the model. AAPL's implied rate is below the 5.13% risk-free rate. Cash-flow tweaks in the table do not close the gap. It is the cost of capital (5.13% rf + Blume beta × 4.23% ERP) against the lower return the market is accepting, plus growth beyond what a mean-reverting model assumes.
 
 **Risk-free rate and ERP.** Damodaran's 4.23% implied ERP at the start of 2026 was computed against a 4.18% Treasury yield (expected market return about 8.4%). The model pairs that ERP with the snapshot's 5.13% 10-year yield, which implies a market return of about 9.4%. If the expected market return had stayed put, the ERP would be lower. Using the January pair (rf 4.18%, ERP 4.23%) lifts values by 11–29% (column above). The base case keeps the snapshot yield. That is the main conservative choice.
 
@@ -80,7 +80,7 @@ Implied WACC is the discount rate at which the current base case equals the mark
 | WACC | base + 1pp | CAPM | base − 1pp |
 | Terminal g | 2.0% | 2.5% | 3.0% |
 
-The bull case is that fixed set. It was not fit to prices. It reaches about 96% of the market price for MSFT and exceeds it for KO, JNJ and XOM. It is 55% of the price for AAPL and 58% for CAT.
+The bull case is that fixed set. It was not fit to prices. It reaches about 96% of the market price for MSFT and exceeds it for KO, JNJ and XOM. It is 55% of the price for AAPL and 61% for CAT.
 
 The earlier 5-year bull shifted year-1 growth by +3pp, the margin by +2pp, WACC by −1pp and terminal growth by +0.5pp. Capex and the terminal treatment were unchanged. Those bull prices are in the first table, not this one.
 
@@ -96,13 +96,13 @@ The earlier 5-year bull shifted year-1 growth by +3pp, the margin by +2pp, WACC 
 | MSFT | $521.08 | $605.12 | 57 | $311.52 | $501.64 | https://stockanalysis.com/stocks/msft/forecast/ |
 | KO | $95.34 | $95.63 | 25 | $51.38 | $106.42 | https://stockanalysis.com/stocks/ko/forecast/ |
 | JNJ | $267.61 | $279.41 | 23 | $182.75 | $438.04 | https://stockanalysis.com/stocks/jnj/forecast/ |
-| CAT | $704.05 | $926.91 | 29 | $279.82 | $411.05 | https://stockanalysis.com/stocks/cat/forecast/ |
+| CAT | $704.05 | $926.91 | 29 | $288.03 | $425.98 | https://stockanalysis.com/stocks/cat/forecast/ |
 | XOM | $178.23 | $179.41 | 25 | $216.26 | $472.38 | https://stockanalysis.com/stocks/xom/forecast/ |
 
 The same pages show consensus revenue growth of 14.8% (AAPL FY2026), 18.0% (MSFT FY2027) and 17.8% (CAT FY2026). The model's year-1 growth, the historical CAGR, is 8.7%, 14.6% and 10.1%. Near-term growth is below consensus for all three because the model does not take analyst inputs.
 
 ## Reading the gap
 
-- Terminal reinvestment, short-term investments and Cat Financial debt were wrong and are fixed. With the 10-year horizon, AAPL moves from $116.81 to $122.18, MSFT from $200.76 to $311.52, and CAT from $233.89 to $279.82. Implied growth for those three falls from 33–45% over 5 years to about 16–20% over 10.
+- Terminal reinvestment, short-term investments and Cat Financial debt were wrong and are fixed. With the 10-year horizon, AAPL moves from $116.81 to $122.18, MSFT from $200.76 to $311.52, and CAT from $233.89 to $288.03. Implied growth for those three falls from 33–45% over 5 years to about 16–20% over 10.
 - Kept on purpose: the 5.13% risk-free rate with the 4.23% ERP, historical growth, mean-reverting margins, 15% terminal ROIC, and average capex.
 - AAPL, MSFT and CAT are still well below the market. Their prices imply discount rates of 4.9–6.8%, or growth well above history. At these rates and these historical fundamentals, the prices need a lot to go right. That is not a claim that the stocks are mispriced, and it is not investment advice.

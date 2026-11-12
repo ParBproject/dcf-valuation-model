@@ -28,8 +28,9 @@ export function Methodology() {
         </Card>
         <Card title="Discount rate">
           <F tex={String.raw`k_e = r_f + \beta\,\text{ERP},\quad \beta = 0.67\,\hat\beta_{\text{OLS}} + 0.33`} />
-          <F tex={String.raw`\text{WACC} = \tfrac{E}{E+D}k_e + \tfrac{D}{E+D}k_d(1-\tau),\quad k_d = \min(\max(\tfrac{\text{interest}}{D}, r_f), 15\%)`} />
-          <p className="text-sm text-muted">β̂ is from 59 monthly returns vs the S&amp;P 500. k_d falls back to r_f + 1% when interest is untagged.</p>
+          <F tex={String.raw`\text{WACC} = \tfrac{E}{E+D}k_e + \tfrac{D}{E+D}k_d(1-\tau)`} />
+          <F tex={String.raw`k_d = \min(\max(\tfrac{\text{interest}}{D_{\mathrm{gross}}}, r_f), 15\%)`} />
+          <p className="text-sm text-muted">D in the weight is the debt claim (CAT: gross debt net of finance receivables). Interest is divided by gross debt. β̂ is from 59 monthly returns vs the S&amp;P 500. k_d falls back to r_f + 1% when interest is untagged.</p>
         </Card>
         <Card title="Terminal value">
           <F tex={String.raw`TV = \frac{\text{NOPAT}_N(1 - g/\text{ROIC})(1+g)}{\text{WACC} - g},\quad g < \text{WACC},\ g \le 4\%`} />
@@ -37,7 +38,7 @@ export function Methodology() {
         </Card>
         <Card title="Equity bridge">
           <F tex={String.raw`\text{Price} = \frac{\sum_{t=1}^{N}\frac{\text{FCFF}_t}{(1+\text{WACC})^t} + \frac{TV}{(1+\text{WACC})^N} - D + \text{Cash}}{\text{Shares}}`} />
-          <p className="text-sm text-muted">Cash includes short-term investments. CAT nets Cat Financial receivables against debt.</p>
+          <p className="text-sm text-muted">Cash includes short-term investments. CAT nets Cat Financial receivables against the debt claim. Cost of debt still divides interest by gross debt, so that netting does not inflate kd.</p>
         </Card>
         <Card title="Monte Carlo and reverse DCF">
           <F tex={String.raw`g_1\sim\mathcal N(\hat g,3\text{pp}),\ m^*\sim\mathcal N(\hat m,2\text{pp}),\ \text{WACC}\sim\mathcal N(\hat w,1\text{pp}),\ g\sim\text{Tri}(1\%,\hat g_\infty,3.5\%)`} />

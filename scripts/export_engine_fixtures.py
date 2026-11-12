@@ -23,7 +23,7 @@ def reference(p: dict, over: dict) -> dict:
     model = {k: v for k, v in over.items() if k not in RATE_KEYS}
     rf = rate.get("rf", p["rf"])
     ke = wacc.cost_of_equity(rf, rate.get("beta", p["beta"]), rate.get("erp", p["erp"]))
-    kd, _ = wacc.pretax_cost_of_debt(p["interest_expense"], p["debt"], rf, p["debt_spread"])
+    kd, _ = wacc.pretax_cost_of_debt(p["interest_expense"], p["gross_debt"], rf, p["debt_spread"])
     w = wacc.wacc(p["market_cap"], p["debt"], ke, kd, p["tax_rate"]) + rate.get("wacc_shift", 0)
     if "wacc" in model:  # direct WACC override (heatmap click) replaces the computed value
         w = model.pop("wacc")

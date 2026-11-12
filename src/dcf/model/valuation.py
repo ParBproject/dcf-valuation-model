@@ -95,7 +95,10 @@ def build_params(
     beta, beta_method = select_beta(betas, cfg)
     ke = wacc.cost_of_equity(rf, beta, erp)
     interest = None if cfg.get("ignore_interest") else last.get("interest_expense")
-    kd, kd_method = wacc.pretax_cost_of_debt(interest, debt, rf, cfg.get("debt_spread", 0.01))
+    # Interest is paid on gross debt. Captive receivables reduce the claim (the WACC
+    # weight and the equity bridge) but must not shrink this denominator: dividing the
+    # same interest by net debt inflates kd and trips the 15% cap (CAT).
+    kd, kd_method = wacc.pretax_cost_of_debt(interest, gross_debt, rf, cfg.get("debt_spread", 0.01))
     mcap = mkt["price"] * mkt["shares_outstanding"]
     gs = cfg.get("growth_start", drv["revenue_cagr"])
     gs = min(max(gs, cfg.get("growth_floor", -0.05)), cfg.get("growth_cap", 0.15))
