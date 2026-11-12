@@ -40,7 +40,7 @@ The charts are SVGs rendered from the same JSON.
 ## Model
 
 - **FCFF** = EBIT × (1 − tax) + D&A − capex − ΔNWC. Revenue growth fades from the 6-year CAGR to terminal g over 10 years. EBIT margin reverts to the 6-year mean.
-- **WACC** uses market-value weights. Cost of equity is the risk-free rate plus a Blume-adjusted regression beta (5-year monthly returns vs the S&P 500) times Damodaran's ERP. Cost of debt is interest / debt, floored at the risk-free rate.
+- **WACC** uses market-value weights. Cost of equity is the risk-free rate plus a Blume-adjusted regression beta (5-year monthly returns vs the S&P 500) times Damodaran's ERP. Cost of debt is interest / gross debt, floored at the risk-free rate and capped at 15%. CAT's weight uses debt net of finance receivables.
 - **Terminal value** is NOPAT × (1 − g / ROIC) grown one year and capitalized, with ROIC at 15%. An exit EV/EBITDA multiple is only a cross-check.
 - **Equity value** is enterprise value minus debt (CAT: net of finance receivables) plus cash and short-term investments, divided by diluted shares.
 - **Risk.** WACC × g grid, one-at-a-time driver shocks, 10,000 Monte Carlo draws (seed 20261022), and a reverse DCF for the growth that matches the market price.
