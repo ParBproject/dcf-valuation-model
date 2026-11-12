@@ -251,6 +251,86 @@ def test_operating_nwc_excludes_short_term_investments_and_captive_receivables()
     assert fcf.operating_nwc(y, captive=True) == pytest.approx((200 - 20 - 50 - 30) - (100 - 15))
 
 
+def _year(**kw):
+    base = {
+        "fiscal_year": 2024,
+        "revenue": 1000.0,
+        "operating_income": 200.0,
+        "pretax_income": 100.0,
+        "tax_expense": 25.0,
+        "d_and_a": 0.0,
+        "capex": 0.0,
+        "interest_expense": 80.0,
+        "current_assets": 100.0,
+        "current_liabilities": 50.0,
+        "cash": 50.0,
+        "debt_current": 0.0,
+        "short_term_borrowings": 0.0,
+        "short_term_investments": 0.0,
+        "total_debt": 1000.0,
+        "finance_receivables_current": 250.0,
+        "finance_receivables_noncurrent": 500.0,
+    }
+    base.update(kw)
+    return base
+
+
+def test_captive_cost_of_debt_uses_gross_balance_and_wacc_is_hand_computable():
+    """Interest is paid on gross debt. Netting finance receivables reduces the claim
+    (WACC weight and the equity bridge) but must not shrink the kd denominator.
+
+    Hand values, one explicit year, g = 0, no reinvestment:
+      ke = 0.04 + 1.0 * 0.06 = 0.10
+      kd = 80 / 1000 = 0.08   (80 / 250 = 0.32 would cap at 15% — that is the bug)
+      WACC = 750/1000 * 0.10 + 250/1000 * 0.08 * 0.75 = 0.09
+      NOPAT = 200 * 0.75 = 150, so EV = 150 / 0.09
+      equity = EV - 250 + 50, price = equity / 100
+    """
+    rec = {"ticker": "ZZ", "years": [_year(fiscal_year=2024), _year(fiscal_year=2025)]}
+    mkt = {"beta": 1.0, "price": 7.5, "shares_outstanding": 100.0}
+    rates = {"yield": 0.04, "equity_risk_premium": {"value": 0.06}}
+    cfg = {
+        "terminal_growth": 0.0,
+        "exit_ev_ebitda": 8.0,
+        "captive_finance": True,
+        "beta": 1.0,
+        "tax_rate": 0.25,
+        "forecast_years": 1,
+        "target_margin": 0.20,
+        "capex_to_rev": 0.0,
+        "da_to_rev": 0.0,
+        "nwc_to_rev": 0.0,
+        "terminal_roic": 0.15,
+    }
+    p = valuation.build_params(rec, mkt, rates, cfg)
+    assert p["debt"] == pytest.approx(250)
+    assert p["gross_debt"] == pytest.approx(1000)
+    assert p["pretax_cost_of_debt"] == pytest.approx(0.08)
+    assert p["cost_of_debt_method"] == "interest/debt"
+    assert p["cost_of_equity"] == pytest.approx(0.10)
+    assert p["wacc"] == pytest.approx(0.09)
+    ev = 150 / 0.09
+    per_share = (ev - 250 + 50) / 100
+    assert valuation.price(p) == pytest.approx(per_share)
+    detail = valuation.price(p, detail=True)
+    assert detail["enterprise_value"] == pytest.approx(ev)
+    assert detail["equity_value"] == pytest.approx(ev - 200)
+
+
+def test_cat_cost_of_debt_is_not_capped_by_netting():
+    """CAT cash interest / gross debt is ~5.09%, below rf, so kd floors at rf.
+    Interest / net debt is ~16.3% and would hit the 15% cap."""
+    ps = valuation.all_params(_snap(), ROOT / "config")[1]
+    cat = ps["CAT"]
+    assert cat["interest_expense"] / cat["gross_debt"] < cat["rf"]
+    assert cat["interest_expense"] / cat["debt"] > wacc.COST_OF_DEBT_CAP
+    assert cat["pretax_cost_of_debt"] == pytest.approx(cat["rf"])
+    ke = cat["rf"] + cat["beta"] * cat["erp"]
+    e, d = cat["market_cap"], cat["debt"]
+    expected = e / (e + d) * ke + d / (e + d) * cat["rf"] * (1 - cat["tax_rate"])
+    assert cat["wacc"] == pytest.approx(expected)
+
+
 def test_cat_financial_receivables_netted_and_msft_investments_in_cash():
     s = valuation.load_snapshot(_snap())
     ps = valuation.all_params(_snap(), ROOT / "config")[1]

@@ -37,7 +37,7 @@ export function Methodology() {
         </Card>
         <Card title="Equity bridge">
           <F tex={String.raw`\text{Price} = \frac{\sum_{t=1}^{N}\frac{\text{FCFF}_t}{(1+\text{WACC})^t} + \frac{TV}{(1+\text{WACC})^N} - D + \text{Cash}}{\text{Shares}}`} />
-          <p className="text-sm text-muted">Cash includes short-term investments. CAT nets Cat Financial receivables against debt.</p>
+          <p className="text-sm text-muted">Cash includes short-term investments. CAT nets Cat Financial receivables against the debt claim. Cost of debt still divides interest by gross debt, so that netting does not inflate kd.</p>
         </Card>
         <Card title="Monte Carlo and reverse DCF">
           <F tex={String.raw`g_1\sim\mathcal N(\hat g,3\text{pp}),\ m^*\sim\mathcal N(\hat m,2\text{pp}),\ \text{WACC}\sim\mathcal N(\hat w,1\text{pp}),\ g\sim\text{Tri}(1\%,\hat g_\infty,3.5\%)`} />

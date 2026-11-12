@@ -63,7 +63,9 @@ export function resolve(p: EngineParams, o: Overrides) {
   const erp = o.erp ?? p.erp
   const beta = o.beta ?? p.beta
   const ke = costOfEquity(rf, beta, erp)
-  const kd = pretaxCostOfDebt(p.interest_expense, p.debt, rf, p.debt_spread)
+  // Interest is paid on gross debt. p.debt is net of captive receivables and is the
+  // WACC weight and the equity-bridge claim, not the kd denominator.
+  const kd = pretaxCostOfDebt(p.interest_expense, p.gross_debt, rf, p.debt_spread)
   const wacc_shift = o.wacc_shift ?? 0
   return {
     growth_start: o.growth_start ?? p.growth_start,

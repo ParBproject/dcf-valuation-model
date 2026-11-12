@@ -134,7 +134,7 @@ PINNED = {  # base-case implied prices, snapshot 2026-10-22
     "MSFT": 311.52,
     "KO": 51.38,
     "JNJ": 182.75,
-    "CAT": 279.82,
+    "CAT": 288.03,
     "XOM": 216.26,
 }
 
